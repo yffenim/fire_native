@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, TouchableOpacity, useColorScheme } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -9,7 +9,9 @@ export default class UserAlerts extends Component {
       myInteger: 0,
       average: 0,
       count: 0,
-      alerts: []
+      alerts: [],
+      isVisible: false,
+      isHidden: true
     }
   }
 
@@ -78,51 +80,57 @@ export default class UserAlerts extends Component {
         });
 }
 
-getRandomAvg() {
-    const randomInt = Math.floor(Math.random()*100);
-
-    this.setState({
-      alertAvg: randomInt
-    });
-
-  }
-
   getRandomInteger() {
     const randomInt = Math.floor(Math.random()*100);
-
     this.setState({
       myInteger: randomInt
     });
-
   }
 
-
-
-
   incrementInteger() {
-    
     this.setState((previousState, currentProps) => {
       return {
         myInteger: previousState.myInteger+1
       }
     });
-
   }
-  render() {
+
+  toggleButton() {
+    this.setState({
+      isVisible: true
+    });
+  }
+
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
+render() {
+
+    var visibleText = null;
+    if (this.state.isVisible) {
+      visibleText = (<DisplayAlerts alerts={this.state.alerts} />)
+    }
 
     return <View style={styles.container}>
-      <Text>Playing with this Integer: {this.state.myInteger}</Text>
+      <Text style={{color:'#888'}}>Playing with this Integer: {this.state.myInteger}</Text>
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
 
       <Button label="Get Random Integer" onPress={this.getRandomInteger.bind(this)} />
       <Button label="Increment Integer" onPress={this.incrementInteger.bind(this)} />
+      <Button label="Show Recent Alerts" onPress={this.toggleButton.bind(this)}/>
 
-      <DisplayAlerts alerts={this.state.alerts} />
+      <Button label="Toggle II" onPress={this.toggleHidden.bind(this)} />
+      {!this.state.isHidden && <h1>Test</h1>}
+
+      {visibleText}
     </View>
-
   }
 }
+
 
 // child component CountAlerts class inherits state from parent
 // passing state from parent component into children as props
@@ -149,8 +157,8 @@ export class DisplayAlerts extends Component {
     super(props);
   }
   render() {
-    console.log("inside Display");
-    console.log(this.props);
+    // console.log("inside Display");
+    // console.log(this.props);
     const alertsRender = this.props.alerts
   return <View>
     <Text>
@@ -190,8 +198,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
+    backgroundColor: '#acb7ae',
+    // backgroundColor: '#EFC7B7',
+    color: '#d0d0c0'
+    },
   button: {
     backgroundColor: '#444',
     padding: 10, 
@@ -202,4 +212,5 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('MyApp', () => MyParentComponent);
+// managed entry-point for app: https://reactnative.dev/docs/appregistry
+AppRegistry.registerComponent('Fire', () => UserAlerts);
