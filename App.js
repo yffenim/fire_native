@@ -10,8 +10,8 @@ export default class UserAlerts extends Component {
       average: 0,
       count: 0,
       alerts: [],
-      isVisible: false,
-      isHidden: true
+      isHidden: true,
+      new_level: null
     }
   }
 
@@ -19,6 +19,16 @@ export default class UserAlerts extends Component {
   componentDidMount = () => {
     this.getAlerts();
   }
+
+  updateAlerts = () => {
+    console.log("inside update alerts!");
+    this.setState({ 
+      alerts: [],
+      new_level: null
+    });
+    this.getAlerts();
+  }
+
 
   getAlerts = () => {
     // using a direct return since GET request does not need header params
@@ -68,10 +78,9 @@ export default class UserAlerts extends Component {
                 count: respCount
             }), function() {
             // call back to do something w/ new state?
-            console.log(this.state);
-            //this.setState({ alertAvg: 100 });
-            console.log("after array state");
-            console.log(this.state.count);
+            // console.log(this.state);
+            // console.log("after array state");
+            // console.log(this.state.count);
             });
           });
         })
@@ -95,38 +104,67 @@ export default class UserAlerts extends Component {
     });
   }
 
-  toggleButton() {
-    this.setState({
-      isVisible: true
-    });
-  }
-
   toggleHidden () {
     this.setState({
       isHidden: !this.state.isHidden
     })
-  }
+   }
+
+  // update the new_level state before we can pass it into the handSubmit function that will send the POST request
+  handleChange = (event) => {
+    let event_level = event.nativeEvent.data;
+    this.setState({new_level: event_level});
+  } 
+
+// POST request
+  handleSubmit = () => {
+    console.log("inside handle submit!");
+    let alert_level = this.state.new_level
+    console.log(alert_level);
+    fetch(('http://localhost:3000/api/alerts'), {      
+      method: 'POST',    
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+//        'X-CSRF-Token' : token
+      },
+      body: JSON.stringify({
+        alert: {
+          level: alert_level,
+          user_id: 1,
+          }
+        })
+      })
+      .then((response) => {
+        if (response.ok) {
+        console.log(this);
+          this.updateAlerts();
+          return response.json();
+        }
+        throw new Error("Network response was not ok")
+        })
+      .catch(err => console.log(err));
+  };
 
 render() {
 
-    var visibleText = null;
-    if (this.state.isVisible) {
-      visibleText = (<DisplayAlerts alerts={this.state.alerts} />)
-    }
-
     return <View style={styles.container}>
-      <Text style={{color:'#888'}}>Playing with this Integer: {this.state.myInteger}</Text>
+      <Text>Play with this Integer: {this.state.myInteger}</Text>
+
+      <Button label="Get Random" onPress={this.getRandomInteger.bind(this)} />
+      <Button label="Increment" onPress={this.incrementInteger.bind(this)} />
+      <br/>
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
+      <Text>New Level To Be Added: {this.state.new_level} </Text> 
+      <input
+        type="integer" 
+        onChange={this.handleChange} 
+        defaultValue={this.state.new_level}/> 
+        <Button label="Submit Alertness" onPress={this.handleSubmit}/>
+      <Button label="Show || Hide Recent Alerts" onPress={this.toggleHidden.bind(this)} />
+      {!this.state.isHidden && <DisplayAlerts alerts={this.state.alerts} />}
 
-      <Button label="Get Random Integer" onPress={this.getRandomInteger.bind(this)} />
-      <Button label="Increment Integer" onPress={this.incrementInteger.bind(this)} />
-      <Button label="Show Recent Alerts" onPress={this.toggleButton.bind(this)}/>
-
-      <Button label="Toggle II" onPress={this.toggleHidden.bind(this)} />
-      {!this.state.isHidden && <h1>Test</h1>}
-
-      {visibleText}
     </View>
   }
 }
@@ -139,9 +177,6 @@ export class CountAlerts extends Component {
     super(props);
   }
   render() {
-   // console.log("inside count");
-   // console.log(this);
-   // console.log(this.props);
     // this will get updated when UserAlerts component state changes
     return <View>
       <Text>Total Count: {this.props.alertsCount}</Text>
