@@ -1,4 +1,4 @@
-# ReactNative client for FireAPI
+# ReactNative client for FireAPI, Version 1
 
 ### To run locally:
 
@@ -8,11 +8,30 @@ Navigate to the project directory.
 
 `npm install --global expo-cli` inside of directory -- you might need to `sudo` for `npm` depending on your local permissions
 
-### DO NOT run `npm audit` as suggested if you see any vulnerabilities`
+**Please do NOT run `npm audit` as suggested if you see any vulnerability warnings, even if they are "high"**
+
+`npm install` from within project directory
 
 `expo start`
 
-Scan the QR code from your phone's camera using Expo (available on Google Play Store and IOS)
+### Using mobile
+
+Download Expo for Android (Google Play Store Link: https://play.google.com/store/apps/details?id=host.exp.exponent) or Expo for iOS (App Store Link: https://itunes.apple.com/us/app/expo-client/id982107779) onto your phone. 
+
+Scan the QR code from the terminal (after running `expo start`)
+
+### Using browser
+
+Follow the instructions from your terminal.
+
+### Troubleshooting
+
+`npm upgrade`
+`npm start --reset-cache`
+
+### Thank you
+
+
 
 
 
