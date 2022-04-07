@@ -146,27 +146,29 @@ export default class UserAlerts extends Component {
       .catch(err => console.log(err));
   };
 
-render() {
 
-    return <View style={styles.container}>
-      <Text>Play with this Integer: {this.state.myInteger}</Text>
+    render(){return(<View><Text>bye- FOO --
 
-      <Button label="Get Random" onPress={this.getRandomInteger.bind(this)} />
+			      a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			      
+			  bye</Text>
+
+
+			<Text>Play with this Integer: {this.state.myInteger}</Text>
+			      <Button label="Get Random" onPress={this.getRandomInteger.bind(this)} />
       <Button label="Increment" onPress={this.incrementInteger.bind(this)} />
-      <br/>
-      <Text>Current Average: {this.state.average} </Text> 
+
+			{//  <Text>Current Average: {this.state.average} </Text> 
+}
       <CountAlerts alertsCount={this.state.count} />
       <Text>New Level To Be Added: {this.state.new_level} </Text> 
-      <input
-        type="integer" 
-        onChange={this.handleChange} 
-        defaultValue={this.state.new_level}/> 
-        <Button label="Submit Alertness" onPress={this.handleSubmit}/>
-      <Button label="Show || Hide Recent Alerts" onPress={this.toggleHidden.bind(this)} />
-      {!this.state.isHidden && <DisplayAlerts alerts={this.state.alerts} />}
 
-    </View>
-  }
+
+
+
+		    </View>);};
+
+
 }
 
 
