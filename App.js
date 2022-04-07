@@ -15,11 +15,13 @@ export default class UserAlerts extends Component {
     }
   }
 
-
+// mount state
   componentDidMount = () => {
     this.getAlerts();
   }
 
+// reload Alert components after DELETE/POST/UPDATE requests
+// clear new_level input text field
   updateAlerts = () => {
     console.log("inside update alerts!");
     this.setState({ 
@@ -29,12 +31,10 @@ export default class UserAlerts extends Component {
     this.getAlerts();
   }
 
-
+// Load API data for Alert state
   getAlerts = () => {
-    // using a direct return since GET request does not need header params
-    // can't see this request...
-    return fetch('http://localhost:3000/api/alerts')
-    // return fetch("https://catfact.ninja/fact")
+    return fetch('https://limitless-citadel-71686.herokuapp.com/api/alerts')
+    // return fetch('http://localhost:3000/api/alerts')
       .then((response) => {
         if (response.ok) { 
           console.log("response ok");
@@ -240,7 +240,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#444',
     padding: 10, 
-    marginTop: 10
+    marginTop: 10,
+    borderRadius: 10
   },
   buttonText: {
     color: '#fff'
