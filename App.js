@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, TouchableOpacity, useColorScheme } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, FlatList, TouchableOpacity, useColorScheme } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -33,8 +33,8 @@ export default class UserAlerts extends Component {
 
 // Load API data for Alert state
   getAlerts = () => {
-    return fetch('https://limitless-citadel-71686.herokuapp.com/api/alerts')
-    // return fetch('http://localhost:3000/api/alerts')
+//return fetch('https://limitless-citadel-71686.herokuapp.com/api/alerts')
+    return fetch('http://localhost:3000/api/alerts')
       .then((response) => {
         if (response.ok) { 
           console.log("response ok");
@@ -89,21 +89,6 @@ export default class UserAlerts extends Component {
         });
 }
 
-  getRandomInteger() {
-    const randomInt = Math.floor(Math.random()*100);
-    this.setState({
-      myInteger: randomInt
-    });
-  }
-
-  incrementInteger() {
-    this.setState((previousState, currentProps) => {
-      return {
-        myInteger: previousState.myInteger+1
-      }
-    });
-  }
-
   toggleHidden () {
     this.setState({
       isHidden: !this.state.isHidden
@@ -111,7 +96,7 @@ export default class UserAlerts extends Component {
    }
 
   // update the new_level state before we can pass it into the handSubmit function that will send the POST request
-  handleChange = (event) => {
+  handleLevelChange = (event) => {
     let event_level = event.nativeEvent.data;
     this.setState({new_level: event_level});
   } 
@@ -146,14 +131,29 @@ export default class UserAlerts extends Component {
       .catch(err => console.log(err));
   };
 
-render() {
+  render() {
+  const alertsData = this.state.alerts
 
-    return <View style={styles.container}>
-      <Text>Play with this Integer: {this.state.myInteger}</Text>
+// Formatting one item of the list for <FlatList/>
+  const FormatListItem = ({index}) => {
+    return (
+      <View style={styles.listItem}>
+        <Text style={styles.listText}>{`
+          Level: ${alertsData[index].level}
+          Created at: ${alertsData[index].created_at}
+          Updated at: ${alertsData[index].updated_at}
+          `}
+        </Text>
+      </View>
+    );
+  };
 
-      <Button label="Get Random" onPress={this.getRandomInteger.bind(this)} />
-      <Button label="Increment" onPress={this.incrementInteger.bind(this)} />
-      <br/>
+  // save into var so that we can pass into renderItem() 
+  const loadListItem = ({index}) => <FormatListItem key={index} index={index} />
+
+  return (
+    <View style={styles.container}>
+
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
       <Text>New Level To Be Added: {this.state.new_level} </Text> 
@@ -162,10 +162,15 @@ render() {
         onChange={this.handleChange} 
         defaultValue={this.state.new_level}/> 
         <Button label="Submit Alertness" onPress={this.handleSubmit}/>
-      <Button label="Show || Hide Recent Alerts" onPress={this.toggleHidden.bind(this)} />
-      {!this.state.isHidden && <DisplayAlerts alerts={this.state.alerts} />}
+        <Button label="Show || Hide Recent Alerts" onPress={this.toggleHidden.bind(this)} />
 
+      <FlatList
+        style={styles.flatList}
+        data={alertsData}
+        renderItem={FormatListItem}
+      />
     </View>
+      )
   }
 }
 
@@ -184,33 +189,6 @@ export class CountAlerts extends Component {
     
   }
 }
-
-// child component Display Alerts
-// passing state from parent component into children as props
-export class DisplayAlerts extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    // console.log("inside Display");
-    // console.log(this.props);
-    const alertsRender = this.props.alerts
-  return <View>
-    <Text>
-    <h3>Your Latest...</h3>
-    {alertsRender && alertsRender.map((obj) =>  
-      <div key={obj.id}>
-        <p>Alert level: {obj.level}</p>
-        <p>Created at: {obj.created_at} </p>
-        <p>Updated at: {obj.updated_at} </p>
-        <br/>
-      </div>
-      )}
-    </Text>
-  </View>
-  }
-}
-
 
 
 export class Button extends Component {
@@ -245,8 +223,24 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff'
-  }
+  },
+  flatList: {
+    width: '100%',
+  },
+  listText: {
+    color: 'white',
+  },
+  listItem: {
+    flex: 1,
+    marginRight: 180,
+    marginLeft: 180,
+    marginTop: 10,
+    backgroundColor: '#776677',
+    padding: 1,
+    borderRadius: 10,
+  },
 });
 
 // managed entry-point for app: https://reactnative.dev/docs/appregistry
 AppRegistry.registerComponent('Fire', () => UserAlerts);
+
