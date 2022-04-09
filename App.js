@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, FlatList, TouchableOpacity, useColorScheme } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -70,7 +70,6 @@ export default class UserAlerts extends Component {
                 created_at: created,
                 updated_at: updated,
               };
-            // console.log("this is a new alert:");
             // console.log(newAlert);
               this.setState((prevState) => ({
                 alerts: [...prevState.alerts, newAlert],
@@ -78,9 +77,6 @@ export default class UserAlerts extends Component {
                 count: respCount
             }), function() {
             // call back to do something w/ new state?
-            // console.log(this.state);
-            // console.log("after array state");
-            // console.log(this.state.count);
             });
           });
         })
@@ -98,13 +94,14 @@ export default class UserAlerts extends Component {
   // update the new_level state before we can pass it into the handSubmit function that will send the POST request
   handleLevelChange = (event) => {
     let event_level = event.nativeEvent.data;
+    console.log(event_level);
     this.setState({new_level: event_level});
   } 
 
 // POST request
   handleSubmit = () => {
     console.log("inside handle submit!");
-    let alert_level = this.state.new_level
+    let alert_level = this.state.new_level;
     console.log(alert_level);
     fetch(('http://localhost:3000/api/alerts'), {      
       method: 'POST',    
@@ -115,7 +112,7 @@ export default class UserAlerts extends Component {
       },
       body: JSON.stringify({
         alert: {
-          level: alert_level,
+          level: 1,
           user_id: 1,
           }
         })
@@ -157,18 +154,24 @@ export default class UserAlerts extends Component {
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
       <Text>New Level To Be Added: {this.state.new_level} </Text> 
-      <input
+      <Text>Please enter a value from 1 to 10:</Text>
+      <TextInput
         type="integer" 
-        onChange={this.handleChange} 
-        defaultValue={this.state.new_level}/> 
+        style={styles.input}
+        onChange={this.handleLevelChange} 
+        defaultValue={this.state.new_level}
+      /> 
         <Button label="Submit Alertness" onPress={this.handleSubmit}/>
-        <Button label="Show || Hide Recent Alerts" onPress={this.toggleHidden.bind(this)} />
-
-      <FlatList
-        style={styles.flatList}
-        data={alertsData}
-        renderItem={FormatListItem}
-      />
+        <Button label="Show || Hide Recent Alerts" 
+        onPress={this.toggleHidden.bind(this)} 
+        />
+        {!this.state.isHidden && 
+          <FlatList
+            style={styles.flatList}
+            data={alertsData}
+            renderItem={FormatListItem}
+          />
+        }
     </View>
       )
   }
@@ -189,7 +192,6 @@ export class CountAlerts extends Component {
     
   }
 }
-
 
 export class Button extends Component {
   constructor(props) {
@@ -237,6 +239,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#776677',
     padding: 1,
+    borderRadius: 10,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
     borderRadius: 10,
   },
 });
