@@ -177,12 +177,12 @@ export default class UserAlerts extends Component {
 // The question is how to get the ID of the current list item to save
 // I can access the event but I can't access the ID
 // Where can I manually save my ID so that it can be passed?
-  handleDelete = (index) => {
+  handleDelete = (item) => {
     console.log("inside delete")
-    console.log(index);
-    const deleteURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts' + id
+    console.log(item);
+    const deleteURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts/' + item
     console.log(deleteURL);
-    fetch(url, {
+    fetch(deleteURL, {
       method: "delete",
     })
     .then((response) => {
@@ -218,23 +218,19 @@ export default class UserAlerts extends Component {
   const editModalAction = this.state.modalEditAction
 
   const isEditing = this.state.isEditing
-
-
+  
 // Display Alerts component formatting
 // this is one item of the list for <FlatList/>
-  const FormatListItem = ({index}) => {
+  const FormatListItem = ({item}) => {
+    const id = item.id;
+    console.log(id);
     return (
       <SafeAreaView style={styles.listItem}>
 
         <Pressable
           style={[styles.deleteButton, styles.buttonOpen]}
-          value={() => {
-               var deleteId = alertsData[index]
-               console.log(deleteId)
-            }
-          }           
-          value="test"
-          onPress={this.handleDelete.bind(index)}
+          item={item}
+          onPress={() => this.handleDelete(id)}
         >
           <Text style={styles.deleteText} > X </Text>
         </Pressable>
@@ -248,10 +244,10 @@ export default class UserAlerts extends Component {
           />:
         isEditing == false ?
         <Text style={styles.listText}>{`
-          Level: ${alertsData[index].level}
-          Id: ${alertsData[index].id}
-          Created at: ${alertsData[index].created_at}
-          Updated at: ${alertsData[index].updated_at}
+          Level: ${item.level}
+          Id: ${item.id}
+          Created at: ${item.created_at}
+          Updated at: ${item.updated_at}
           `}
         </Text>:
         null}
@@ -360,7 +356,7 @@ export default class UserAlerts extends Component {
           <FlatList
             style={styles.flatList}
             data={alertsData}
-            keyExtrator={item => item.id}
+            keyExtrator={(item) => item.id}
             renderItem={FormatListItem}
           />
         }
