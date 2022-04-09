@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme, Pressable, Modal } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -10,7 +10,8 @@ export default class UserAlerts extends Component {
       average: 0,
       count: 0,
       alerts: [],
-      isHidden: true,
+      isAlertsVisible: false,
+      isModalVisible: false,
       new_level: null
     }
   }
@@ -37,7 +38,7 @@ export default class UserAlerts extends Component {
     return fetch('http://localhost:3000/api/alerts')
       .then((response) => {
         if (response.ok) { 
-          console.log("response ok");
+console.log("response ok");
           return response.json();
         }
         throw new Error("Network response was not ok.");
@@ -85,24 +86,34 @@ export default class UserAlerts extends Component {
         });
 }
 
+// set state for isAlertsHidden by toggling
   toggleHidden () {
     this.setState({
-      isHidden: !this.state.isHidden
+      isAlertsHidden: !this.state.isAlertsHidden
     })
    }
+
+// set state for isModalVisible 
+  setModalVisible = (visible) => {
+    this.setState({ isModalVisible: visible });
+  }
 
   // update the new_level state before we can pass it into the handSubmit function that will send the POST request
   handleLevelChange = (event) => {
     let event_level = event.nativeEvent.data;
-    console.log(event_level);
     this.setState({new_level: event_level});
   } 
+
+// TODO:fix the issue with 10 submitting as 0...
+// instead of validations for 1 > input > 11, could make it a button modal
+// then a drop down scroll of 1-10
+// then a submit button
+// effy, do not do this right now.
 
 // POST request
   handleSubmit = () => {
     console.log("inside handle submit!");
     let alert_level = this.state.new_level;
-    console.log(alert_level);
     fetch(('http://localhost:3000/api/alerts'), {      
       method: 'POST',    
       headers: {
@@ -112,7 +123,7 @@ export default class UserAlerts extends Component {
       },
       body: JSON.stringify({
         alert: {
-          level: 1,
+          level: alert_level,
           user_id: 1,
           }
         })
@@ -129,9 +140,12 @@ export default class UserAlerts extends Component {
   };
 
   render() {
-  const alertsData = this.state.alerts
 
-// Formatting one item of the list for <FlatList/>
+  const alertsData = this.state.alerts
+  const modalVisible = this.state.isModalVisible;
+
+// Display Alerts component formatting
+// this is one item of the list for <FlatList/>
   const FormatListItem = ({index}) => {
     return (
       <View style={styles.listItem}>
@@ -140,7 +154,38 @@ export default class UserAlerts extends Component {
           Created at: ${alertsData[index].created_at}
           Updated at: ${alertsData[index].updated_at}
           `}
-        </Text>
+      </Text>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose=
+          {
+            ()=>{ Alert.alert("Modal has been closed.");
+                  this.setModalVisible(!isModalVisible);
+                }
+          }
+         >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                ADD EDIT AND DELETE BUTTONS!!!
+              </Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyles}>Hide Modal</Text>
+              </Pressable>
+          </View>
+        </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => this.setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Edit This Entry</Text>
+        </Pressable>
       </View>
     );
   };
@@ -161,11 +206,13 @@ export default class UserAlerts extends Component {
         onChange={this.handleLevelChange} 
         defaultValue={this.state.new_level}
       /> 
-        <Button label="Submit Alertness" onPress={this.handleSubmit}/>
-        <Button label="Show || Hide Recent Alerts" 
+
+      <Button label="Submit Alertness" onPress={this.handleSubmit}/>
+      <Button 
+        label="Show || Hide Recent Alerts" 
         onPress={this.toggleHidden.bind(this)} 
-        />
-        {!this.state.isHidden && 
+      />
+        {!this.state.isAlertsHidden && 
           <FlatList
             style={styles.flatList}
             data={alertsData}
@@ -248,6 +295,47 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalButton: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  modalButtonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  modalButtonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 });
 
 // managed entry-point for app: https://reactnative.dev/docs/appregistry
