@@ -111,7 +111,7 @@ console.log("response ok");
   setModalAction = (action) => {
     console.log("clicked modal!");
     let current = this.state.modalAction
-    // this.setState({ modalAction: action });
+    this.setState({ modalAction: action });
    }
 
 // POST Alert request functions
