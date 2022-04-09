@@ -13,7 +13,8 @@ export default class UserAlerts extends Component {
       isAlertsVisible: false,
       isModalVisible: false,
       new_level: null,
-      modalAction: 'default'
+      modalAction: 'default',
+      isEditing: false
     }
   }
 
@@ -87,15 +88,20 @@ console.log("response ok");
         });
 }
 
-// Display Alerts functions
-// set state for isAlertsHidden by toggling
+// Toggle Boolean functions (Display and Edit)
   toggleHidden () {
     this.setState({
       isAlertsVisible: !this.state.isAlertsVisible
     })
-   }
+  }
 
-// Modal Component functions
+  toggleEdit () {
+    this.setState({
+      isEditing: !this.state.isEditing
+    })
+  }
+
+// Modal Component functions (POST and DELETE)
 // set visibility for isModalVisible 
   setModalVisible = (visible) => {
     this.setState({ isModalVisible: visible });
@@ -103,20 +109,16 @@ console.log("response ok");
 
 // set which modal to render
   setModalAction = (action) => {
+    console.log("clicked modal!");
     let current = this.state.modalAction
-    // console.log("state inside setModalAction:");
-    // console.log(current);
-    // console.log(action);
-    this.setState({ modalAction: action });
-    // let updated = this.state.modalAction
-    // console.log(updated);
-  }
+    // this.setState({ modalAction: action });
+   }
 
 // POST Alert request functions
 // update the new_level state before we can pass it into the handSubmit function that will send the POST request
   handleLevelChange = (event) => {
-    let event_level = event.nativeEvent.data;
-    this.setState({new_level: event_level});
+    // console.log("inside Handle Level Change");
+    this.setState({new_level: event});
   } 
 
 // TODO:fix the issue with 10 submitting as 0...
@@ -127,9 +129,11 @@ console.log("response ok");
 
 // POST request
   handleSubmit = () => {
-    // console.log("inside handle submit!");
+    let postURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts'
     let alert_level = this.state.new_level;
-    fetch(('http://localhost:3000/api/alerts'), {      
+    console.log(alert_level);
+    
+    fetch((postURL), {      
       method: 'POST',    
       headers: {
         'Content-Type': 'application/json',
@@ -162,23 +166,47 @@ console.log("response ok");
   
   const closeAlertModal = () => {
     this.setModalVisible(!isModalVisible);
+
   };
 
   const modalAction = this.state.modalAction
-  console.log(`modal action state: ${modalAction}`);
-
+  console.log(modalAction);
+  
+  const isEditing = this.state.isEditing
 
 // Display Alerts component formatting
 // this is one item of the list for <FlatList/>
   const FormatListItem = ({index}) => {
     return (
       <SafeAreaView style={styles.listItem}>
+
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => {
+            // this.setModalVisible(true);
+            this.setModalAction("DeleteAlert");
+          }
+        }
+        >
+          <Text style={styles.textStyle}>X</Text>
+        </Pressable>
+
+        {isEditing === true ?
+        <Text style={styles.listText}>{`
+          Level: "edit me!"
+          Created at: ${alertsData[index].created_at}
+          Updated at: ${alertsData[index].updated_at}
+          `}
+        </Text>:
+        isEditing == false ?
         <Text style={styles.listText}>{`
           Level: ${alertsData[index].level}
           Created at: ${alertsData[index].created_at}
           Updated at: ${alertsData[index].updated_at}
           `}
-      </Text>
+        </Text>:
+        null}
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -186,15 +214,15 @@ console.log("response ok");
           onRequestClose={closeAlertModal}
       >
           {/* Modal Action for Editing an Alert*/}
-        {modalAction === 'EditAlert' ?
+        {modalAction === 'DeleteAlert' ?
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                ADD EDIT AND DELETE ALERT
+                Are you sure? 
               </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => this.setModalVisible(!modalVisible)}
+                // onPress={() => this.setModalVisible(!modalVisible)}
               >
                 <Text style={styles.textStyles}>Hide Modal</Text>
               </Pressable>
@@ -204,8 +232,20 @@ console.log("response ok");
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                TRACK AN ALERT
+                Please enter a value from 1...10: 
               </Text>
+              <TextInput
+                placeholder="touch here"
+                keyboardType="numeric"
+                style={styles.input}
+                onChangeText={this.handleLevelChange}
+              />
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={this.handleSubmit}
+              > 
+                <Text style={styles.textStyles}>Submit Alert</Text>
+              </Pressable>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => this.setModalVisible(!modalVisible)}
@@ -219,8 +259,8 @@ console.log("response ok");
         <Pressable
           style={[styles.button, styles.buttonOpen]}
           onPress={() => {
-            this.setModalVisible(true);
-            this.setModalAction("EditAlert");
+            this.toggleEdit(true);
+
             }
          }
         >
@@ -239,15 +279,6 @@ console.log("response ok");
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
       <Text>New Level To Be Added: {this.state.new_level} </Text> 
-      {/*
-      <Text>Please enter a value from 1 to 10:</Text>
-      <TextInput
-        type="integer" 
-        style={styles.input}
-        onChange={this.handleLevelChange} 
-        defaultValue={this.state.new_level}
-      /> 
-      */}
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => {
@@ -258,9 +289,9 @@ console.log("response ok");
       >
       <Text style={styles.textStyle}>Track This Moment</Text>
       </Pressable>
-
+      
       <Button 
-        label="Show || Hide Recent Alerts" 
+        label="View || Hide Alerts" 
         onPress={this.toggleHidden.bind(this)} 
       />
         {this.state.isAlertsVisible && 
@@ -327,7 +358,8 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   buttonText: {
-    color: '#fff'
+    color: '#fff',
+    fontWeight: "bold",
   },
   flatList: {
     width: '100%',
