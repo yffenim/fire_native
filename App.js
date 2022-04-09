@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme, Pressable, Modal } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme, Pressable, Modal, Alert } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -12,7 +12,8 @@ export default class UserAlerts extends Component {
       alerts: [],
       isAlertsVisible: false,
       isModalVisible: false,
-      new_level: null
+      new_level: null,
+      modalAction: 'default'
     }
   }
 
@@ -86,6 +87,7 @@ console.log("response ok");
         });
 }
 
+// Display Alerts functions
 // set state for isAlertsHidden by toggling
   toggleHidden () {
     this.setState({
@@ -93,12 +95,25 @@ console.log("response ok");
     })
    }
 
-// set state for isModalVisible 
+// Modal Component functions
+// set visibility for isModalVisible 
   setModalVisible = (visible) => {
     this.setState({ isModalVisible: visible });
   }
 
-  // update the new_level state before we can pass it into the handSubmit function that will send the POST request
+// set which modal to render
+  setModalAction = (action) => {
+    let current = this.state.modalAction
+    // console.log("state inside setModalAction:");
+    // console.log(current);
+    // console.log(action);
+    this.setState({ modalAction: action });
+    // let updated = this.state.modalAction
+    // console.log(updated);
+  }
+
+// POST Alert request functions
+// update the new_level state before we can pass it into the handSubmit function that will send the POST request
   handleLevelChange = (event) => {
     let event_level = event.nativeEvent.data;
     this.setState({new_level: event_level});
@@ -112,7 +127,7 @@ console.log("response ok");
 
 // POST request
   handleSubmit = () => {
-    console.log("inside handle submit!");
+    // console.log("inside handle submit!");
     let alert_level = this.state.new_level;
     fetch(('http://localhost:3000/api/alerts'), {      
       method: 'POST',    
@@ -139,10 +154,19 @@ console.log("response ok");
       .catch(err => console.log(err));
   };
 
+
   render() {
 
   const alertsData = this.state.alerts
   const modalVisible = this.state.isModalVisible;
+  
+  const closeAlertModal = () => {
+    this.setModalVisible(!isModalVisible);
+  };
+
+  const modalAction = this.state.modalAction
+  console.log(`modal action state: ${modalAction}`);
+
 
 // Display Alerts component formatting
 // this is one item of the list for <FlatList/>
@@ -159,17 +183,14 @@ console.log("response ok");
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose=
-          {
-            ()=>{ Alert.alert("Modal has been closed.");
-                  this.setModalVisible(!isModalVisible);
-                }
-          }
-         >
+          onRequestClose={closeAlertModal}
+      >
+          {/* Modal Action for Editing an Alert*/}
+        {modalAction === 'EditAlert' ?
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                ADD EDIT AND DELETE BUTTONS!!!
+                ADD EDIT AND DELETE ALERT
               </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
@@ -177,12 +198,31 @@ console.log("response ok");
               >
                 <Text style={styles.textStyles}>Hide Modal</Text>
               </Pressable>
-          </View>
-        </View>
+            </View>
+          </View> :
+        modalAction == 'NewAlert' ?
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                TRACK AN ALERT
+              </Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => this.setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyles}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View> :
+        null}
         </Modal>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
-          onPress={() => this.setModalVisible(true)}
+          onPress={() => {
+            this.setModalVisible(true);
+            this.setModalAction("EditAlert");
+            }
+         }
         >
           <Text style={styles.textStyle}>Edit This Entry</Text>
         </Pressable>
@@ -206,6 +246,17 @@ console.log("response ok");
         onChange={this.handleLevelChange} 
         defaultValue={this.state.new_level}
       /> 
+
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => {
+          this.setModalVisible(true);
+          this.setModalAction("NewAlert");
+          }
+        }
+      >
+      <Text style={styles.textStyle}>Track This Moment</Text>
+      </Pressable>
 
       <Button label="Submit Alertness" onPress={this.handleSubmit}/>
       <Button 
@@ -233,10 +284,11 @@ export class CountAlerts extends Component {
   }
   render() {
     // this will get updated when UserAlerts component state changes
-    return <View>
-      <Text>Total Count: {this.props.alertsCount}</Text>
-    </View>
-    
+    return (
+      <View>
+        <Text>Total Count: {this.props.alertsCount}</Text>
+      </View>
+   ) 
   }
 }
 
@@ -246,14 +298,18 @@ export class Button extends Component {
   }
   render() {
 
-    return <TouchableOpacity onPress={this.props.onPress}>
+    return (
+      <TouchableOpacity onPress={this.props.onPress}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>{this.props.label}</Text>
         </View>
       </TouchableOpacity>
-    
+    )
   }
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
