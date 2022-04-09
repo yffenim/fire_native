@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, useColorScheme, Pressable, Modal, Alert } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, SafeAreaView, FlatList, TouchableOpacity, useColorScheme, Pressable, Modal, Alert } from 'react-native';
 
 export default class UserAlerts extends Component {
   constructor(props) {
@@ -35,8 +35,8 @@ export default class UserAlerts extends Component {
 
 // Load API data for Alert state
   getAlerts = () => {
-//return fetch('https://limitless-citadel-71686.herokuapp.com/api/alerts')
-    return fetch('http://localhost:3000/api/alerts')
+    return fetch('https://limitless-citadel-71686.herokuapp.com/api/alerts')
+    // return fetch('http://localhost:3000/api/alerts')
       .then((response) => {
         if (response.ok) { 
 console.log("response ok");
@@ -91,7 +91,7 @@ console.log("response ok");
 // set state for isAlertsHidden by toggling
   toggleHidden () {
     this.setState({
-      isAlertsHidden: !this.state.isAlertsHidden
+      isAlertsVisible: !this.state.isAlertsVisible
     })
    }
 
@@ -172,7 +172,7 @@ console.log("response ok");
 // this is one item of the list for <FlatList/>
   const FormatListItem = ({index}) => {
     return (
-      <View style={styles.listItem}>
+      <SafeAreaView style={styles.listItem}>
         <Text style={styles.listText}>{`
           Level: ${alertsData[index].level}
           Created at: ${alertsData[index].created_at}
@@ -226,7 +226,7 @@ console.log("response ok");
         >
           <Text style={styles.textStyle}>Edit This Entry</Text>
         </Pressable>
-      </View>
+      </SafeAreaView>
     );
   };
 
@@ -239,6 +239,7 @@ console.log("response ok");
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
       <Text>New Level To Be Added: {this.state.new_level} </Text> 
+      {/*
       <Text>Please enter a value from 1 to 10:</Text>
       <TextInput
         type="integer" 
@@ -246,7 +247,7 @@ console.log("response ok");
         onChange={this.handleLevelChange} 
         defaultValue={this.state.new_level}
       /> 
-
+      */}
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => {
@@ -258,12 +259,11 @@ console.log("response ok");
       <Text style={styles.textStyle}>Track This Moment</Text>
       </Pressable>
 
-      <Button label="Submit Alertness" onPress={this.handleSubmit}/>
       <Button 
         label="Show || Hide Recent Alerts" 
         onPress={this.toggleHidden.bind(this)} 
       />
-        {!this.state.isAlertsHidden && 
+        {this.state.isAlertsVisible && 
           <FlatList
             style={styles.flatList}
             data={alertsData}
@@ -337,8 +337,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flex: 1,
-    marginRight: 180,
-    marginLeft: 180,
+    marginRight: 40,
+    marginLeft: 40,
     marginTop: 10,
     backgroundColor: '#776677',
     padding: 1,
