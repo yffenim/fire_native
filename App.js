@@ -6,7 +6,6 @@ export default class UserAlerts extends Component {
     super(props);
 
     this.state = {
-      myInteger: 0,
       average: 0,
       count: 0,
       alerts: [],
@@ -14,6 +13,7 @@ export default class UserAlerts extends Component {
       isModalVisible: false,
       new_level: null,
       modalAction: 'default',
+      editModalAction: 'default',
       isEditing: false
     }
   }
@@ -40,7 +40,7 @@ export default class UserAlerts extends Component {
     // return fetch('http://localhost:3000/api/alerts')
       .then((response) => {
         if (response.ok) { 
-console.log("response ok");
+        console.log("response ok");
           return response.json();
         }
         throw new Error("Network response was not ok.");
@@ -90,6 +90,7 @@ console.log("response ok");
 
 // Toggle Boolean functions (Display and Edit)
   toggleHidden () {
+    console.log(this.state.editModalAction);
     this.setState({
       isAlertsVisible: !this.state.isAlertsVisible
     })
@@ -101,23 +102,37 @@ console.log("response ok");
     })
   }
 
+/// CAN THIS STATE BE REUSED?
+  toggleEditSubmit () {
+    this.setState({
+      isModalVisible: !this.state.isModalVisible
+    })
+  }
 // Modal Component functions (POST and DELETE)
 // set visibility for isModalVisible 
   setModalVisible = (visible) => {
     this.setState({ isModalVisible: visible });
   }
 
-// set which modal to render
+// set which SCR=1 modal to render (Track or Submit)
   setModalAction = (action) => {
-    console.log("clicked modal!");
+    // console.log("clicked modal!");
     let current = this.state.modalAction
     this.setState({ modalAction: action });
    }
 
+// set which edit modal to render (Edit or Submit)
+  setEditModalAction = (action) => {
+    console.log("clicked edit modal");
+    console.log(action);
+    let current = this.state.editModalAction
+    this.setState({ editModalAction: action });
+    }
+
 // POST Alert request functions
 // update the new_level state before we can pass it into the handSubmit function that will send the POST request
   handleLevelChange = (event) => {
-    // console.log("inside Handle Level Change");
+    console.log("inside Handle Level Change");
     this.setState({new_level: event});
   } 
 
@@ -158,6 +173,36 @@ console.log("response ok");
       .catch(err => console.log(err));
   };
 
+// DELETE request
+// The question is how to get the ID of the current list item to save
+// I can access the event but I can't access the ID
+// Where can I manually save my ID so that it can be passed?
+  handleDelete = (index) => {
+    console.log("inside delete")
+    console.log(index);
+    const deleteURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts' + id
+    console.log(deleteURL);
+    fetch(url, {
+      method: "delete",
+    })
+    .then((response) => {
+      if (response.ok) {
+        this.updateAlerts();
+        // return response.json();
+      }
+      throw new Error("Network response was not ok.");
+    })
+    .catch((err) => message.error(err));
+  };
+
+// UPDATE edit 
+  handleEdit = (event) => {
+    console.log("inside edit!");
+    let alert_level = this.state.new_level;
+    console.log(alert_level);
+    console.log(event);
+  }
+
 
   render() {
 
@@ -170,9 +215,10 @@ console.log("response ok");
   };
 
   const modalAction = this.state.modalAction
-  console.log(modalAction);
-  
+  const editModalAction = this.state.modalEditAction
+
   const isEditing = this.state.isEditing
+
 
 // Display Alerts component formatting
 // this is one item of the list for <FlatList/>
@@ -181,26 +227,29 @@ console.log("response ok");
       <SafeAreaView style={styles.listItem}>
 
         <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => {
-            // this.setModalVisible(true);
-            this.setModalAction("DeleteAlert");
-          }
-        }
+          style={[styles.deleteButton, styles.buttonOpen]}
+          value={() => {
+               var deleteId = alertsData[index]
+               console.log(deleteId)
+            }
+          }           
+          value="test"
+          onPress={this.handleDelete.bind(index)}
         >
-          <Text style={styles.textStyle}>X</Text>
+          <Text style={styles.deleteText} > X </Text>
         </Pressable>
 
         {isEditing === true ?
-        <Text style={styles.listText}>{`
-          Level: "edit me!"
-          Created at: ${alertsData[index].created_at}
-          Updated at: ${alertsData[index].updated_at}
-          `}
-        </Text>:
+          <TextInput
+            placeholder="Please Enter A New Level"
+            keyboardType="numeric"
+            style={styles.input}
+            onChangeText={this.handleLevelChange}
+          />:
         isEditing == false ?
         <Text style={styles.listText}>{`
           Level: ${alertsData[index].level}
+          Id: ${alertsData[index].id}
           Created at: ${alertsData[index].created_at}
           Updated at: ${alertsData[index].updated_at}
           `}
@@ -228,7 +277,7 @@ console.log("response ok");
               </Pressable>
             </View>
           </View> :
-        modalAction == 'NewAlert' ?
+        modalAction === 'NewAlert' ?
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
@@ -256,29 +305,42 @@ console.log("response ok");
           </View> :
         null}
         </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => {
-            this.toggleEdit(true);
 
-            }
-         }
-        >
-          <Text style={styles.textStyle}>Edit This Entry</Text>
-        </Pressable>
+        {/* edit this entry vs cancel edit*/}
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => {
+              this.setEditModalAction('ShowEditSubmit');
+              this.toggleEdit(true);
+             }
+           }
+         >
+            <Text style={styles.textStyle}>Edit This Alert</Text>
+          </Pressable>
+       
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => {
+              this.handleEdit(this)
+             }
+           }
+          >
+            <Text style={styles.textStyle}>Submit Edit</Text>
+          </Pressable>
+
       </SafeAreaView>
     );
   };
 
   // save into var so that we can pass into renderItem() 
-  const loadListItem = ({index}) => <FormatListItem key={index} index={index} />
+  // const loadListItem = ({index}) => <FormatListItem key={index} index={index} id={id} />
 
   return (
     <View style={styles.container}>
 
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />
-      <Text>New Level To Be Added: {this.state.new_level} </Text> 
+      <Text>New Level in State: {this.state.new_level} </Text> 
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => {
@@ -292,12 +354,13 @@ console.log("response ok");
       
       <Button 
         label="View || Hide Alerts" 
-        onPress={this.toggleHidden.bind(this)} 
+        onPress={this.toggleHidden.bind(this)}
       />
         {this.state.isAlertsVisible && 
           <FlatList
             style={styles.flatList}
             data={alertsData}
+            keyExtrator={item => item.id}
             renderItem={FormatListItem}
           />
         }
@@ -423,6 +486,15 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center"
+  },
+  deleteText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "right"
+  },
+  deleteButton: {
+    color: "#F194FF",
+    margin: 5
   }
 });
 
