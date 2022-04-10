@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-export default class UserAlerts extends Component {
+export default class User extends Component {
   constructor(props) {
     super(props);
 
@@ -370,12 +370,6 @@ render() {
   return (
 
     <SafeAreaView style={styles.container}>
-      
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
 
       <Text>Current Average: {this.state.average} </Text> 
       <CountAlerts alertsCount={this.state.count} />

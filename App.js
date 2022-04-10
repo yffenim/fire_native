@@ -3,8 +3,15 @@ import { AppRegistry, StyleSheet, Text, TextInput, View,FlatList, TouchableOpaci
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import styles from './styles'
-import { UserAlerts } from './UserAlerts'
+import User from './User'
 
+class UserScreen extends React.Component {
+  render(){
+    return (
+    <User />
+    )
+  }
+}
 
 function HomeScreen({ navigation }) {
   return (
@@ -41,6 +48,12 @@ function LoginScreen({ navigation }) {
       </Pressable>
 
 
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate('User')}
+      >
+        <Text style={styles.textStyle}>Let's Pretend That We've Logged In</Text>
+        </Pressable>
     </View>
   );
 }
@@ -53,6 +66,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="User" component={UserScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
