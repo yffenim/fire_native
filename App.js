@@ -11,6 +11,7 @@ export default class UserAlerts extends Component {
       alerts: [],
       isAlertsVisible: false,
       isModalVisible: false,
+      isEditSubmitVisible: false,
       new_level: null,
       modalAction: 'default',
       editModalAction: 'default',
@@ -88,7 +89,7 @@ export default class UserAlerts extends Component {
         });
 }
 
-// Toggle Boolean functions (Display and Edit)
+// display alerts array from GET request
   toggleHidden () {
     console.log(this.state.editModalAction);
     this.setState({
@@ -96,18 +97,20 @@ export default class UserAlerts extends Component {
     })
   }
 
+// display <InputText> for editing 
   toggleEdit () {
     this.setState({
       isEditing: !this.state.isEditing
     })
   }
 
-/// CAN THIS STATE BE REUSED?
+// display  edit submit button
   toggleEditSubmit () {
     this.setState({
-      isModalVisible: !this.state.isModalVisible
+      isEditSubmitVisible: !this.state.isEditSubmitVisible
     })
   }
+
 // Modal Component functions (POST and DELETE)
 // set visibility for isModalVisible 
   setModalVisible = (visible) => {
@@ -145,6 +148,7 @@ export default class UserAlerts extends Component {
 // POST request
   handleSubmit = () => {
     let postURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts'
+    // let deleteURL = 'http://localhost:3000/api/alerts/' + id
     let alert_level = this.state.new_level;
     console.log(alert_level);
     
@@ -174,37 +178,58 @@ export default class UserAlerts extends Component {
   };
 
 // DELETE request
-// The question is how to get the ID of the current list item to save
-// I can access the event but I can't access the ID
-// Where can I manually save my ID so that it can be passed?
-  handleDelete = (item) => {
+  handleDelete = (id) => {
     console.log("inside delete")
-    console.log(item);
-    const deleteURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts/' + item
+    console.log(id);
+    // const deleteURL = 'http://localhost:3000/api/alerts/' + id
+    const deleteURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts/' + id
     console.log(deleteURL);
     fetch(deleteURL, {
       method: "delete",
     })
     .then((response) => {
       if (response.ok) {
+        console.log(`deleted ${id}`);
         this.updateAlerts();
         // return response.json();
       }
       throw new Error("Network response was not ok.");
     })
-    .catch((err) => message.error(err));
   };
 
 // UPDATE edit 
-  handleEdit = (event) => {
-    console.log("inside edit!");
+  handleEdit = (id) => {
+    let editURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts/' + id
+    // const editURL = 'http://localhost:3000/api/alerts' + id
+    console.log(`edit id is: ${id}`);
+    console.log(editURL);
     let alert_level = this.state.new_level;
-    console.log(alert_level);
-    console.log(event);
-  }
+    fetch(editURL, {
+      method: 'PATCH',
+        headers: {
+         'Content-Type': 'application/json',
+         'X-Requested-With': 'XMLHttpRequest',
+        // 'X-CSRF-Token' : token,
+      },
+      body: JSON.stringify({
+        alert: {
+          level: alert_level,
+          user_id: 1
+        }
+      })
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log("response ok for update");
+        this.updateAlerts();
+        return response.json();
+    }
+    throw new Error("Network response was not ok");
+    })
+  };
 
 
-  render() {
+render() {
 
   const alertsData = this.state.alerts
   const modalVisible = this.state.isModalVisible;
@@ -223,7 +248,7 @@ export default class UserAlerts extends Component {
 // this is one item of the list for <FlatList/>
   const FormatListItem = ({item}) => {
     const id = item.id;
-    console.log(id);
+    // console.log(id);
     return (
       <SafeAreaView style={styles.listItem}>
 
@@ -237,12 +262,13 @@ export default class UserAlerts extends Component {
 
         {isEditing === true ?
           <TextInput
+            // style={[styles.deleteButton, styles.buttonOpen]}
             placeholder="Please Enter A New Level"
             keyboardType="numeric"
             style={styles.input}
             onChangeText={this.handleLevelChange}
           />:
-        isEditing == false ?
+        isEditing === false ?
         <Text style={styles.listText}>{`
           Level: ${item.level}
           Id: ${item.id}
@@ -304,26 +330,32 @@ export default class UserAlerts extends Component {
 
         {/* edit this entry vs cancel edit*/}
           <Pressable
-            style={[styles.button, styles.buttonOpen]}
+            style={[styles.buttonEdit, styles.buttonOpen]}
             onPress={() => {
               this.setEditModalAction('ShowEditSubmit');
               this.toggleEdit(true);
+              this.toggleEditSubmit(true)
              }
            }
-         >
-            <Text style={styles.textStyle}>Edit This Alert</Text>
+          >
+          {isEditing === true ?
+            <Text style={styles.textStyle}>Nevermind, I'm good.</Text>:
+          isEditing === false? 
+            <Text style={styles.textStyle}>Edit This Alert</Text>:
+          null}
           </Pressable>
-       
+
+        {this.state.isEditSubmitVisible && 
           <Pressable
-            style={[styles.button, styles.buttonOpen]}
+            style={[styles.buttonEdit, styles.buttonOpen]}
             onPress={() => {
-              this.handleEdit(this)
+              this.handleEdit(id)
              }
            }
           >
             <Text style={styles.textStyle}>Submit Edit</Text>
           </Pressable>
-
+        }
       </SafeAreaView>
     );
   };
@@ -417,6 +449,18 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   buttonText: {
+    color: '#fff',
+    fontWeight: "bold",
+  },
+  buttonEdit: {
+    backgroundColor: '#444',
+    padding: 10,
+    marginTop: 10,
+    marginRight: 75,
+    marginLeft: 75,
+    borderRadius: 10
+  },
+  buttonTextEdit: {
     color: '#fff',
     fontWeight: "bold",
   },
