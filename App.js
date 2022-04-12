@@ -15,6 +15,7 @@ import {
   FlatList,
   Spacer,
   Pressable,
+  SectionList
   } from "native-base";
 // var h = require('../react-native-hyperscript');
 // var React = require('react-native');
@@ -24,7 +25,7 @@ const l = (arg) => console.log(arg);
 // fetch to API
 const apiURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts';
 // fetch to local
-const localURL = 'http://localhost:3000/api/alerts';
+const localURL = 'http://localhost:3000/api/alerts/';
 
 // const toggleAlerts = () => {
 //     l("inside toggle", isAlertsVisible);
@@ -172,17 +173,17 @@ class UserDashboard extends Component {
     const deleteURL = localURL + id
     // const deleteURL = apiURL + id
     console.log(deleteURL);
-    // fetch(deleteURL, {
-    //   method: "delete",
-    // })
-    // .then((response) => {
-    //   if (response.ok) {
-    //     console.log(`deleted ${id}`);
-    //     this.updateAlerts();
-    //     // return response.json();
-    //   }
-    //   throw new Error("Network response was not ok.");
-    // })
+    fetch(deleteURL, {
+      method: "delete",
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log(`deleted ${id}`);
+        this.updateAlerts();
+        // return response.json();
+      }
+      throw new Error("Network response was not ok.");
+    })
   };
 
 // UPDATE edit 
@@ -302,9 +303,8 @@ class RecentMoments extends Component {
                   </Text>
                
                   <HStack space={3}>
-                    {/* <Pressable onPress={this.props.handleDelete(item.id)}> */}
                     <Pressable
-                      onPress={this.props.handleDelete(item.id)}                 
+                      onPress={() => this.props.handleDelete(item.id)}                 
                     >
                     <Text fontSize="xs" color="coolGray.600" _dark={{
                     color: "warmGray.200"}}
