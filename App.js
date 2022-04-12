@@ -15,7 +15,9 @@ import {
   FlatList,
   Spacer,
   Pressable,
-  SectionList
+  SectionList,
+  AlertDialog,
+  Modal,
   } from "native-base";
 // var h = require('../react-native-hyperscript');
 // var React = require('react-native');
@@ -26,13 +28,6 @@ const l = (arg) => console.log(arg);
 const apiURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts';
 // fetch to local
 const localURL = 'http://localhost:3000/api/alerts/';
-
-// const toggleAlerts = () => {
-//     l("inside toggle", isAlertsVisible);
-//     this.setState({
-//       isAlertsVisible: !this.state.isAlertsVisible
-//     })
-// }
 
 
 
@@ -48,6 +43,7 @@ class UserDashboard extends Component {
         count: 0,
         new_alert: null,
         isAlertsVisible: false,
+        showModal: false
       }
   }
   
@@ -74,6 +70,14 @@ class UserDashboard extends Component {
     })
   }
 
+// set whether editing modal is showing
+  setShowModal = () => {
+    l('setting showModal state');
+    this.setState({
+      showModal: !this.state.showModal
+  })
+}
+
   handleLevelChange = (event) => {
     l("handle level change:");
     l(event);
@@ -98,7 +102,6 @@ class UserDashboard extends Component {
             var respCount = response[1].count;
             var respAvg = response[1].average;
             // l(respArr);
-              // this.setState({ average: 100 });
               respArr.forEach((alert) => { 
               // l(alert);
                 if (alert.created_at) {
@@ -191,31 +194,34 @@ class UserDashboard extends Component {
     // let editURL = apiURL + id
     let editURL = localURL + id
     l(`edit id is: ${id}`);
-    l(editURL);
+    // l(editURL);
     let alert_level = this.state.new_level;
-    // fetch(editURL, {
-    //   method: 'PATCH',
-    //     headers: {
-    //      'Content-Type': 'application/json',
-    //      'X-Requested-With': 'XMLHttpRequest',
-    //     // 'X-CSRF-Token' : token,
-    //   },
-    //   body: JSON.stringify({
-    //     alert: {
-    //       level: alert_level,
-    //       user_id: 1
-    //     }
-    //   })
-    // })
-    // .then((response) => {
-    //   if (response.ok) {
-    //     console.log("response ok for update");
-    //     this.updateAlerts();
-    //     return response.json();
-    // }
-    // throw new Error("Network response was not ok");
-    // })
+    l(alert_level);
+    fetch(editURL, {
+      method: 'PATCH',
+        headers: {
+         'Content-Type': 'application/json',
+         'X-Requested-With': 'XMLHttpRequest',
+        // 'X-CSRF-Token' : token,
+      },
+      body: JSON.stringify({
+        alert: {
+          level: alert_level,
+          user_id: 1
+        }
+      })
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log("response ok for update");
+        this.updateAlerts();
+        return response.json();
+    }
+    throw new Error("Network response was not ok");
+    })
   };
+
+
 
   render() {
     
@@ -246,10 +252,14 @@ class UserDashboard extends Component {
         <NativeBaseProvider>
           {PostMoment}
           <RecentMoments 
-            alerts={this.state.alerts} 
+            alerts={this.state.alerts}
             visible={this.state.isAlertsVisible} 
             toggleAlerts={this.toggleAlerts}
             handleDelete={this.handleDelete}
+            showModal={this.state.showModal}
+            setShowModal={this.setShowModal}
+            handleLevelChange={this.handleLevelChange}
+            handleEdit={this.handleEdit}
           />
         {/*
           <PostMoment 
@@ -304,26 +314,68 @@ class RecentMoments extends Component {
                
                   <HStack space={3}>
                     <Pressable
-                      onPress={() => this.props.handleDelete(item.id)}                 
+                      onPress={() => this.props.handleDelete(item.id)}
                     >
                     <Text fontSize="xs" color="coolGray.600" _dark={{
                     color: "warmGray.200"}}
                     >DELETE</Text>
                   </Pressable>
-                  <Pressable onPress={this.handleUpdate}>
+
+                  <Pressable 
+                    onPress={() => this.props.setShowModal(true)}
+                   >
                     <Text fontSize="xs" color="coolGray.600" _dark={{
                     color: "warmGray.200"}}
                     >EDIT</Text>
                   </Pressable>
-                  
 
+                  <Modal 
+                    isOpen={this.props.showModal} 
+                    onClose={() => this.props.setShowModal(false)}>
+                    <Modal.Content maxWidth="300px">
+                      <Modal.CloseButton />
+                      <Modal.Header>Edit This Moment</Modal.Header>
+                      <Modal.Body>
+                        <FormControl>
+                          <FormControl.Label>Level</FormControl.Label>
+                          <Input 
+                            onChangeText={() => 
+                              this.props.handleLevelChange()}
+                            placeholder={`${item.level}`}
+                          />
+
+                        </FormControl>
+                        <FormControl mt="3">
+                          Last Updated: {item.updated_at}
+                        </FormControl>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button.Group space={2}>
+                          <Button 
+                          variant="ghost" 
+                          colorScheme="blueGray" 
+                          onPress={() => 
+                            {this.props.setShowModal(false) }}>
+                          Cancel
+                          </Button>
+                          <Button onPress={() => {
+                             this.props.setShowModal(false)
+                             this.props.handleEdit(item.id)
+                           }}>
+                             Save
+                          </Button>
+                       </Button.Group>
+                     </Modal.Footer>
+                   </Modal.Content>
+                 </Modal>
+  
                   </HStack>
                 </VStack>
                 <Spacer />
                 <Text fontSize="xs" _dark={{
           color: "warmGray.50"
         }} color="coolGray.800" alignSelf="flex-start">
-                Updated: {item.updated_at}
+                {item.updated_at}
                 </Text>
               </HStack>
           </Box>} keyExtractor={item => item.id.toString()} />
