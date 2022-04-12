@@ -1,11 +1,10 @@
 {
   "expo": {
-    "name": "fire_native",
-    "slug": "fire_native",
+    "name": "fire_mobile",
+    "slug": "fire_mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -27,12 +26,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "build": { 
-        "babel": { 
-          "include": [ "@ui-kitten/components" ] 
-        } 
-      }
-    },
+      "favicon": "./assets/favicon.png"
+    }
   }
 }
