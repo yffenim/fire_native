@@ -68,13 +68,16 @@ class UserDashboard extends Component {
 
 // toggle displaying recent history
   toggleAlerts = (visible) => {
-    l("inside toggleAlerts");
-    l(this.state.isAlertVisible);
     this.setState({
       isAlertsVisible: !this.state.isAlertsVisible
     })
   }
 
+  handleLevelChange = (event) => {
+    l("handle level change:");
+    l(event);
+    this.setState({new_level: event});
+  }
 
 // Load API data for Alert state
   getAlerts = () => {
@@ -127,41 +130,89 @@ class UserDashboard extends Component {
         .catch((error) => {
           l(error);
         });
-    }
+  }
 
-    render() {
+  // POST request
+  handleSubmit = () => {
+    l("inside handle submit function");
+    let alert_level = this.state.new_level;
+    l(alert_level);
+
+    fetch((apiURL), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+//        'X-CSRF-Token' : token
+      },
+      body: JSON.stringify({
+        alert: {
+          level: alert_level,
+          user_id: 1,
+          }
+        })
+      })
+      .then((response) => {
+        if (response.ok) {
+        console.log(this);
+          this.updateAlerts();
+          return response.json();
+        }
+        throw new Error("Network response was not ok")
+        })
+      .catch(err => console.log(err));
+  };
+
+  render() {
+    
+    const PostMoment = 
+    <Center
+        _dark={{ bg: "blueGray.900" }}
+        _light={{ bg: "blueGray.50" }}
+        px={4}
+        flex={1}
+      >
+
+      <VStack space={5} alignItems="center">
+          <Text>New Level in State: {this.state.new_level} </Text>
+          <Heading size="lg">Track Your Moment</Heading>
+            <Input
+              w="75%"
+              maxW="300px"
+              onChangeText={this.handleLevelChange}
+              placeholder="Please Enter a Value"
+            />
+            <Button onPress={this.handleSubmit}>Submit</Button>
+      </VStack>
+    </Center> 
+
+
       return (
 
         <NativeBaseProvider>
-          <PostMoment />   
+          {PostMoment}
           <RecentMoments 
             alerts={this.state.alerts} 
             visible={this.state.isAlertsVisible} 
             toggleAlerts={this.toggleAlerts}
           />
-          {/*
+        {/*
+          <PostMoment 
+            // handleLevelChange={this.handleLevelChange}
+            handleSubmit={this.handleSubmit}
+            new_level={this.state.new_level}
+        />  
+            
           <UserStats average={this.state.average} />
           <EditHistory />
-          */}
+        */}
         </NativeBaseProvider>    
     )
   } 
 }
 
 
-
-class PostMoment extends Component {
-  render(){
-    return (
-      <NativeBaseProvider>
-        <Text>Track Moment</Text>
-      </NativeBaseProvider>
-    )
-  }   
-}
-
 class RecentMoments extends Component {
-
 
   render() {
     l("rendering react moments")
@@ -169,18 +220,20 @@ class RecentMoments extends Component {
     return(
       <NativeBaseProvider>
         <Box>
-          <Pressable onPress={() => {
-            this.props.toggleAlerts();
-            l(`toggleAlerts should toggling: ${this.props.visible}`);
-            }
-          }>
-            <Heading fontSize="xl" p="4" pb="3">
-              View Recent Moments
-            </Heading>
-          </Pressable>
-
+          <Center>
+            <Pressable onPress={() => {
+              this.props.toggleAlerts();
+              l(`toggleAlerts should toggling: ${this.props.visible}`);
+             }
+           }>
+               <Heading fontSize="xl">
+                 View Recent Moments
+               </Heading>
+             </Pressable>
+           </Center>
+           
         {this.props.visible &&
-          <FlatList data={this.props.alerts} renderItem={({
+          <FlatList data={this.props.alerts.slice(0,5)} renderItem={({
             item
           }) => 
             <Box borderBottomWidth="1" _dark={{
