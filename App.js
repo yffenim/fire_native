@@ -25,7 +25,7 @@ import {
 // shortened expression for loggin
 const l = (arg) => console.log(arg);
 // fetch to API
-const apiURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts';
+const apiURL = 'https://limitless-citadel-71686.herokuapp.com/api/alerts/';
 // fetch to local
 const localURL = 'http://localhost:3000/api/alerts/';
 
@@ -87,8 +87,8 @@ class UserDashboard extends Component {
 // Load API data for Alert state
   getAlerts = () => {
     l("getting Alerts");
-    // return fetch(apiURL)         
-    return fetch(localURL)
+    return fetch(apiURL)         
+    // return fetch(localURL)
       .then((response) => {
         if (response.ok) { 
           l("response ok");
@@ -143,8 +143,8 @@ class UserDashboard extends Component {
     l("inside handle submit function");
     let alert_level = this.state.new_level;
     l(alert_level);
-    fetch((localURL), {
-    // fetch((apiURL), {
+    // fetch((localURL), {
+    fetch((apiURL), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -171,11 +171,10 @@ class UserDashboard extends Component {
 
 // DELETE request
   handleDelete = (id) => {
-    console.log("inside delete")
-    console.log(id);
-    const deleteURL = localURL + id
-    // const deleteURL = apiURL + id
-    console.log(deleteURL);
+    l("inside delete")
+    l(id);
+    // const deleteURL = localURL + id
+    const deleteURL = apiURL + id
     fetch(deleteURL, {
       method: "delete",
     })
@@ -191,8 +190,8 @@ class UserDashboard extends Component {
 
 // UPDATE edit 
   handleEdit = (id) => {
-    // let editURL = apiURL + id
-    let editURL = localURL + id
+    let editURL = apiURL + id
+    // let editURL = localURL + id
     l(`edit id is: ${id}`);
     // l(editURL);
     let alert_level = this.state.new_level;
@@ -315,6 +314,7 @@ class RecentMoments extends Component {
                   </Text>
                
                   <HStack space={3}>
+                    
                     <Pressable
                       onPress={() => this.props.handleDelete(item.id)}
                     >
@@ -360,6 +360,10 @@ class RecentMoments extends Component {
                             {this.props.setShowModal(false) }}>
                           Cancel
                           </Button>
+                          {/* REPLICATION OF ENDLESS FUNCTION CALL ERROR */} 
+                          {/*
+                          <Button onPress={this.props.handleEdit(item.id)}>
+                          */}
                           <Button onPress={() => {
                              this.props.setShowModal(false)
                              this.props.handleEdit(item.id)
