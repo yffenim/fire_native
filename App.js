@@ -81,7 +81,9 @@ class UserDashboard extends Component {
 
 // Load API data for Alert state
   getAlerts = () => {
-    return fetch(apiURL)         
+    l("getting Alerts");
+    // return fetch(apiURL)         
+    return fetch(localURL)
       .then((response) => {
         if (response.ok) { 
           l("response ok");
@@ -90,7 +92,7 @@ class UserDashboard extends Component {
         throw new Error("Network response was not ok.");
         })
           .then((response) => {
-            // l(response);
+            l(response);
             var respArr = response[0];
             var respCount = response[1].count;
             var respAvg = response[1].average;
@@ -137,8 +139,8 @@ class UserDashboard extends Component {
     l("inside handle submit function");
     let alert_level = this.state.new_level;
     l(alert_level);
-
-    fetch((apiURL), {
+    fetch((localURL), {
+    // fetch((apiURL), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -161,6 +163,57 @@ class UserDashboard extends Component {
         throw new Error("Network response was not ok")
         })
       .catch(err => console.log(err));
+  };
+
+// DELETE request
+  handleDelete = (id) => {
+    console.log("inside delete")
+    console.log(id);
+    const deleteURL = localURL + id
+    // const deleteURL = apiURL + id
+    console.log(deleteURL);
+    // fetch(deleteURL, {
+    //   method: "delete",
+    // })
+    // .then((response) => {
+    //   if (response.ok) {
+    //     console.log(`deleted ${id}`);
+    //     this.updateAlerts();
+    //     // return response.json();
+    //   }
+    //   throw new Error("Network response was not ok.");
+    // })
+  };
+
+// UPDATE edit 
+  handleEdit = (id) => {
+    // let editURL = apiURL + id
+    let editURL = localURL + id
+    l(`edit id is: ${id}`);
+    l(editURL);
+    let alert_level = this.state.new_level;
+    // fetch(editURL, {
+    //   method: 'PATCH',
+    //     headers: {
+    //      'Content-Type': 'application/json',
+    //      'X-Requested-With': 'XMLHttpRequest',
+    //     // 'X-CSRF-Token' : token,
+    //   },
+    //   body: JSON.stringify({
+    //     alert: {
+    //       level: alert_level,
+    //       user_id: 1
+    //     }
+    //   })
+    // })
+    // .then((response) => {
+    //   if (response.ok) {
+    //     console.log("response ok for update");
+    //     this.updateAlerts();
+    //     return response.json();
+    // }
+    // throw new Error("Network response was not ok");
+    // })
   };
 
   render() {
@@ -195,6 +248,7 @@ class UserDashboard extends Component {
             alerts={this.state.alerts} 
             visible={this.state.isAlertsVisible} 
             toggleAlerts={this.toggleAlerts}
+            handleDelete={this.handleDelete}
           />
         {/*
           <PostMoment 
@@ -244,13 +298,26 @@ class RecentMoments extends Component {
                   <Text _dark={{
                     color: "warmGray.50"
                     }} color="coolGray.800" bold>
-                      Level: {item.level}
+                      LEVEL: {item.level}
                   </Text>
-                  <Text color="coolGray.600" _dark={{
-                    color: "warmGray.200"
-                    }}>
-                      EDIT / DELETE
-                  </Text>
+               
+                  <HStack space={3}>
+                    {/* <Pressable onPress={this.props.handleDelete(item.id)}> */}
+                    <Pressable
+                      onPress={this.props.handleDelete(item.id)}                 
+                    >
+                    <Text fontSize="xs" color="coolGray.600" _dark={{
+                    color: "warmGray.200"}}
+                    >DELETE</Text>
+                  </Pressable>
+                  <Pressable onPress={this.handleUpdate}>
+                    <Text fontSize="xs" color="coolGray.600" _dark={{
+                    color: "warmGray.200"}}
+                    >EDIT</Text>
+                  </Pressable>
+                  
+
+                  </HStack>
                 </VStack>
                 <Spacer />
                 <Text fontSize="xs" _dark={{
