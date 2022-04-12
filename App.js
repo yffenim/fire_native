@@ -309,7 +309,9 @@ class RecentMoments extends Component {
                   <Text _dark={{
                     color: "warmGray.50"
                     }} color="coolGray.800" bold>
-                      LEVEL: {item.level}
+                  LEVEL: {item.level}
+
+
                   </Text>
                
                   <HStack space={3}>
@@ -339,8 +341,8 @@ class RecentMoments extends Component {
                         <FormControl>
                           <FormControl.Label>Level</FormControl.Label>
                           <Input 
-                            onChangeText={() => 
-                              this.props.handleLevelChange()}
+                            onChangeText={(text) => 
+                              this.props.handleLevelChange(parseInt(text))}
                             placeholder={`${item.level}`}
                           />
 
