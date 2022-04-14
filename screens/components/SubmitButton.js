@@ -9,8 +9,9 @@ const l = (arg) => console.log(arg);
 const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 // const baseURL = 'http://localhost:3000/api/alerts/';
 
-export default function SubmitButton({level}) {
+export default function SubmitButton({level, updateDisplay}) {
 	l(`level state from inside button: ${level}`);
+	
 	const postApiCall = () => {
 		l("posting...");
 		fetch(baseURL, {
@@ -28,7 +29,8 @@ export default function SubmitButton({level}) {
 			})
 		.then((response) => {
 			if (response.ok) {
-				alert("Level Successfully Submitted!")
+				alert("Level Successfully Submitted!");
+				updateDisplay();
 				return response.json();
 			}
 				alert("Oops, something went wrong!")
@@ -42,7 +44,6 @@ export default function SubmitButton({level}) {
 		<Center>
 			<Button size="xs" w="100"
 				onPress={postApiCall}
-				// onPress={onSubmitPress}
 		  >SUBMIT ME!</Button>
  		</Center>
 	)

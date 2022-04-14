@@ -24,22 +24,26 @@ import SubmitButton from './SubmitButton'
 const l = (arg) => console.log(arg);
 
 
-export default function SubmitMoment() {
+export default function SubmitMoment({updateMoments}) {
   const [level, setLevel] = useState({});
 
+// passing from child to parent (from submit button to here)
+  function updateDisplay() {
+    l("update display in parent of SubButton aka SubMoment!");
+    updateMoments();
+  }
   // function buttonHandler(){
 		// l("button clicked!");		
 	// }
-// check if moments state has been updated
-useEffect(() => {
-    l(`useEffect for level: ${level}`);
-  }, [level]
-)
+
+// after submitting
+// lift state up from child to here, then from here to top level 
+// so that can be passed to sibling component
 
   return (
     <VStack space={5}>
       <InputSlider level={level} setLevel={setLevel} />
-      <SubmitButton level={level} a/>
+      <SubmitButton level={level} updateDisplay={updateDisplay} />
     </VStack>
   );
 }

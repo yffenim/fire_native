@@ -20,6 +20,6 @@ const [user, setUser] = useState({});
 
 
   return (
-      <Text>Hello there {user.name}</Text>
+    <Text fontSize="lg">Hello there {user.name}</Text>
 	);
 }

@@ -5,20 +5,20 @@ import { Box, Button, Slider, Text, VStack } from 'native-base';
 const l = (arg) => console.log(arg);
 
 export default function InputSlider({ level, setLevel }) {
-	const defaultValue = 5
-	const [onChangeValue, setOnChangeValue] = React.useState(defaultValue);
-	const [onChangeEndValue, setOnChangeEndValue] = React.useState(defaultValue);
+	const defaultValue = null
+	const [onChangeValue, setOnChangeValue] = React.useState();
+	const [onChangeEndValue, setOnChangeEndValue] = React.useState();
 
 // set the moment state from the slider here
 // lift state up to parent
 // pass into submit button component
 
+
 	return (
 		<VStack w="100%" alignItems="center" space="2">
-			<Text textAlign="center">onChangeValue - {onChangeValue}</Text>
-      <Text textAlign="center">onChangeEndValue - {onChangeEndValue}</Text>
+			<Text textAlign="center">How do you feel? {onChangeValue}</Text>
+			{/* <Text textAlign="center">END VALUE - {onChangeEndValue}</Text> */}
 			<Slider w="200"
-				defaultValue={defaultValue} 
 				minValue={1} 
 				maxValue={10} 
 				step={1}
