@@ -1,50 +1,50 @@
-import React, { Component } from 'react';
-import { 
-	Center, 
-	Text, 
-	Container,
-	Header,
-	Input,
-	Button,
-	Pressable,
-	Spacer
-} from 'native-base';
-import greeting from '../components/UserGreeting'
-// import hello from '../components/hello'
-// import Print from '../components/HelloClass'
+import React, { useState, useEffect } from "react";
+// import { Text } from "native-base";
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 
-class HomeScreen extends Component {
-	constructor(prop) {
-		super(prop);
+const l = (arg) => console.log(arg);
+// const url = 'https://limitless-citadel-71686.herokuapp.com/api/users/1';
 
-			this.state = {
-        alerts: [],
-        user: [],
-        average: 0,
-        count: 0,
-        new_alert: null,
-        isAlertsVisible: false,
-        showModal: false
-      }
-	}
+// export default function greeting() {
+// 	return <Text>Hello</Text>
+// }
 
-	render() {
+// export function getUser() {
+//   return fetch(url)
+//     .then(response => response.json())
+// }
 
-		return (
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-			>
-				{greeting()}
+export default function HomeScreen() {
+  // const [user, setUser] = React.useState([]);
 
+  // const handleUserResults = () => {
+  //   getUser().then(response => { setUser(response); 
+  //   l(response);
+  //   });
+  // }
 
+// useEffect(() => {
+// 	handleUserResults();
+// 	}, []);
 
-			</Center>
-		)
-	}
+const [data, setData] = useState({});
+  const loadData = async () => {
+    const res = await fetch("https://api.agify.io/?name=effy");
+    setData(await res.json());
+  };  useEffect(() => {
+    loadData();
+    return () => {};
+  }, []);
+
+  return (
+    <View>
+      <Text>User: {data.name} </Text>
+    </View>
+	);
 }
 
-export default HomeScreen;
+
+
+
+

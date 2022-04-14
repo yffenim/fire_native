@@ -17,7 +17,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@native-base/icons": "^0.0.11",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.1",
@@ -35,7 +34,13 @@
     "virtual-dom": "^2.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-plugin-react-native": "^4.0.0",
+    "prettier": "2.6.2"
   },
   "bugs": {
     "url": "https://github.com/GeekyAnts/nativebase-templates/issues"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   Box,
@@ -17,55 +17,53 @@ import {
   Code,
   Icon,
 } from "native-base";
-import { StyleSheet } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { StyleSheet } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 // shortened expression for loggin
-const l = (arg) => console.log(arg)
-
+const l = (arg) => console.log(arg);
 
 // component function
-export default function LandingScreen( {navigation} ) {
+export default function LandingScreen({ navigation }) {
   return (
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
-
+    <Center
+      _dark={{ bg: "blueGray.900" }}
+      _light={{ bg: "blueGray.50" }}
+      px={4}
+      flex={1}
+    >
       <VStack space={5} alignItems="center">
         <HStack space={2} alignItems="center">
           <Heading size="lg">Welcome to Fire</Heading>
           <FontAwesome5 name="fire" size={24} color="red" />
         </HStack>
-        
-        <Button 
+
+        <Button
           shadow={2}
           colorScheme="indigo"
           onPress={() => {
-            l("Login Pressed!")
-            navigation.navigate('Login')}
-            }
+            l("Login Pressed!");
+            navigation.navigate("Login");
+          }}
         >
           Sign in or Sign up!
         </Button>
 
-          <Button 
-            mt="2" 
-            colorScheme="gray" 
-            variant="outline"
-            onPress={() => {navigation.navigate('Home')}
-            }
-          >
-            But for now: Let's Pretend To Sign In
-          </Button>
+        <Button
+          mt="2"
+          colorScheme="gray"
+          variant="outline"
+          onPress={() => {
+            navigation.navigate("Dashboard");
+          }}
+        >
+          But for now: Let's Pretend To Sign In
+        </Button>
 
         <ToggleDarkMode />
-        </VStack>
-      </Center>
+      </VStack>
+    </Center>
   );
 }
 
@@ -88,7 +86,7 @@ function ToggleDarkMode() {
   );
 }
 // User StorageManager to persist the color mode selection even when app is refreshed
-// why is this also not working 
+// why is this also not working
 const colorModeManager: StorageManager = {
   get: async () => {
     try {
@@ -106,6 +104,3 @@ const colorModeManager: StorageManager = {
     }
   },
 };
-
-
-

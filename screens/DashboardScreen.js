@@ -11,7 +11,6 @@ import {
 } from 'native-base';
 
 
-
 const l = (arg) => console.log(arg);
 
 
@@ -41,6 +40,7 @@ export default function DashboardScreen() {
       <Text>Hellow {data.name}</Text>
 
 		</Center>
+
 	);
 }
 

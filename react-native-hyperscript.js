@@ -1,7 +1,6 @@
-
-'use strict';
-var parseTag = require('./parse-tag');
-var React = require('react-native');
+"use strict";
+var parseTag = require("./parse-tag");
+var React = require("react-native");
 
 module.exports = h;
 
@@ -15,7 +14,7 @@ function h(component, properties, children) {
   }
 
   // When a selector, parse the tag name and fill out the properties object
-  if (typeof component === 'string') {
+  if (typeof component === "string") {
     component = parseTag(component, properties);
   }
 
@@ -25,5 +24,5 @@ function h(component, properties, children) {
 }
 
 function isChildren(x) {
-  return typeof x === 'string' || Array.isArray(x);
+  return typeof x === "string" || Array.isArray(x);
 }
