@@ -1,46 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { 
-	Center, 
-	Text, 
-	Container,
-	Header,
-	Input,
-	Button,
-	Pressable,
-	Spacer
-} from 'native-base';
+import {
+  VStack,
+  HStack,
+  Center,
+  Text,
+  Box,
+  Button,
+  NativeBaseProvider,
+  Heading,
+  FormControl,
+  Input,
+  Link,
+  FlatList,
+  Spacer,
+  Pressable,
+  SectionList,
+  AlertDialog,
+  Modal,
+} from "native-base";
+import UserGreeting from './components/UserGreeting'
+import DisplayMoments from './components/DisplayMoments'
+import SubmitMoment from './components/SubmitMoment'
 
-
-const l = (arg) => console.log(arg);
-
+// const l = (arg) => console.log(arg);
 
 export default function DashboardScreen() {
-
-  const [data, setData] = useState({});
-  l(data);
-
-  const loadData = async () => {
-    const res = await fetch("https://api.agify.io/?name=effy");
-    setData(await res.json());
-  };  
-  
-  useEffect(() => {
-    loadData();
-    return () => {};
-  }, []);
-
-  
   return (
-    <Center
+    <Box
       _dark={{ bg: "blueGray.900" }}
       _light={{ bg: "blueGray.50" }}
       px={4}
       flex={1}
-		>
-      <Text>Hellow {data.name}</Text>
-
-		</Center>
-
-	);
+      h="10"
+     >
+      <Center h="200"> 
+        <UserGreeting />
+      </Center>
+      <VStack space={8} alignItems="center">
+        <SubmitMoment />
+        <DisplayMoments />
+      </VStack> 
+		</Box>
+  )
 }
-
