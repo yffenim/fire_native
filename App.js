@@ -9,7 +9,6 @@ import { NativeBaseProvider, extendTheme } from "native-base";
 import LandingScreen from "./screens/LandingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-// import HomeScreen from "./screens/HomeScreen";
 import DataScreen from "./screens/DataScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 
@@ -18,7 +17,7 @@ const Stack = createNativeStackNavigator();
 
 export default class App extends React.Component {
   render() {
-    // set default to dark
+    // set default theme to dark
     const config = {
       useSystemColorMode: false,
       initialColorMode: "dark",
@@ -33,7 +32,7 @@ export default class App extends React.Component {
           <Stack.Navigator>
             <Stack.Screen
               name="Landing" // name can now be used in nav methods
-              component={LandingScreen} // what component to load
+              component={LandingScreen} 
               options={{ title: "Landing Screen" }}
             />
             <Stack.Screen
@@ -48,6 +47,7 @@ export default class App extends React.Component {
             />
             <Stack.Screen
               name="Dashboard"
+              par="test"
               component={DashboardScreen}
               options={{ title: "Dashboard Screen" }}
             />
@@ -63,6 +63,5 @@ export default class App extends React.Component {
   }
 }
 
-// export default App;
 
 AppRegistry.registerComponent("Fire", () => App);

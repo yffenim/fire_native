@@ -15,13 +15,14 @@ export default function InputSlider({ level, setLevel }) {
 
 
 	return (
-		<VStack w="100%" alignItems="center" space="2">
-			<Text textAlign="center">How do you feel? {onChangeValue}</Text>
+		<VStack w="100%" alignItems="center" space="3">
+			<Text textAlign="center" fontSize="lg"> How do you feel? {onChangeValue}</Text>
 			{/* <Text textAlign="center">END VALUE - {onChangeEndValue}</Text> */}
 			<Slider w="200"
 				minValue={1} 
 				maxValue={10} 
 				step={1}
+				colorScheme="indigo"
 				onChange={(value) => {
 					// l(value);
 					setOnChangeValue(value);

@@ -1,46 +1,42 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   VStack,
-  HStack,
   Center,
   Text,
   Box,
-  Button,
-  NativeBaseProvider,
-  Heading,
-  FormControl,
-  Input,
-  Link,
-  FlatList,
-  Spacer,
-  Pressable,
-  SectionList,
-  AlertDialog,
-  Modal,
 } from "native-base";
-import UserGreeting from './components/UserGreeting'
+// import UserGreeting from './components/UserGreeting'
 import DisplayMoments from './components/DisplayMoments'
 import SubmitMoment from './components/SubmitMoment'
-
 // testing out useRefs
-import ChildComponent from './components/ChildComponent';
-
+// import ChildComponent from './components/ChildComponent';
 const l = (arg) => console.log(arg);
 
-// TOP LEVEL COMPONENT: [DashboardScreen]
-// then: [SubmitMoment, DisplayMoment]
-// then: [SubmitButton, InputSlider], [DisplayMomentsList]]
-export default function DashboardScreen() {
-  
 
-// passing from child to parent (from SubmitMoment to here)
-// trigger
-  function updateMoments() {
-    l("update from in TOP parent!");
-  }
 
-// useRef is passed into DisplayMoments so we can grab a function from there
+// TREE DESCRIPTION:
+// [DashboardScreen]
+// [SubmitMoment, DisplayMoment]
+// [SubmitButton, InputSlider], [DisplayMomentsList]]
+
+
+
+export default function DashboardScreen( {route, navigation} ) {
+
+// trying to see what exactly is passed in navigation objects  
+  // l(`navigation obj: ${route.par}`);
+  // l(`navigation obj: ${route.name}`);
+  // l(`navigation obj: ${route.params}`);
+
+// getting the email input from Login
+  const { otherParam } = route.params;
+  const name = JSON.stringify(otherParam.name).replace(/"/g,"");
+
+// testing out Refs from ChildComponent
   const childRef = useRef() 
+  // function updateMoments() {
+  //   l("update from in TOP parent!");
+  // }
 
   return (
     <Box
@@ -51,18 +47,18 @@ export default function DashboardScreen() {
       h="10"
      >
       <Center h="200"> 
-        <UserGreeting />
+        <Text fontSize="2xl">Hello there {name}!</Text>
+      {/* <UserGreeting /> */}
       </Center>
       <VStack space={8} alignItems="center">
-        <SubmitMoment updateMoments={updateMoments} />
-        <DisplayMoments />
-        {/*
+        <SubmitMoment />
+      {/* testing out refs:
         <ChildComponent ref={childRef} />
         <Button onPress={() => {childRef.current.sayHi()}}>
           Child Function Call
         </Button>
-
-        */}
+      */}
+        <DisplayMoments />
       </VStack> 
 		</Box>
   )

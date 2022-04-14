@@ -16,9 +16,6 @@ const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 export default function DisplayMoments() {
   const [moments, setMoments] = useState({});
 
-
-
-
   const getApiCall = () => {
     l("fetching");
     fetch(baseURL)

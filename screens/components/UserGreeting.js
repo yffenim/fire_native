@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Text, Center, Box } from 'native-base';
 
+// CURRENT INACTIVE THOUGH WORKING/WILL BE USED
 
-export default function UserGreeting() {
-const [user, setUser] = useState({});
+export default function UserGreeting({name}) {
+  const [user, setUser] = useState({});
 
 // experimenting with a different way of writing fetch
   const loadUser = async () => {
@@ -20,6 +21,6 @@ const [user, setUser] = useState({});
 
 
   return (
-    <Text fontSize="lg">Hello there {user.name}</Text>
+    <Text fontSize="lg">Hello there {name}</Text>
 	);
 }

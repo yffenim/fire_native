@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VStack,
   HStack,
@@ -11,8 +11,19 @@ import {
   Input,
   Link,
 } from "native-base";
+const l = (arg) => console.log(arg);
+
 
 function LoginScreen({ navigation }) {
+
+// setting state for passing name from login email to 
+// navigation params 
+  const [name, setName] = useState("");
+  const handleText = (text) => {
+    l(text);
+    setName(text);
+}
+
   return (
     <Center
       _dark={{ bg: "blueGray.900" }}
@@ -45,11 +56,13 @@ function LoginScreen({ navigation }) {
 
         <VStack space={3} mt="5">
           <FormControl>
-            <FormControl.Label>Email ID</FormControl.Label>
-            <Input />
+            <FormControl.Label>Your Name:</FormControl.Label>
+            <Input 
+              onChangeText={handleText}
+            />
           </FormControl>
           <FormControl>
-            <FormControl.Label>Password</FormControl.Label>
+            <FormControl.Label>Pretend Password</FormControl.Label>
             <Input type="password" />
             <Link
               _text={{
@@ -63,7 +76,14 @@ function LoginScreen({ navigation }) {
               Forget Password?
             </Link>
           </FormControl>
-          <Button mt="2" colorScheme="indigo">
+          <Button 
+            // passing params via navigation
+            onPress={() => {
+              navigation.navigate("Dashboard",
+                { otherParam: {name} } 
+              )}
+            }
+            mt="2" colorScheme="indigo">
             Sign in
           </Button>
           <HStack mt="6" justifyContent="center">
@@ -87,16 +107,6 @@ function LoginScreen({ navigation }) {
               Sign Up
             </Link>
           </HStack>
-          <Button
-            mt="2"
-            colorScheme="gray"
-            variant="outline"
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            But for now: Let's Pretend To Sign In
-          </Button>
         </VStack>
       </Box>
     </Center>

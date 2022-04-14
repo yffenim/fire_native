@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  Text,
 	Button,
 	Center
 } from "native-base";
@@ -42,7 +41,7 @@ export default function SubmitButton({level, updateDisplay}) {
 
 	return (
 		<Center>
-			<Button size="xs" w="100"
+			<Button size="xs" w="100" colorScheme="indigo"
 				onPress={postApiCall}
 		  >SUBMIT ME!</Button>
  		</Center>
