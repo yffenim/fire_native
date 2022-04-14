@@ -17,34 +17,32 @@ import {
   AlertDialog,
   Modal,
 } from "native-base";
+// import child components
+import InputSlider from './InputSlider'
+import SubmitButton from './SubmitButton'
 
 const l = (arg) => console.log(arg);
-const url = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
-// const url = 'http://localhost:3000/api/alerts/';
-
-// const fetchMoments = () => {
-// 	const [moments, setMoments] = setState({});
-
-// 	const loadMoments = async () => {
-// 		const res = await fetch(url);
-// 		setMoments(await res.json());
-// 	};
-// }
-
-// const listMoments = (moments) => {
-//   const [
-
-// function hello(name) {
-//   return <Text>Hi {name} from imported </Text>;
-// }
 
 
-function SubmitMoment() {
+export default function SubmitMoment() {
+  const [level, setLevel] = useState({});
+
+  // function buttonHandler(){
+		// l("button clicked!");		
+	// }
+// check if moments state has been updated
+useEffect(() => {
+    l(`useEffect for level: ${level}`);
+  }, [level]
+)
+
   return (
-			<Text>
-				Submit Moment
-		</Text>
-  )
+    <VStack space={5}>
+      <InputSlider level={level} setLevel={setLevel} />
+      <SubmitButton level={level} a/>
+    </VStack>
+  );
 }
 
-export default SubmitMoment;
+
+
