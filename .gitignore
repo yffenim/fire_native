@@ -55,3 +55,6 @@ buck-out/
 
 npm-debug.log
 yarn-error.log
+
+# ignore version saves
+/old/

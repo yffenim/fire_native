@@ -1,11 +1,16 @@
 import React from 'react';
-import { VStack, HStack, Center, Text, Box, Button, NativeBaseProvider, Heading, FormControl, Input, Link } from "native-base";
+import { VStack, HStack, Center, Text, Box, Button, Heading, FormControl, Input, Link } from "native-base";
+
 
 function LoginScreen({ navigation }) {
   return (
-    <NativeBaseProvider>
-      <Center w="100%">
-        <Box safeArea p="2" py="8" w="90%" maxW="290">
+      <Center
+        _dark={{ bg: "blueGray.900" }}
+        _light={{ bg: "blueGray.50" }}
+        px={4}
+        flex={1}
+       >
+       <Box safeArea p="2" py="8" w="90%" maxW="290">
         <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
         color: "warmGray.50"
       }}>
@@ -54,7 +59,7 @@ function LoginScreen({ navigation }) {
             mt="2" 
             colorScheme="gray" 
             variant="outline"
-            onPress={() => {navigation.navigate('User')}
+            onPress={() => {navigation.navigate('Home')}
             }
           >
             But for now: Let's Pretend To Sign In
@@ -62,7 +67,6 @@ function LoginScreen({ navigation }) {
         </VStack>
       </Box>
     </Center>
-  </NativeBaseProvider>    
   );
 }
 
