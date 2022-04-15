@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, Slider, Text, VStack } from 'native-base';
+import React from 'react';
+import { Slider, Text, VStack } from 'native-base';
 // import SubmitButton from './SubmitButton'
 
 const l = (arg) => console.log(arg);
@@ -11,8 +11,7 @@ export default function InputSlider({ level, setLevel }) {
 
 // set the moment state from the slider here
 // lift state up to parent
-// pass into submit button component
-
+// pass back into sibling button component
 
 	return (
 		<VStack w="100%" alignItems="center" space="3">
@@ -20,15 +19,13 @@ export default function InputSlider({ level, setLevel }) {
 			{/* <Text textAlign="center">END VALUE - {onChangeEndValue}</Text> */}
 			<Slider w="200"
 				minValue={1} 
-				maxValue={10} 
+				maxValue={9} 
 				step={1}
 				colorScheme="indigo"
 				onChange={(value) => {
-					// l(value);
 					setOnChangeValue(value);
 				}}
 				onChangeEnd={(value) => {
-					// value && setOnChangeEndValue(value) && setMoment(value);
 					value && setLevel(value);
 				}}
 	  	>

@@ -7,7 +7,7 @@ import SubmitButton from './SubmitButton'
 const l = (arg) => console.log(arg);
 
 
-export default function SubmitMoment() {
+export default function InputMoment() {
   const [level, setLevel] = useState({});
 
 // passing from child to parent (from submit button to here)

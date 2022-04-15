@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Center, Box } from 'native-base';
+import { Text } from 'native-base';
 
 // CURRENT INACTIVE THOUGH WORKING/WILL BE USED
 

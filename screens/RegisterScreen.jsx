@@ -1,16 +1,13 @@
 import React from "react";
 import {
   VStack,
-  HStack,
   Center,
-  Text,
   Box,
   Button,
   NativeBaseProvider,
   Heading,
   FormControl,
   Input,
-  Link,
 } from "native-base";
 
 function RegisterScreen({ navigation }) {

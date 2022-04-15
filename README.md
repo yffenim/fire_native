@@ -6,11 +6,7 @@ Clone the repo: git clone https://github.com/yffenim/fire_native.git
 
 Navigate to the project directory.
 
-Please run this install command and _ignore_ all warnings that might appear!
-
-`npm -i expo-cli` inside of directory
-
-**Please do NOT run `npm audit` as suggested if you see any vulnerability warnings, even if they are "high"**
+**When you run the install command, you may see a lot of warnings. Please do not run `npm audit` as suggested even if the vulnerabilities are "high"**
 
 `npm install` from within project directory
 

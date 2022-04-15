@@ -1,29 +1,22 @@
 import React, { useRef } from "react";
-import {
-  VStack,
-  Center,
-  Text,
-  Box,
-} from "native-base";
+import { VStack, Center, Text, Box } from "native-base";
 // import UserGreeting from './components/UserGreeting'
-import DisplayMoments from './components/DisplayMoments'
-import SubmitMoment from './components/SubmitMoment'
+import DisplayMoments from '../components/DisplayMoments'
+import InputMoment from '../components/InputMoment'
 // testing out useRefs
 // import ChildComponent from './components/ChildComponent';
 const l = (arg) => console.log(arg);
 
 
-
 // TREE DESCRIPTION:
 // [DashboardScreen]
-// [SubmitMoment, DisplayMoment]
+// [InputMoment, DisplayMoment]
 // [SubmitButton, InputSlider], [DisplayMomentsList]]
-
 
 
 export default function DashboardScreen( {route, navigation} ) {
 
-// trying to see what exactly is passed in navigation objects  
+// TODO:trying to see what exactly is passed in navigation objects  
   // l(`navigation obj: ${route.par}`);
   // l(`navigation obj: ${route.name}`);
   // l(`navigation obj: ${route.params}`);
@@ -51,7 +44,7 @@ export default function DashboardScreen( {route, navigation} ) {
       {/* <UserGreeting /> */}
       </Center>
       <VStack space={8} alignItems="center">
-        <SubmitMoment />
+        <InputMoment />
       {/* testing out refs:
         <ChildComponent ref={childRef} />
         <Button onPress={() => {childRef.current.sayHi()}}>

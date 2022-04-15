@@ -4,7 +4,6 @@ import { AppRegistry } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, extendTheme } from "native-base";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 // load all screens
 import LandingScreen from "./screens/LandingScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -13,6 +12,7 @@ import DataScreen from "./screens/DataScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 
 // in lieu of routing, we have a navigator to handle movement between screens
+
 const Stack = createNativeStackNavigator();
 
 export default class App extends React.Component {
@@ -22,10 +22,9 @@ export default class App extends React.Component {
       useSystemColorMode: false,
       initialColorMode: "dark",
     };
-
     // extend the theme
     const customTheme = extendTheme({ config });
-
+    
     return (
       <NativeBaseProvider theme={customTheme}>
         <NavigationContainer>

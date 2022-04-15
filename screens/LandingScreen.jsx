@@ -1,9 +1,7 @@
 import React from "react";
 import {
   Text,
-  Box,
   Button,
-  Link,
   HStack,
   Center,
   Heading,
@@ -12,15 +10,13 @@ import {
   StorageManager,
   ColorMode,
   VStack,
-  Code,
-  Icon,
 } from "native-base";
 import { StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import Button components
-// import GoToLoginButton from "./components/GoToLoginButton"
-import LetsPretendButton from "./components/LetsPretendButton"
+// import GoToLoginButton from "../components/GoToLoginButton"
+import LetsPretendButton from "../components/LetsPretendButton"
 
 const l = (arg) => console.log(arg);
 
