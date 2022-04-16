@@ -4,16 +4,13 @@ import { AppRegistry } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, extendTheme } from "native-base";
-// load all screens
-import LandingScreen from "./screens/LandingScreen";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import DataScreen from "./screens/DataScreen";
-import DashboardScreen from "./screens/DashboardScreen";
+// Load Navigation Stack
+import { 
+  LandingNavigator, 
+  LoginNavigator, 
+  DashboardNavigator, 
+  DataNavigator } from './src/navigations/NavigationScreen'
 
-// in lieu of routing, we have a navigator to handle movement between screens
-
-const Stack = createNativeStackNavigator();
 
 export default class App extends React.Component {
   render() {
@@ -24,37 +21,18 @@ export default class App extends React.Component {
     };
     // extend the theme
     const customTheme = extendTheme({ config });
-    
+    // Creat Stack Object for Navigator
+    const Stack = createNativeStackNavigator();
+
     return (
       <NativeBaseProvider theme={customTheme}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen
-              name="Landing" // name can now be used in nav methods
-              component={LandingScreen} 
-              options={{ title: "Landing Screen" }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ title: "Login Screen" }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={RegisterScreen}
-              options={{ title: "Register Screen" }}
-            />
-            <Stack.Screen
-              name="Dashboard"
-              par="test"
-              component={DashboardScreen}
-              options={{ title: "Dashboard Screen" }}
-            />
-            <Stack.Screen
-              name="Data"
-              component={DataScreen}
-              options={{ title: "Data Screen" }}
-            />
+            {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
+            {LandingNavigator}
+            {LoginNavigator}
+            {DashboardNavigator}
+            {DataNavigator}
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

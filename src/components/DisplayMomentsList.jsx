@@ -12,18 +12,6 @@ const l = (arg) => console.log(arg);
 // const baseURL = "https://api.agify.io/?name=effy"
 // const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
-// const DisplayMomentsList = (input) => {
-// 	return(
-// 	<Text>Test for display: {input}</Text>
-// )}
-
-
-// export default function Testing({data, onChildClick}) {
-//     return (
-//     <Button onPress={onChildClick}><Text>Button</Text></Button>
-//   )
-// }
-
 const DisplayMomentsList = ({data}) => { 
 	return(
     <FlatList data={data} renderItem={({

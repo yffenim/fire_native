@@ -1,17 +1,18 @@
 import React, { useRef } from "react";
 import { VStack, Center, Text, Box } from "native-base";
 import l from "../helpers/consolelog.js";
-import { getLoginName } from "../helpers/navParams.js";
-// import UserGreeting from './components/UserGreeting'
-import DisplayMoments from '../components/DisplayMoments'
-import InputMoment from '../components/InputMoment'
+import { getLoginName } from "../src/navigations/navParams.js";
+import UserGreeting from '../src/components/UserGreeting'
+import DisplayMoments from '../src/components/DisplayMoments'
+import InputMoment from '../src/components/InputMoment'
 // testing out useRefs
 // import ChildComponent from './components/ChildComponent';
   // const l = (arg) => console.log(arg);
 
 export default function DashboardScreen( {route, navigation} ) {
-
+  
   const name = getLoginName(route.params);
+  // l("Dashboard screen:", name);
 // testing out Refs from ChildComponent
   const childRef = useRef() 
   // function updateMoments() {
@@ -25,21 +26,12 @@ export default function DashboardScreen( {route, navigation} ) {
       px={4}
       flex={1}
       h="10"
-     >
-      <Center h="200"> 
-        <Text fontSize="2xl">Hello there {name}!</Text>
-      {/* <UserGreeting /> */}
-      </Center>
-      <VStack space={8} alignItems="center">
+    >
+      <VStack space={4}>
+        <UserGreeting name={name}/>
         <InputMoment />
-      {/* testing out refs:
-        <ChildComponent ref={childRef} />
-        <Button onPress={() => {childRef.current.sayHi()}}>
-          Child Function Call
-        </Button>
-      */}
         <DisplayMoments />
-      </VStack> 
+      </VStack>
 		</Box>
   )
 }

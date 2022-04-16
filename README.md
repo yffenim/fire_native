@@ -1,6 +1,6 @@
 # ReactNative client for FireAPI, Version 1
 
-### To run locally:
+## Instructions for Use
 
 Clone the repo: git clone https://github.com/yffenim/fire_native.git
 
@@ -30,5 +30,20 @@ Follow the instructions from your terminal.
 `npm start --reset-cache`
 
 If you have used `yarn` to install any dependencies, please remove the `yarn.lock` and re-install modules with `npm`.
+
+## Instructions for Dev
+
+`app.jsx` -> entrypoint
+`screens` -> self-explanatory
+`containers` -> stateful components (the ones making API calls)
+`components` -> stateless components 
+`helpers` -> function imports 
+`__tests__` -> tests using jest with `npm run test`
+
+## Tree hierarchy
+
+[DashboardScreen]
+[[UserGreeting, InputMoment, DisplayMoments]]
+[[],[InputSlider, SubmitButton],[UpdateMomentsList, DisplayMomentsList]]
 
 ### Thank you

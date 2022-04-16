@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text } from 'native-base';
-
+import { Text, Center } from 'native-base';
+import l from '../../helpers/consolelog'
 // CURRENT INACTIVE THOUGH WORKING/WILL BE USED
 
-export default function UserGreeting({name}) {
+const UserGreeting = (props) => {
   const [user, setUser] = useState({});
-
+  
 // experimenting with a different way of writing fetch
   const loadUser = async () => {
     const res = await fetch("https://api.agify.io/?name=effy");
@@ -19,8 +19,13 @@ export default function UserGreeting({name}) {
     return () => {};
   }, []);
 
-
+  // l("name: ",name);
+    
   return (
-    <Text fontSize="lg">Hello there {name}</Text>
+    <Center h="200">
+      <Text fontSize="lg">Hello there {props.name}!</Text>
+    </Center>
 	);
 }
+
+export default UserGreeting;
