@@ -28,7 +28,7 @@ export default function LandingScreen({ navigation }) {
       shadow={2}
       colorScheme="indigo"
       onPress={() => {
-        l("Login Pressed!");
+        // l("Login Pressed!");
         navigation.navigate("Login");
        }}
      >

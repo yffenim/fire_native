@@ -80,7 +80,7 @@ function LoginScreen({ navigation }) {
             // passing params via navigation
             onPress={() => {
               navigation.navigate("Dashboard",
-                { otherParam: {name} } 
+                { nameParam: {name} } 
               )}
             }
             mt="2" colorScheme="indigo">

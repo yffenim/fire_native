@@ -9,7 +9,7 @@ const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 // const baseURL = 'http://localhost:3000/api/alerts/';
 
 export default function SubmitButton({level, updateDisplay}) {
-	l(`level state from inside button: ${level}`);
+	// l(`level state from inside button: ${level}`);
 	
 	const postApiCall = () => {
 		l("posting...");

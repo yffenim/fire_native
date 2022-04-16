@@ -29,7 +29,7 @@ export default function DisplayMoments() {
 
 // update when state changes:
 useEffect(() => {
-  l("State has changed!");
+  l("Display Moments State changed and rendering - components/DisplayMoments");
   }, [moments]
 )
 

@@ -1,30 +1,17 @@
 import React, { useRef } from "react";
 import { VStack, Center, Text, Box } from "native-base";
+import l from "../helpers/consolelog.js";
+import { getLoginName } from "../helpers/navParams.js";
 // import UserGreeting from './components/UserGreeting'
 import DisplayMoments from '../components/DisplayMoments'
 import InputMoment from '../components/InputMoment'
 // testing out useRefs
 // import ChildComponent from './components/ChildComponent';
-const l = (arg) => console.log(arg);
-
-
-// TREE DESCRIPTION:
-// [DashboardScreen]
-// [InputMoment, DisplayMoment]
-// [SubmitButton, InputSlider], [DisplayMomentsList]]
-
+  // const l = (arg) => console.log(arg);
 
 export default function DashboardScreen( {route, navigation} ) {
 
-// TODO:trying to see what exactly is passed in navigation objects  
-  // l(`navigation obj: ${route.par}`);
-  // l(`navigation obj: ${route.name}`);
-  // l(`navigation obj: ${route.params}`);
-
-// getting the email input from Login
-  const { otherParam } = route.params;
-  const name = JSON.stringify(otherParam.name).replace(/"/g,"");
-
+  const name = getLoginName(route.params);
 // testing out Refs from ChildComponent
   const childRef = useRef() 
   // function updateMoments() {
