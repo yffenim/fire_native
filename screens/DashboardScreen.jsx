@@ -1,23 +1,47 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { VStack, Center, Text, Box } from "native-base";
 import l from "../helpers/consolelog.js";
 import { getLoginName } from "../src/navigations/navParams.js";
 import UserGreeting from '../src/components/UserGreeting'
 import DisplayMoments from '../src/components/DisplayMoments'
 import InputMoment from '../src/components/InputMoment'
-// testing out useRefs
-// import ChildComponent from './components/ChildComponent';
-  // const l = (arg) => console.log(arg);
+
+// This Component contains:
+// - API Get request + Moments State
+// - buttonText state for when Edit is clicked
+// - updateDisplay() that calls getApiCall and is passed to child via props for updating Moments Display List after Edit/Delete requests
 
 export default function DashboardScreen( {route, navigation} ) {
-  
   const name = getLoginName(route.params);
-  // l("Dashboard screen:", name);
-// testing out Refs from ChildComponent
-  const childRef = useRef() 
-  // function updateMoments() {
-  //   l("update from in TOP parent!");
-  // }
+  const [moments, setMoments] = useState({});
+  const [editMode, setEditMode] = useState(false);
+
+  const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+
+  const getApiCall = () => {
+    l(setMoments); 
+    l("making a GET request for Moments from top Level");
+      fetch(momentsURL)
+        .then(response => response.json())
+			  .then(response => {
+				  l("the GET response is: ", response);
+          setMoments(response);
+        })
+        .catch(err => { l("Get request for Moments error: ", err) }
+     );
+  }
+
+  useEffect(() => {
+    getApiCall();
+  }, []);
+
+
+// Lift Edit Button Click up to here, then trigger the change for the Input Text and API call from here
+  function changeInputMoment() {
+    l("changeInputMoment");
+    setEditMode(!editMode);
+// this needs to be reset once the Edit has been Submitted
+  }
 
   return (
     <Box
@@ -29,8 +53,16 @@ export default function DashboardScreen( {route, navigation} ) {
     >
       <VStack space={4}>
         <UserGreeting name={name}/>
-        <InputMoment />
-        <DisplayMoments />
+        <InputMoment 
+          updateDisplay={getApiCall} 
+          editMode={editMode}
+          setEditMode={setEditMode}
+        />
+        <DisplayMoments 
+          moments={moments} 
+          changeInputMoment={changeInputMoment}
+          updateDisplay={getApiCall}
+        />
       </VStack>
 		</Box>
   )

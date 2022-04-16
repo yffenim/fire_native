@@ -6,42 +6,75 @@ import {
   Box,
   FlatList,
   Spacer,
+  Pressable,
+  Popover
 } from "native-base";
+import EditPressable from './EditPressable';
+import DeletePressable from './DeletePressable';
+import l from '../../helpers/consolelog';
 
-const l = (arg) => console.log(arg);
-// const baseURL = "https://api.agify.io/?name=effy"
-// const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+// TODO: add formatTime()
 
-const DisplayMomentsList = ({data}) => { 
+
+
+const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay}) => { 
+
+// lifting up edit bc involves changes to parent UI components
+  function handleEdit(id) {
+    // l("handleEdit id:", id);
+    liftHandleEdit();
+  }
+
+// please forgive me for not refactoring this FlatList -___- 
+// Inside of <FlatList /> we have two child components: 
+// <EditPressable /> and <DeletePressable />
 	return(
     <FlatList data={data} renderItem={({
       item
-    }) => <Box borderBottomWidth="1" _dark={{
-      borderColor: "gray.600"
-    }} borderColor="coolGray.200" pl="4" pr="5" py="2">
+    }) => <Box borderBottomWidth="1" 
+            _dark={{ borderColor: "gray.600" }} 
+            borderColor="coolGray.200" pl="4" pr="5" py="2"
+          >
             <HStack space={3} justifyContent="space-between">
               <VStack>
-                <Text _dark={{
-            color: "warmGray.50"
-          }} color="coolGray.800" bold>
+                <Text 
+                  _dark={{ color: "warmGray.50" }} 
+                  color="coolGray.800" bold
+                >
                   LEVEL: {item.level}
                 </Text>
-                <Text color="coolGray.600" _dark={{
-            color: "warmGray.200"
-          }}>
-                  EDIT || DELETE
-                </Text>
+
+                {/* CHILD COMPONENT: EDIT */}     
+                <HStack>
+                  <EditPressable 
+                    handleEdit={()=>{handleEdit(item.id)}}
+                    item={item.id}
+                  />
+                {/* empty space in next line is intentional */}
+                  <Text>   </Text> 
+
+                {/* CHILD COMPONENT: DELETE */}     
+                  <DeletePressable 
+                    item={item.id}
+                    updateDisplay={updateDisplay}
+                   />
+                </HStack>
+                {/* END CHILD COMPONENTS */}     
+
               </VStack>
               <Spacer />
-              <Text fontSize="xs" _dark={{
-          color: "warmGray.50"
-        }} color="coolGray.800" alignSelf="flex-start">
-              Updated: {item.updated_at}
-              {/*  Format: {formatTime("2022-04-13T22:56:15.781Z")} */}
+              <Text fontSize="xs" 
+                _dark={{ color: "warmGray.50" }} 
+                color="coolGray.800" alignSelf="flex-start"
+              >
+                Updated: {item.updated_at}
               </Text>
             </HStack>
-        </Box>} keyExtractor={item => item.id.toString()} />
-)};
+          </Box>} 
+        keyExtractor={item => item.id.toString()} 
+    />
+  )
+};
 
 
 export default DisplayMomentsList;

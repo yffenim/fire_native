@@ -8,11 +8,15 @@ const l = (arg) => console.log(arg);
 const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 // const baseURL = 'http://localhost:3000/api/alerts/';
 
-export default function SubmitButton({level, updateDisplay}) {
-	// l(`level state from inside button: ${level}`);
-	
+export default function SubmitButton({level, updateDisplay, buttonText, buttonColor}) {
+
+// TODO: finish Edit
+// depending on editMode boolean
+// false: POST, no changes to FlatList
+// true: PATCH, make FlatList Item into "Selected"
+
 	const postApiCall = () => {
-		l("posting...");
+		l("Sending a POST request to server...");
 		fetch(baseURL, {
 			method: 'POST',
 			headers: {
@@ -41,9 +45,9 @@ export default function SubmitButton({level, updateDisplay}) {
 
 	return (
 		<Center>
-			<Button size="xs" w="100" colorScheme="indigo"
+			<Button size="xs" w="100" colorScheme={buttonColor}
 				onPress={postApiCall}
-		  >SUBMIT ME!</Button>
- 		</Center>
+			>{buttonText}</Button>
+ 	</Center>
 	)
 }

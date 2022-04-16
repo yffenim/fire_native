@@ -1,5 +1,6 @@
 import React from "react";
 import { Pressable, Heading } from "native-base";
+import { getApiCall } from "../api/MomentsApi";
 import l from "../../helpers/consolelog";
 
 const UpdateMomentsList = ({showMoments, setShowMoments}) => {
