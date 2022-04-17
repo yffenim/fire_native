@@ -11,6 +11,7 @@ import {
 } from "native-base";
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
+import NevermindPressable from './NevermindPressable';
 import l from '../../helpers/consolelog';
 
 // TODO: add formatTime()
@@ -22,7 +23,7 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay}) => {
 // lifting up edit bc involves changes to parent UI components
   function handleEdit(id) {
     // l("handleEdit id:", id);
-    liftHandleEdit();
+    liftHandleEdit(id);
   }
 
 // please forgive me for not refactoring this FlatList -___- 
@@ -58,9 +59,12 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay}) => {
                     item={item.id}
                     updateDisplay={updateDisplay}
                    />
-                </HStack>
+                {/* empty space in next line is intentional */}
+                  <Text>   </Text> 
+                  <NevermindPressable />
                 {/* END CHILD COMPONENTS */}     
 
+                  </HStack>
               </VStack>
               <Spacer />
               <Text fontSize="xs" 

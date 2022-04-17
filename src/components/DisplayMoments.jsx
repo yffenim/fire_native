@@ -15,9 +15,9 @@ export default function DisplayMoments({moments, changeInputMoment, updateDispla
   const [showMoments, setShowMoments] = useState(false);
   const listData = moments[0]
 
-  function liftHandleEdit() {
-    l('liftHandleEdit');
-    changeInputMoment();
+  function liftHandleEdit(id) {
+    l('liftHandleEdit id:', id);
+    changeInputMoment(id);
   }
 
   return (

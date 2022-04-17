@@ -15,8 +15,18 @@ export default function DashboardScreen( {route, navigation} ) {
   const name = getLoginName(route.params);
   const [moments, setMoments] = useState({});
   const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+
+// Lift Edit Click to here
+// trigger the change for the Input UI and API call 
+  function changeInputMoment(id) {
+    l("changeInputMoment id: ", id);
+    setEditMode(!editMode);
+    setEditId(id);
+    // this needs to be reset once the Edit has been Submitted
+  }
 
   const getApiCall = () => {
     l(setMoments); 
@@ -36,13 +46,6 @@ export default function DashboardScreen( {route, navigation} ) {
   }, []);
 
 
-// Lift Edit Button Click up to here, then trigger the change for the Input Text and API call from here
-  function changeInputMoment() {
-    l("changeInputMoment");
-    setEditMode(!editMode);
-// this needs to be reset once the Edit has been Submitted
-  }
-
   return (
     <Box
       _dark={{ bg: "blueGray.900" }}
@@ -56,7 +59,7 @@ export default function DashboardScreen( {route, navigation} ) {
         <InputMoment 
           updateDisplay={getApiCall} 
           editMode={editMode}
-          setEditMode={setEditMode}
+          editId={editId} 
         />
         <DisplayMoments 
           moments={moments} 

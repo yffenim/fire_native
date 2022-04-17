@@ -12,10 +12,7 @@ export default function EditPressable({handleEdit}) {
 
 	return(
 		<Pressable onPress={handleEdit}	>
-			<Text 
-				color="coolGray.600" 
-		  	_dark={{ color: "warmGray.200" }}
-		  >
+			<Text color="indigo.600" _dark={{ color: "indigo.600" } }>
 				EDIT
 			</Text>
 		</Pressable>

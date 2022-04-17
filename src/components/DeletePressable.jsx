@@ -31,17 +31,18 @@ export default function DeletePressable({item, updateDisplay}) {
 		<Pressable 
 			onPress={()=>{
 				deleteApiCall({item});
-					toast.show({
-        		render: () => {
-							return (
-								<Box bg="secondary.600" px="2" py="1" rounded="sm" mb={5}>
-                  Moment Deleted!
-								</Box>
-									)
-        				}
-					});					
-			}}>
-			<Text>DELETE</Text>
+				toast.show({render: () => { 
+					return (
+						<Box bg="secondary.600" px="2" py="1" rounded="sm" mb={5}>
+              Moment Deleted!
+						</Box>
+					)
+        }
+			});					
+		}}>
+			<Text	color="indigo.600" _dark={{ color: "indigo.600" }}>
+				DELETE
+			</Text>
 		</Pressable>
 	)
 }

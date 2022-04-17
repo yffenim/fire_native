@@ -22,8 +22,8 @@ const UserGreeting = (props) => {
   // l("name: ",name);
     
   return (
-    <Center h="200">
-      <Text fontSize="lg">Hello there {props.name}!</Text>
+    <Center h="190">
+      <Text fontSize="xl" color="indigo.200">Hello there {props.name}!</Text>
     </Center>
 	);
 }

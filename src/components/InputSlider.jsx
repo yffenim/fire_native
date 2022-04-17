@@ -11,7 +11,7 @@ export default function InputSlider({ setLevel, sliderText, sliderColor }) {
 
 	return (
 		<VStack w="100%" alignItems="center" space="3">
-			<Text textAlign="center" fontSize="lg"> 
+			<Text textAlign="center" fontSize="2xl" bold> 
 				{sliderText} {onChangeValue}</Text>
 			<Slider w="200"
 				minValue={1} maxValue={9} step={1} 
