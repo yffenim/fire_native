@@ -21,10 +21,10 @@ export default function SubmitButton({level, updateDisplay, buttonText, buttonCo
 // }
 
 	const patchApiCall = (id) => {
-		l("Sending a PATCH request to server...");
-    let editURL = 'baseURL' + id
+		l("Sending a PATCH request to server with id: ", id);
+    let editURL = baseURL + id
     // console.log(`edit id is: ${id}`);
-    // console.log(editURL);
+    console.log(editURL);
     fetch(editURL, {
       method: 'PATCH',
         headers: {
@@ -40,9 +40,9 @@ export default function SubmitButton({level, updateDisplay, buttonText, buttonCo
       })
     })
     .then((response) => {
-      if (response.ok) {
-        console.log("response ok for update");
-        this.updateAlerts();
+			if (response.ok) {
+				alert("Update Level Successfully Submitted!");
+				updateDisplay();
         return response.json();
     }
     throw new Error("Network response was not ok");
@@ -80,7 +80,7 @@ export default function SubmitButton({level, updateDisplay, buttonText, buttonCo
 	};
 
 	// const handleSubmit = () => { patchApiCall() }
-	const handleSubmit = () => {( editMode === true ? patchApiCall() : postApiCall() )};
+	const handleSubmit = () => {( editMode === true ? patchApiCall(editId) : postApiCall() )};
 
 	return (
 		<Center>
