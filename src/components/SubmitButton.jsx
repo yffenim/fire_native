@@ -15,19 +15,20 @@ export default function SubmitButton({level, updateDisplay, buttonText, buttonCo
 // }
  
   const patchApiCall = async () => {
-    await patchRequest(editId, level)
+    await patchRequest(editId, level);
+  // TODO: why does updateDisplay() only get called on the SECOND edit request?
+    updateDisplay();
   }
 
 	const postApiCall = async () => {
-    await postRequest(level)
+    await postRequest(level);
+    updateDisplay();
     // .catch((err) => l("error: ", err))
 	}
 
 	const handleSubmit = () => {
-		( editMode ? 
-			patchApiCall(editId) : 
-			postApiCall(), updateDisplay() 
-		)};
+		( editMode ? patchApiCall(editId) : postApiCall() ) 
+	};
 
   const toast = useToast();
   const submitMsg = "Moment Created!" // need to create editMsg
