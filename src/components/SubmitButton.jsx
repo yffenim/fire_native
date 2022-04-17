@@ -10,6 +10,7 @@ const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 export default function SubmitButton({level, updateDisplay, buttonText, buttonColor, editMode, editId}) {
 
+// debugging setEditMode
   // const toggleTest = () => {
   //   setEditMode(!editMode);
   //   l(editMode);

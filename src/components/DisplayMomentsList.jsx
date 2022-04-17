@@ -58,6 +58,9 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay, editMode, setE
                   LEVEL: {item.level}
                 </Text>
 
+
+
+
                 {/* CHILD COMPONENT: EDIT */}    
 
                 <HStack>
@@ -84,6 +87,9 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay, editMode, setE
                    />}
 
                 {/* END CHILD COMPONENTS */}     
+
+
+
 
                 </HStack>
               </VStack>

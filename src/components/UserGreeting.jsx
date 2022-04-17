@@ -19,7 +19,6 @@ const UserGreeting = (props) => {
     return () => {};
   }, []);
 
-  // l("name: ",name);
     
   return (
     <Center h="190">

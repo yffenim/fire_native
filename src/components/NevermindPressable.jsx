@@ -4,14 +4,11 @@ import l from '../../helpers/consolelog';
 
 export default function NevermindPressable({setVisible, setEditMode, editMode}) {
 
-
-// l("editMode NVM: ", editMode);
-
+// debugging why setEditMode is toggling but not setting?
 	const toggleTest = () => {
 		(editMode === true ? setEditMode(false) : setEditMode(true));
-    l(editMode);
+		l(editMode);
 	}
-
 
 
 // the question is WHY is my setEditMode not working????
@@ -20,7 +17,6 @@ export default function NevermindPressable({setVisible, setEditMode, editMode}) 
 	// 	setEditMode(!editMode);
 	// 	l(editMode);
 	// };
-
 
 	// useEffect(() => {
    // console.log('editMode State Updated from NVM: ', editMode);
