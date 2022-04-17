@@ -27,20 +27,20 @@ export default function InputMoment({updateDisplay, editMode, editId}) {
 // so we're catching teh first change to true
 // but not the second change to false
 // WHY?
-  // useEffect(() => {
-  //   l("editMode state has changed to: ", editMode);
-  //   (editMode ? enterEditMode() :  l("editMode should be false: ", editMode));
-  // }, [editMode]);
+  useEffect(() => {
+    l("InputMoment: editMode state has changed to: ", editMode);
+    (editMode ? enterEditMode() :  l("editMode should be false: ", editMode));
+  }, [editMode]);
 
-  // function enterEditMode() {
-  //   setButtonText("Submit Edit");
-  //   setButtonColor("secondary"); 
-  //   setSliderText("Go Ahead and Edit Level:");
-  //   setSliderColor("secondary"); 
-  // }
-  // l("editId from InputMoment", editId);
-  // const editRequestId = editId;
-  // l("editRequestId: ", editRequestId); 
+  function enterEditMode() {
+    setButtonText("Submit Edit");
+    setButtonColor("secondary"); 
+    setSliderText("Go Ahead and Edit Level:");
+    setSliderColor("secondary"); 
+  }
+  l("editId from InputMoment", editId);
+  const editRequestId = editId;
+  l("editRequestId: ", editRequestId); 
 
   return (
     <VStack space={5}>

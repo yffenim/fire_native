@@ -43,7 +43,7 @@ export default function DashboardScreen( {route, navigation} ) {
   const getApiCall = async () => {
     l("Sending a GET Request to server...");
     const data = await getRequest();
-    l("getApiCall data using async/await: ", data); // returns array as expected
+    // l("getApiCall data using async/await: ", data); // returns array as expected
     setMoments(data);
   }
 

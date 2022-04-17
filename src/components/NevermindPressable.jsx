@@ -12,19 +12,22 @@ export default function NevermindPressable({setVisible, setEditMode, editMode}) 
 
 
 // the question is WHY is my setEditMode not working????
-	// function handlePress() { 
-	// 	setVisible(false);
-	// 	setEditMode(!editMode);
-	// 	l(editMode);
-	// };
+	function handlePress() { 
+		setVisible(false);
+		setEditMode(!editMode);
+		l(editMode);
+	};
 
 	// useEffect(() => {
-   // console.log('editMode State Updated from NVM: ', editMode);
+   // console.log('useEffect from NevermindPressable editMode State Updated:: ', editMode);
 	// }, [editMode]);
 
 	return(
-		// <Pressable onPress={()=>{handlePress()}} >
-		<Pressable onPress={toggleTest}>
+		<Pressable 
+			onPress={()=>{
+				toggleTest()
+				handlePress()
+			}}>
 			<Text color="indigo.600" _dark={{ color: "indigo.600" } }>
 				NEVERMIND
 			</Text>

@@ -31,19 +31,42 @@ Follow the instructions from your terminal.
 
 If you have used `yarn` to install any dependencies, please remove the `yarn.lock` and re-install modules with `npm`.
 
+If there are still cache issues, please try:
+
+_(Note that if you do not have `watchman` installed or if your DIR is slightly different, you may have to install watchman and/or modify the exact command you use.)_
+
+`watchman watch-del-all`
+
+`rm -rf $TMPDIR/react-native-packager-cache-*`
+
+`rm -rf $TMPDIR/metro-bundler-cache-*` 
+
+`rm -rf node_modules/`
+
+`npm cache clean --force`
+
+` npm install && npm start -- --reset-cache`
+
 ## Instructions for Dev
 
 `app.jsx` -> entrypoint
+
 `screens` -> self-explanatory
+
 `containers` -> stateful components (the ones making API calls)
+
 `components` -> stateless components 
+
 `helpers` -> function imports 
+
 `__tests__` -> tests using jest with `npm run test`
 
 ## Tree hierarchy
 
 [DashboardScreen]
+
 [[UserGreeting, InputMoment, DisplayMoments]]
+
 [[],[InputSlider, SubmitButton],[UpdateMomentsList, DisplayMomentsList]]
 
 ### Thank you

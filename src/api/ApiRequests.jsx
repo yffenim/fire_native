@@ -1,10 +1,11 @@
 import React from "react";
 import l from "../../helpers/consolelog";
 
+// ALL API CALLS FOR MOMENTS
 const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 // const momentsURL = 'http://localhost:3000/api/alerts/';
 
-// no asynch
+// GET
 export const getRequest = () => 
   fetch(momentsURL)
   .then((response) => {
@@ -15,6 +16,78 @@ export const getRequest = () =>
   })
   .catch(err => l("Error: ", err))
 
+
+// POST
+export const postRequest = (level) =>  {
+		l("Sending a POST request to server...");
+		fetch(momentsURL, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				"X-Requested-With": "XMLHttpRequest"
+				},
+			body: JSON.stringify({
+				alert: {
+					level: level,
+					user_id: 1
+					},
+				}),
+			})
+		.then((response) => {
+			if (response.ok) {
+				// alert("Level Successfully Submitted!");
+				// updateDisplay();
+				return response.json();
+			}
+				alert("Oops, something went wrong!")
+			throw new Error("Network response was not ok.");
+		})
+		.catch((err) => l(err));
+	};
+
+
+// PATCH
+export const patchRequest = (editId, level) => {
+		l("Sending a PATCH request to server with id: ", editId);
+    let editURL = momentsURL + editId;
+    l("to URL: ", editURL);
+    fetch(editURL, {
+      method: 'PATCH',
+        headers: {
+         'Content-Type': 'application/json',
+         'X-Requested-With': 'XMLHttpRequest',
+        // 'X-CSRF-Token' : token,
+      },
+      body: JSON.stringify({
+        alert: {
+          level: level,
+          user_id: 1
+        }
+      })
+    })
+    .then((response) => {
+			if (response.ok) {
+				alert("Update Level Successfully Submitted!");
+        return response.json();
+    }
+    throw new Error("Network response was not ok");
+		})
+		.catch((err) => l(err));
+  };
+
+
+export const deleteRequest = (item) => {
+    l("Making Delete Api Request for ", item);
+		let id = item.item
+    let deleteURL = momentsURL + id
+    fetch(deleteURL, {
+      method: "DELETE",
+    })
+    .then((response) => {
+      throw new Error("Network response was not ok.");
+		})
+		.catch((err) => l(err));
+		};
 
 
 {/* Resources */}
