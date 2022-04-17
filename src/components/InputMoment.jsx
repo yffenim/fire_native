@@ -21,17 +21,23 @@ export default function InputMoment({updateDisplay, editMode, editId}) {
     setButtonColor("secondary");
   }
 
-// change the state of InputSlider and SubmitButton if in editMode
-  useEffect(() => {
-    l("editMode state has changed to:", editMode);
-    if (editMode) {
-      setButtonText("Submit Edit");
-      setButtonColor("secondary"); 
-      setSliderText("Go Ahead and Edit Level:");
-      setSliderColor("secondary");
-    }
-  }, [editMode]);
+  l("editMode in InputMoment where we want to trigger UI changes: ", editMode);
 
+// change the state of InputSlider and SubmitButton if in editMode
+// so we're catching teh first change to true
+// but not the second change to false
+// WHY?
+  // useEffect(() => {
+  //   l("editMode state has changed to: ", editMode);
+  //   (editMode ? enterEditMode() :  l("editMode should be false: ", editMode));
+  // }, [editMode]);
+
+  // function enterEditMode() {
+  //   setButtonText("Submit Edit");
+  //   setButtonColor("secondary"); 
+  //   setSliderText("Go Ahead and Edit Level:");
+  //   setSliderColor("secondary"); 
+  // }
   // l("editId from InputMoment", editId);
   // const editRequestId = editId;
   // l("editRequestId: ", editRequestId); 

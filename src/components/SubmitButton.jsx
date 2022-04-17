@@ -10,21 +10,14 @@ const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 export default function SubmitButton({level, updateDisplay, buttonText, buttonColor, editMode, editId}) {
 
-// TODO: finish Edit
-// depending on editMode boolean
-// false: POST, no changes to FlatList
-// true: PATCH, make FlatList Item into "Selected"
-// 	const patchApiCall = () => {
-// 		l("Sending a PATCH request to server...");
-// 		l("editMode should be true: ", editMode);
-// 		l("editId: ", editId);
-// }
+  // const toggleTest = () => {
+  //   setEditMode(!editMode);
+  //   l(editMode);
+	// }
 
 	const patchApiCall = (id) => {
 		l("Sending a PATCH request to server with id: ", id);
     let editURL = baseURL + id
-    // console.log(`edit id is: ${id}`);
-    console.log(editURL);
     fetch(editURL, {
       method: 'PATCH',
         headers: {
@@ -46,7 +39,8 @@ export default function SubmitButton({level, updateDisplay, buttonText, buttonCo
         return response.json();
     }
     throw new Error("Network response was not ok");
-    })
+		})
+		.catch((err) => l(err));
   };
 
 

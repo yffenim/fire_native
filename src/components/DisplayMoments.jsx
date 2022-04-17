@@ -11,12 +11,12 @@ import UpdateMomentsList from './UpdateMomentsList';
 import l from '../../helpers/consolelog';
 
 
-export default function DisplayMoments({moments, changeInputMoment, updateDisplay}) {
+export default function DisplayMoments({moments, changeInputMoment, updateDisplay, editMode, setEditMode}) {
   const [showMoments, setShowMoments] = useState(false);
   const listData = moments[0]
 
   function liftHandleEdit(id) {
-    l('liftHandleEdit id:', id);
+    // l('liftHandleEdit id:', id);
     changeInputMoment(id);
   }
 
@@ -31,7 +31,8 @@ export default function DisplayMoments({moments, changeInputMoment, updateDispla
             data={listData} 
             liftHandleEdit={liftHandleEdit}
             updateDisplay={updateDisplay}
-
+            editMode={editMode}
+            setEditMode={setEditMode}
         />}
     </Box>
   )}
