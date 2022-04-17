@@ -5,20 +5,15 @@ import InputSlider from './InputSlider'
 import SubmitButton from './SubmitButton'
 import l from '../../helpers/consolelog'
 
-// I need to change the text that is on Submit Button 
-//
-export default function InputMoment({updateDisplay, editMode}) {
+
+
+export default function InputMoment({updateDisplay, editMode, editId}) {
   const [level, setLevel] = useState({});
   const [buttonText, setButtonText] = useState("Submit Me!");
   const [buttonColor, setButtonColor] = useState("indigo");
   const [sliderText, setSliderText] = useState("How Do You Feel?");
   const [sliderColor, setSliderColor] = useState("indigo");
 
-// trigger rerender of Moments List when Submit Button is pressed 
-  // function triggerUpdate() {
-  //   updateDisplay();
-  //   l("intermediary from SubmitButton -> Input Moment");
-  // }
 
 // set state to be Edit Mode for SubmitButton and InputSlider
   function inputMode(){
@@ -26,18 +21,26 @@ export default function InputMoment({updateDisplay, editMode}) {
     setButtonColor("secondary");
   }
 
-l(editMode);
+  l("editMode in InputMoment where we want to trigger UI changes: ", editMode);
 
 // change the state of InputSlider and SubmitButton if in editMode
+// so we're catching teh first change to true
+// but not the second change to false
+// WHY?
   useEffect(() => {
-    l("editMode state has changed to:", editMode);
-    if (editMode) {
-      setButtonText("Submit Edit");
-      setButtonColor("secondary"); 
-      setSliderText("Go Ahead and Edit Level:");
-      setSliderColor("secondary");
-    }
+    l("InputMoment: editMode state has changed to: ", editMode);
+    (editMode ? enterEditMode() :  l("editMode should be false: ", editMode));
   }, [editMode]);
+
+  function enterEditMode() {
+    setButtonText("Submit Edit");
+    setButtonColor("secondary"); 
+    setSliderText("Go Ahead and Edit Level:");
+    setSliderColor("secondary"); 
+  }
+  l("editId from InputMoment", editId);
+  const editRequestId = editId;
+  l("editRequestId: ", editRequestId); 
 
   return (
     <VStack space={5}>
@@ -52,6 +55,8 @@ l(editMode);
         updateDisplay={updateDisplay}
         buttonText={buttonText}
         buttonColor={buttonColor}
+        editMode={editMode}
+        editId={editId}
       />
     </VStack>
   );

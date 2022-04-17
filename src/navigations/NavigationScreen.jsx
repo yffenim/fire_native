@@ -2,14 +2,13 @@ import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingScreen from "../../screens/LandingScreen";
 import LoginScreen from "../../screens/LoginScreen";
-import DataScreen from "../../screens/DataScreen";
+import DataViewScreen from "../../screens/DataViewScreen";
 import DashboardScreen from "../../screens/DashboardScreen";
 
 // options
 // https://reactnavigation.org/docs/stack-navigator/#options
 
 const Stack = createNativeStackNavigator();
-
 
 export const LandingNavigator = 
   <Stack.Screen
@@ -34,9 +33,9 @@ export const DashboardNavigator =
 
 export const DataNavigator = 
 	<Stack.Screen
-    name="Data"
-    component={DataScreen}
-    options={{ title: "Data Screen" }}
+    name="DataView"
+    component={DataViewScreen}
+    options={{ title: "DataView Screen" }}
   />;
 
 

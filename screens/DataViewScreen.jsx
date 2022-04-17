@@ -1,10 +1,7 @@
 import React from "react";
-import {
-  Center,
-  Box,
-} from "native-base";
+import { Center, Box } from "native-base";
 
-function DataScreen({ navigation }) {
+function DataViewScreen({ navigation }) {
   return (
     <Center
       _dark={{ bg: "blueGray.900" }}
@@ -17,4 +14,4 @@ function DataScreen({ navigation }) {
   );
 }
 
-export default DataScreen;
+export default DataViewScreen;

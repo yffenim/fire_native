@@ -7,23 +7,38 @@ import {
   FlatList,
   Spacer,
   Pressable,
-  Popover
+  Button
 } from "native-base";
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
+import NevermindPressable from './NevermindPressable';
 import l from '../../helpers/consolelog';
 
 // TODO: add formatTime()
 
 
 
-const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay}) => { 
+const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay, editMode, setEditMode}) => { 
+  const [visible, setVisible] = useState(null);
+
+// debugging
+  const toggleTest = () => {
+    setEditMode(!editMode);
+    l(editMode);
+	}
+
 
 // lifting up edit bc involves changes to parent UI components
   function handleEdit(id) {
-    // l("handleEdit id:", id);
-    liftHandleEdit();
+    liftHandleEdit(id);
+    setEditMode(!editMode);
+    setVisible(true);
   }
+
+  useEffect(() => {
+    setVisible(visible);
+  }, [visible]);
+
 
 // please forgive me for not refactoring this FlatList -___- 
 // Inside of <FlatList /> we have two child components: 
@@ -37,34 +52,49 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay}) => {
           >
             <HStack space={3} justifyContent="space-between">
               <VStack>
-                <Text 
-                  _dark={{ color: "warmGray.50" }} 
-                  color="coolGray.800" bold
+                <Text _dark={{ color: "warmGray.50" }} 
+                  color="coolGray.800" bold 
                 >
                   LEVEL: {item.level}
                 </Text>
 
-                {/* CHILD COMPONENT: EDIT */}     
+
+
+
+                {/* CHILD COMPONENT: EDIT */}    
+
                 <HStack>
+                {!visible &&
                   <EditPressable 
-                    handleEdit={()=>{handleEdit(item.id)}}
+                    handleEdit={()=>{
+                      handleEdit(item.id);
+                      }}
                     item={item.id}
-                  />
-                {/* empty space in next line is intentional */}
+                />}
+ 
+                {visible &&
+                  <NevermindPressable 
+                    setVisible={setVisible}
+                    editMode={editMode}
+                    setEditMode={setEditMode}
+                />}
                   <Text>   </Text> 
 
-                {/* CHILD COMPONENT: DELETE */}     
+                {!visible &&
                   <DeletePressable 
                     item={item.id}
                     updateDisplay={updateDisplay}
-                   />
-                </HStack>
+                   />}
+
                 {/* END CHILD COMPONENTS */}     
 
+
+
+
+                </HStack>
               </VStack>
               <Spacer />
-              <Text fontSize="xs" 
-                _dark={{ color: "warmGray.50" }} 
+              <Text fontSize="xs" _dark={{ color: "warmGray.50" }} 
                 color="coolGray.800" alignSelf="flex-start"
               >
                 Updated: {item.updated_at}

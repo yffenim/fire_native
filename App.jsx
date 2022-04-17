@@ -9,7 +9,7 @@ import {
   LandingNavigator, 
   LoginNavigator, 
   DashboardNavigator, 
-  DataNavigator } from './src/navigations/NavigationScreen'
+  DataViewNavigator } from './src/navigations/NavigationScreen'
 
 
 export default class App extends React.Component {
@@ -32,7 +32,7 @@ export default class App extends React.Component {
             {LandingNavigator}
             {LoginNavigator}
             {DashboardNavigator}
-            {DataNavigator}
+            {DataViewNavigator}
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

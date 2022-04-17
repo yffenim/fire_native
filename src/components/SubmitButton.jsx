@@ -1,53 +1,49 @@
 import React from 'react';
-import {
-	Button,
-	Center
-} from "native-base";
+import { Button, Center, useToast, Box } from 'native-base';
+import { postRequest, patchRequest } from '../api/ApiRequests.jsx'
+import { ToastBox } from './ToastBox';
+import l from "../../helpers/consolelog";
 
-const l = (arg) => console.log(arg);
-const baseURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
-// const baseURL = 'http://localhost:3000/api/alerts/';
+const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
-export default function SubmitButton({level, updateDisplay, buttonText, buttonColor}) {
+export default function SubmitButton({level, updateDisplay, buttonText, buttonColor, editMode, editId}) {
 
-// TODO: finish Edit
-// depending on editMode boolean
-// false: POST, no changes to FlatList
-// true: PATCH, make FlatList Item into "Selected"
+// debugging setEditMode
+  // const toggleTest = () => {
+  //   setEditMode(!editMode);
+  //   l(editMode);
+// }
+ 
+  const patchApiCall = async () => {
+    await patchRequest(editId, level)
+  }
 
-	const postApiCall = () => {
-		l("Sending a POST request to server...");
-		fetch(baseURL, {
-			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-				"X-Requested-With": "XMLHttpRequest"
-				},
-			body: JSON.stringify({
-				alert: {
-					level: level,
-					user_id: 1
-					},
-				}),
-			})
-		.then((response) => {
-			if (response.ok) {
-				alert("Level Successfully Submitted!");
-				updateDisplay();
-				return response.json();
-			}
-				alert("Oops, something went wrong!")
-			throw new Error("Network response was not ok.");
-		})
-		.catch((err) => l(err));
-	};
+	const postApiCall = async () => {
+    await postRequest(level)
+    // .catch((err) => l("error: ", err))
+	}
 
+	const handleSubmit = () => {
+		( editMode ? 
+			patchApiCall(editId) : 
+			postApiCall(), updateDisplay() 
+		)};
 
-	return (
+  const toast = useToast();
+  const submitMsg = "Moment Created!" // need to create editMsg
+
+  return (
 		<Center>
 			<Button size="xs" w="100" colorScheme={buttonColor}
-				onPress={postApiCall}
-			>{buttonText}</Button>
+      onPress={()=>{
+        handleSubmit();
+        toast.show({render: () => {
+          return (
+            <ToastBox text={submitMsg} />
+          )
+        }
+      });
+			}}>{buttonText}</Button>
  	</Center>
 	)
 }
