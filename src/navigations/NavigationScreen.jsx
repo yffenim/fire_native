@@ -2,8 +2,10 @@ import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LandingScreen from "../../screens/LandingScreen";
 import LoginScreen from "../../screens/LoginScreen";
-import DataViewScreen from "../../screens/DataViewScreen";
+import RegistrationScreen from "../../screens/RegistrationScreen";
 import DashboardScreen from "../../screens/DashboardScreen";
+import HomeScreen from "../../screens/HomeScreen";
+import UserScreen from "../../screens/UserScreen";
 
 // options
 // https://reactnavigation.org/docs/stack-navigator/#options
@@ -29,13 +31,28 @@ export const DashboardNavigator =
     name="Dashboard"
     component={DashboardScreen}
     options={{ title: "Dashboard Screen" }}
+  />;
+
+ export const RegistrationNavigator =
+  <Stack.Screen
+    name="Registration"
+    component={RegistrationScreen}
+    options={{ title: "Registrations Screen" }}
 	/>;
 
-export const DataNavigator = 
+export const HomeNavigator = 
 	<Stack.Screen
-    name="DataView"
-    component={DataViewScreen}
-    options={{ title: "DataView Screen" }}
+    name="Home"
+    component={HomeScreen}
+    options={{ title: "Home Screen" }}
   />;
+
+ export const UserNavigator =
+	<Stack.Screen
+    name="User"
+    component={UserScreen}
+    options={{ title: "User Screen" }}
+  />;
+
 
 
