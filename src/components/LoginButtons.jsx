@@ -34,6 +34,18 @@ export const LetsPretendButton = (props) => {
   }
 
 
-
-
+export const CurrentWipButton = (props) => {
+  return(
+    <Button
+      mt="2"
+      colorScheme="gray"
+      variant="outline"
+      onPress={() => {
+        props.navigation.navigate("Home",)}
+      }
+     >
+      Current WIP
+    </Button>
+    )
+  }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import l from "../../helpers/consolelog";
+import { useToast } from 'native-base';
+import { ToastBox } from '../components/ToastBox';
 
 // ALL API CALLS FOR MOMENTS
 const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
@@ -18,7 +20,8 @@ export const getRequest = () =>
 
 
 // POST
-export const postRequest = (level) =>  {
+export const postRequest = (level, toast) =>  {
+
 		l("Sending a POST request to server...");
 		fetch(momentsURL, {
 			method: 'POST',
@@ -35,7 +38,11 @@ export const postRequest = (level) =>  {
 			})
 		.then((response) => {
 			if (response.ok) {
-				// alert("Level Successfully Submitted!");
+        alert("Level Successfully Submitted!");
+         // toast.show({render: () => {
+         //    return (<ToastBox text="Moment Submitted!" />)
+         //  }
+        // });
 				// updateDisplay();
 				return response.json();
 			}

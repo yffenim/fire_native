@@ -10,7 +10,7 @@ import {
   Input,
 } from "native-base";
 
-function RegisterScreen({ navigation }) {
+function RegistrationScreen({ navigation }) {
   return (
     <NativeBaseProvider>
       <Center w="100%">
@@ -59,4 +59,4 @@ function RegisterScreen({ navigation }) {
   );
 }
 
-export default RegisterScreen;
+export default RegistrationScreen;

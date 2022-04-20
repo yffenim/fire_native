@@ -9,7 +9,9 @@ import {
   LandingNavigator, 
   LoginNavigator, 
   DashboardNavigator, 
-  DataViewNavigator } from './src/navigations/NavigationScreen'
+  RegistrationNavigator,
+  HomeNavigator, 
+  UserNavigator } from './src/navigations/NavigationScreen'
 
 
 export default class App extends React.Component {
@@ -32,7 +34,9 @@ export default class App extends React.Component {
             {LandingNavigator}
             {LoginNavigator}
             {DashboardNavigator}
-            {DataViewNavigator}
+            {RegistrationNavigator}
+            {HomeNavigator}
+            {UserNavigator}
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

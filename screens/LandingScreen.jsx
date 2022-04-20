@@ -3,7 +3,7 @@ import { Center, StorageManager, ColorMode, VStack } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import components or helpers
 import ToggleDarkMode from "../src/components/ToggleDarkMode"
-import { LoginButton, LetsPretendButton } from "../src/components/LoginButton";
+import { LoginButton, LetsPretendButton, CurrentWipButton } from "../src/components/LoginButtons";
 import WelcomeLine from "../src/components/WelcomeLine";
 
 export default function LandingScreen({ navigation }) {
@@ -18,6 +18,7 @@ export default function LandingScreen({ navigation }) {
       <VStack space={5} alignItems="center">
         <WelcomeLine />
         <LoginButton navigation={navigation} />
+        <CurrentWipButton navigation={navigation} />
         <LetsPretendButton navigation={navigation} />
         <ToggleDarkMode />
       </VStack>
