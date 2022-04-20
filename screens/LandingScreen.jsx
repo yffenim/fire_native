@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Center, StorageManager, ColorMode, VStack } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import components or helpers
 import ToggleDarkMode from "../src/components/ToggleDarkMode"
-import { LoginButton, LetsPretendButton, CurrentWipButton } from "../src/components/LoginButtons";
+// import { CurrentWipButton } from "../src/components/AuthButtons";
 import WelcomeLine from "../src/components/WelcomeLine";
+import Login from "../src/components/Login";
+import Register from "../src/components/Register";
+
 
 export default function LandingScreen({ navigation }) {
+  const [ auth, setAuth ] = useState("login");
 
   return (
     <Center
@@ -15,13 +19,12 @@ export default function LandingScreen({ navigation }) {
       px={4}
       flex={1}
      >
-      <VStack space={5} alignItems="center">
-        <WelcomeLine />
-        <LoginButton navigation={navigation} />
-        <CurrentWipButton navigation={navigation} />
-        <LetsPretendButton navigation={navigation} />
-        <ToggleDarkMode />
-      </VStack>
+      <WelcomeLine />
+      {auth === 'login' ?
+        <Login setAuth={setAuth}/> :
+      auth === 'register' ?
+        <Register setAuth={setAuth} /> :
+      null}
     </Center>
   );
 }
