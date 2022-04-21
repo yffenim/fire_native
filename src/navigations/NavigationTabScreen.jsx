@@ -1,11 +1,10 @@
 import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LandingScreen from "../../screens/LandingScreen";
-import LoginScreen from "../../screens/LoginScreen";
-import RegistrationScreen from "../../screens/RegistrationScreen";
 import DashboardScreen from "../../screens/DashboardScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import UserScreen from "../../screens/UserScreen";
+import DataScreen from "../../screens/DataScreen";
 
 // https://reactnavigation.org/docs/tab-based-navigation
 
@@ -18,32 +17,18 @@ export const LandingNavigator =
     options={{ title: "Landing Screen" }}
 	/>;
 
-export const LoginNavigator = 
+export const HomeNavigator = 
 	<Tab.Screen
-  	name="Login"
-    component={LoginScreen}
-    options={{ title: "Login Screen" }}
-	/>;
+    name="Home"
+    component={HomeScreen}
+    options={{ title: "Home Screen" }}
+  />;
 
 export const DashboardNavigator =
   <Tab.Screen
     name="Dashboard"
     component={DashboardScreen}
     options={{ title: "Dashboard Screen" }}
-  />;
-
- export const RegistrationNavigator =
-  <Tab.Screen
-    name="Registration"
-    component={RegistrationScreen}
-    options={{ title: "Registrations Screen" }}
-	/>;
-
-export const HomeNavigator = 
-	<Tab.Screen
-    name="Home"
-    component={HomeScreen}
-    options={{ title: "Home Screen" }}
   />;
 
  export const UserNavigator =
@@ -53,5 +38,10 @@ export const HomeNavigator =
     options={{ title: "User Screen" }}
   />;
 
-
+ export const DataNavigator =
+	<Tab.Screen
+    name="Data"
+    component={DataScreen}
+    options={{ title: "Data Screen" }}
+  />;
 

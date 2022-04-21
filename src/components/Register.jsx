@@ -8,7 +8,6 @@ export default function Register({setAuth}) {
     <VStack space={3} mt="5">
       <Heading>Sign up to continue!</Heading>
       <RegisterForm />
-      <RegisterButton />
       <BackToLoginLink setAuth={setAuth} />
     </VStack>
   );

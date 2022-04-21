@@ -1,16 +1,28 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
+import { postSignInRequest, postSignUpRequest } from '../api/AuthApiRequests.jsx'
 import l from '../../helpers/consolelog';
 
 // Register New User Button
-export const RegisterButton = () => {
+export const RegisterButton = ({email, password}) => {
+  const handleSignUp = () => {
+    // make API call with: email, password, confirm password
+    // these are passed in as props from parent Register Form
+    postSignUpRequest(email, password);   
+  };
+
   return (
-    <Button colorScheme="indigo">
+    <Button 
+      m="5" 
+      colorScheme="indigo" 
+      onPress={()=>{handleSignUp()}}
+    >
       Sign up
     </Button>
   )
 }
 
+// Return to Login component Link (I know it's not a button)
 export const BackToLoginLink = ({setAuth}) => {
   const handleLink = () => {
     setAuth("login");
@@ -42,7 +54,7 @@ export const BackToLoginLink = ({setAuth}) => {
   )
 }
 
-// New User Link, technically not a button..
+// New User Link, also technically not a button..
 export const NewUserLink = ({setAuth}) => {
 // toggle between login and register form
   const handleLink = () => {
@@ -78,19 +90,29 @@ export const NewUserLink = ({setAuth}) => {
 
 
 // Sign In Button -- currently goes to Home Screen
-export const SignInButton = ({navigation}) => {
+export const SignInButton = () => {
+
+	const postApiCall = async () => {
+    await postSignInRequest();
+	};
+
+	const handleLogin = () => {
+    postApiCall();
+  };
+
   return(
     <Button
       onPress={() => {
-      navigation.navigate("Home",
-        // { nameParam: {name} }
-        )}
+        handleLogin()
+        }
       }
       mt="2" colorScheme="indigo">
         Sign in
     </Button>
   )
 }
+
+
 
 // not currently in use
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormControl, Link, Box, Input } from 'native-base'
+import { FormControl, Link, Box, Input } from 'native-base';
+import l from '../../helpers/consolelog';
 
 export default function LoginForm() {
 

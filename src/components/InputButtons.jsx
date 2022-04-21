@@ -46,7 +46,7 @@ export const rowValues =
   [["1","2","3"], ["4","5","6"],["7","8","9"]];
 
 
-// Submit Value Button (POST request for Alerts)
+// Submit Value Button (POST request for New Alerts)
 export function SubmitButton({level}) {
   const toast = useToast();
 

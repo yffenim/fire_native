@@ -4,8 +4,8 @@ import { useToast } from 'native-base';
 import { ToastBox } from '../components/ToastBox';
 
 // ALL API CALLS FOR MOMENTS
-const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
-// const momentsURL = 'http://localhost:3000/api/alerts/';
+// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+const momentsURL = 'http://localhost:3000/api/alerts/';
 
 // GET
 export const getRequest = () => 
@@ -22,7 +22,7 @@ export const getRequest = () =>
 // POST
 export const postRequest = (level, toast) =>  {
 
-		l("Sending a POST request to server...");
+		l("Adding a new Moment to server...");
 		fetch(momentsURL, {
 			method: 'POST',
 			headers: {

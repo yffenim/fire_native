@@ -8,9 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Load Navigation Stack
 import { 
   LandingNavigator, 
-  LoginNavigator, 
   DashboardNavigator, 
-  RegistrationNavigator,
+  DataNavigator,
   HomeNavigator, 
   UserNavigator } from './src/navigations/NavigationTabScreen'
 
@@ -33,10 +32,9 @@ export default class App extends React.Component {
           <Tab.Navigator>
           {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
             {LandingNavigator}
-            {LoginNavigator}
-            {RegistrationNavigator}
             {HomeNavigator}
             {UserNavigator}
+            {DataNavigator}
           </Tab.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
