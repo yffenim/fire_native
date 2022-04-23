@@ -1,5 +1,12 @@
 import React from "react";
 import l from "../../helpers/consolelog";
+// import { AsyncStorage } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// TODO: 
+// - set state for userdata for LoginRequest
+// - move the state into storage
+// - access the storage elsewhere
 
 // ALL API CALLS FOR USER  AUTHENTICATION / REGISTRATION
 
@@ -51,7 +58,14 @@ export const postSignUpRequest = (email, password) =>  {
 
 // POST REQUEST FOR SIGN IN
 export const postSignInRequest = () =>  {
-// need to get the access token then save it into context
+
+// get the access token then save it into AsyncStorage
+	var token = "";
+	const storeToken = async (token) => {
+    await AsyncStorage.setItem('access-token', token);
+    // const value = await AsyncStorage.getItem('access-token');
+    // console.log("Access-Token from AsyncStorage: ", value);
+  };
 
 		l("Authenticating user...");
 		fetch(loginURL, {
@@ -68,14 +82,19 @@ export const postSignInRequest = () =>  {
 		.then((response) => {
 			if (response.ok) {
 				alert("Login Successful!");
-				l("headers: ", response.headers);
-				l("token: ", response.headers["map"]["access-token"]);
+				// l("headers: ", response.headers);
+				// l("token: ", response.headers["map"]["access-token"]);
+				let getToken = response.headers["map"]["access-token"];
+				storeToken(getToken);
 				return response.json();
 			}
 				alert("Oops, could not login.")
 			throw new Error("Network response was not ok.");
 		})
-		// .then((response) => {l(response)})
+		.then((response) => {
+			// l(response);
+			// getEntries();
+		})
 		.catch((err) => l(err));
 	};
 

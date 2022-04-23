@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { VStack, Center, Text, Box, Button } from "native-base";
 import l from "../helpers/consolelog.js";
-import { getLoginName } from "../src/navigations/navParams.js";
+// import { getLoginName } from "../src/navigations/navParams.js";
 import UserGreeting from '../src/components/UserGreeting';
 import DisplayMoments from '../src/components/DisplayMoments';
 import InputMoment from '../src/components/InputMoment';
@@ -15,7 +15,7 @@ import { getRequest } from '../src/api/ApiRequests.jsx';
 // ISSUE: setEditMode won't set mode to false
   
 export default function DashboardScreen( {route, navigation} ) {
-  const name = getLoginName(route.params);
+  // const name = getLoginName(route.params);
   const [moments, setMoments] = useState({});
   const [editMode, setEditMode] = useState(null);
   const [editId, setEditId] = useState(null);
@@ -57,13 +57,6 @@ export default function DashboardScreen( {route, navigation} ) {
     setMoments(data);
   }
 
-// async-await vs then: use cases??
-// a-a: executes tasks following invocation
-// then solves promise with await 
-// (meaning we pass to await final value of promise chain)
-// 
-// then: Runs through entire function 
-// then returns to execute .then after promise resolve
 
 
 // make API GET REQUEST upon page loading
@@ -83,8 +76,9 @@ export default function DashboardScreen( {route, navigation} ) {
       h="10"
     >
       <VStack space={4}>
-        {/* <Button onPress={toggleTest}>Test</Button> */}
+        {/* <Button onPress={toggleTest}>Test</Button>
         <UserGreeting name={name}/>
+        */}
         <InputMoment 
           updateDisplay={getApiCall} 
           editMode={editMode}

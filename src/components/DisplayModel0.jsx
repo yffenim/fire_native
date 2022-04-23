@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Heading, Pressable, Box } from "native-base";
 import DisplayMomentsList from './DisplayMomentsList';
-import UpdateMomentsList from './UpdateMomentsList';
+import ViewRecentMoments from './ViewRecentMoments';
 import l from '../../helpers/consolelog';
 
 
-export default function DisplayModel0({moments, updateDisplay, editMode, setEditMode}) {
+export default function DisplayModel0({moments, updateDisplay}) {
   const [showMoments, setShowMoments] = useState(false);
   const listData = moments[0]
 
-  function liftHandleEdit(id) {
-    // l('liftHandleEdit id:', id);
-    changeInputMoment(id);
-  }
-
   return (
     <Box>
-      <UpdateMomentsList 
+      <ViewRecentMoments
         showMoments={showMoments} 
         setShowMoments={setShowMoments} 
       />
-        {showMoments &&
-          <DisplayMomentsList 
-            data={listData} 
-            liftHandleEdit={liftHandleEdit}
-            updateDisplay={updateDisplay}
-            editMode={editMode}
-            setEditMode={setEditMode}
-        />}
+      {showMoments &&
+        <DisplayMomentsList 
+          data={listData} 
+          updateDisplay={updateDisplay}
+      />}
     </Box>
   )}
 

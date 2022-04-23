@@ -1,29 +1,37 @@
-import React, { useState } from "react";
-import {
-  VStack,
-  HStack,
-  Center,
-  Text,
-  Box,
-  Button,
-  Heading,
-  FormControl,
-  Input,
-  Link,
-} from "native-base";
+import React, { Component } from "react";
+// import { Center, Text, Button, Input, Link,} from "native-base";
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
 
+export default class UserScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: ['Level', 'Updated'],
+      tableData: [
+        ['1', 'the date'],
+        ['3', 'the date'],
+        ['5', 'the date'],
+        ['7', 'the date']
+      ]
+    }
+  }
 
-function UserScreen({navigation }) {
-
-  return (
-    <Center
-      _dark={{ bg: "blueGray.900" }}
-      _light={{ bg: "blueGray.50" }}
-      px={4}
-    flex={1}>
-    <Text>USER SCREEN</Text>
-    </Center>
-  );
+  render() {
+    const state = this.state;
+    return (
+      <View style={styles.container}>
+        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
+          <Rows data={state.tableData} textStyle={styles.text}/>
+        </Table>
+      </View>
+    )
+  }
 }
 
-export default UserScreen;
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  head: { height: 40, backgroundColor: '#f1f8ff' },
+  text: { margin: 6 }
+});

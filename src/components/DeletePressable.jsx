@@ -4,19 +4,12 @@ import { ToastBox } from './ToastBox';
 import { deleteRequest } from '../api/ApiRequests.jsx';
 import l from '../../helpers/consolelog';
 
-const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
-
-export default function DeletePressable({item, updateDisplay}) {
-
-
-// TODO: debug why request is working and returning as expected
-// but also throwing an error that Network response is not ok?
-
+export default function DeletePressable({deleteId, updateDisplay}) {
 
 // handler for DELETE request
 	const deleteApiCall = async () => {
-		await deleteRequest({item});
+		await deleteRequest({deleteId});
 		updateDisplay();
 	}
 
@@ -27,7 +20,7 @@ export default function DeletePressable({item, updateDisplay}) {
 	return (
 		<Pressable 
 			onPress={()=>{
-				deleteApiCall({item});
+				deleteApiCall({deleteId});
 				toast.show({render: () => { 
 					return (
 						<ToastBox text={deleteMsg} />

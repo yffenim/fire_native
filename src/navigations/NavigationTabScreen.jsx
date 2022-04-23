@@ -1,7 +1,6 @@
 import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LandingScreen from "../../screens/LandingScreen";
-import DashboardScreen from "../../screens/DashboardScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import UserScreen from "../../screens/UserScreen";
 import DataScreen from "../../screens/DataScreen";
@@ -22,13 +21,6 @@ export const HomeNavigator =
     name="Home"
     component={HomeScreen}
     options={{ title: "Home Screen" }}
-  />;
-
-export const DashboardNavigator =
-  <Tab.Screen
-    name="Dashboard"
-    component={DashboardScreen}
-    options={{ title: "Dashboard Screen" }}
   />;
 
  export const UserNavigator =

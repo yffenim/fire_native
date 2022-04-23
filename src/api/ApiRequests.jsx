@@ -2,10 +2,17 @@ import React from "react";
 import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
 import { ToastBox } from '../components/ToastBox';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // ALL API CALLS FOR MOMENTS
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 const momentsURL = 'http://localhost:3000/api/alerts/';
+
+	// const bearerToken = async (token) => {
+    // // await AsyncStorage.setItem('access-token', token);
+    // const value = await AsyncStorage.getItem('access-token');
+    // console.log("Access-Token from AsyncStorage: ", value);
+  // };
 
 // GET
 export const getRequest = () => 
@@ -18,6 +25,31 @@ export const getRequest = () =>
   })
   .catch(err => l("Error: ", err))
 
+
+// GET
+export const getAuthenticatedRequest = () =>  {
+  // var value = ""
+	const bearerToken = async (token) => {
+    var value = await AsyncStorage.getItem('access-token');
+    console.log("Access-Token from AsyncStorage: ", value);
+    return value;
+  };
+
+  bearerToken(); // need to return token, pass via headers
+
+  fetch(momentsURL,{
+    headers: {
+      "Authorization": "Bearer kvNFXLuXtU8nNpeHyuxZJw",
+    },
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+    throw new Error("Network response was not ok.")
+  })
+  .catch(err => l("Error: ", err))
+}
 
 // POST
 export const postRequest = (level, toast) =>  {
@@ -85,8 +117,9 @@ export const patchRequest = (editId, level) => {
 
 export const deleteRequest = (item) => {
     l("Making Delete Api Request for ", item);
-		let id = item.item
+		let id = item.deleteId
     let deleteURL = momentsURL + id
+    l("deleteURL: ", deleteURL);
     fetch(deleteURL, {
       method: "DELETE",
     })

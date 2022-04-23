@@ -98,6 +98,7 @@ export const SignInButton = () => {
 
 	const handleLogin = () => {
     postApiCall();
+    getApiCall();
   };
 
   return(
