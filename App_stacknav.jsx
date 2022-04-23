@@ -2,17 +2,19 @@ import * as React from "react";
 import { AppRegistry } from "react-native";
 // Navigation and Screens (instead of routing)
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, extendTheme } from "native-base";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 // Load Navigation Stack
 import { 
   LandingNavigator, 
+  LoginNavigator, 
   DashboardNavigator, 
-  DataNavigator,
+  RegistrationNavigator,
   HomeNavigator, 
-  UserNavigator } from './src/navigations/NavigationTabScreen'
+  UserNavigator } from './src/navigations/NavigationScreen'
 
+
+// STACK NAVIGATION
 
 export default class App extends React.Component {
   render() {
@@ -23,19 +25,21 @@ export default class App extends React.Component {
     };
     // extend the theme
     const customTheme = extendTheme({ config });
-    // Create Tab Object for Navigator
-     const Tab = createBottomTabNavigator();
+    // Creat Stack Object for Navigator
+    const Stack = createNativeStackNavigator();
 
     return (
       <NativeBaseProvider theme={customTheme}>
         <NavigationContainer>
-          <Tab.Navigator>
-          {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
+          <Stack.Navigator>
+            {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
             {LandingNavigator}
+            {LoginNavigator}
+            {DashboardNavigator}
+            {RegistrationNavigator}
             {HomeNavigator}
             {UserNavigator}
-            {DataNavigator}
-          </Tab.Navigator>
+          </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
     );
@@ -43,4 +47,4 @@ export default class App extends React.Component {
 }
 
 
-AppRegistry.registerComponent("Fire", () => App);
+// AppRegistry.registerComponent("Fire", () => App);

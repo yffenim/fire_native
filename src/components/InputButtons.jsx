@@ -4,7 +4,7 @@ import l from '../../helpers/consolelog';
 import { postRequest} from '../api/ApiRequests.jsx'
 import { ToastBox } from './ToastBox';
 
-// This page contains ALL BUTTON COMPONENTS for HOME SCREEN
+// This page contains ALL BUTTON/LINK COMPONENTS FOR CRUD MOMENTS
 
 
 // HOME SCREEN
@@ -46,7 +46,8 @@ export const rowValues =
   [["1","2","3"], ["4","5","6"],["7","8","9"]];
 
 
-// Submit Value Button (POST request for Alerts)
+// Submit Value Button (POST request for New Alerts)
+// TODO: Update Display
 export function SubmitButton({level}) {
   const toast = useToast();
 

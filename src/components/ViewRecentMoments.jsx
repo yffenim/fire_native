@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, Heading } from "native-base";
 import l from "../../helpers/consolelog";
 
-const UpdateMomentsList = ({showMoments, setShowMoments}) => {
+const ViewRecentMoments = ({showMoments, setShowMoments}) => {
 		
 		const togglePressable = () => { setShowMoments(!showMoments) }
 
@@ -15,4 +15,4 @@ const UpdateMomentsList = ({showMoments, setShowMoments}) => {
 	)
 }
 
-export default UpdateMomentsList;
+export default ViewRecentMoments;

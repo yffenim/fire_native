@@ -1,21 +1,30 @@
-import React from 'react';
-import { Text, Pressable } from 'native-base';
+import React, { useState } from 'react';
+import { Text, Pressable, Modal, Box } from 'native-base';
+import EditModal from './EditModal'; 
+// import { patchRequest } from '../api/ApiRequests';
 import l from '../../helpers/consolelog'
 
-// click on Edit
-// change the slider to be an edit thing - done
-// change button to say Submit Edit! - done
-// API call with ID 
-// Re-render inside API call
 
-export default function EditPressable({handleEdit}) {
+export default function EditPressable({editId}) {
+	const [showModal, setShowModal] = useState(false);
+
+	const toggleModal = () => {
+		setShowModal(true);
+	}
 
 	return(
-		<Pressable onPress={handleEdit}	>
+		<Box>
+		<Pressable onPress={()=>{
+			toggleModal();
+			}}
+		>
 			<Text color="indigo.600" _dark={{ color: "indigo.600" } }>
 				EDIT
 			</Text>
 		</Pressable>
+		{showModal &&
+		<EditModal setShowModal={setShowModal} showModal={showModal} editId={editId} />}
+	</Box>
 	)
 }
 

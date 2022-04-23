@@ -11,38 +11,16 @@ import {
 } from "native-base";
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
-import NevermindPressable from './NevermindPressable';
 import l from '../../helpers/consolelog';
 
 // TODO: add formatTime()
 
 
-
-const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay, editMode, setEditMode}) => { 
-  const [visible, setVisible] = useState(null);
-
-// debugging
-  const toggleTest = () => {
-    setEditMode(!editMode);
-    l(editMode);
-	}
-
-
-// lifting up edit bc involves changes to parent UI components
-  function handleEdit(id) {
-    liftHandleEdit(id);
-    setEditMode(!editMode);
-    setVisible(true);
-  }
-
-  useEffect(() => {
-    setVisible(visible);
-  }, [visible]);
+const DisplayMomentsList = ({data, updateDisplay}) => { 
 
 
 // please forgive me for not refactoring this FlatList -___- 
-// Inside of <FlatList /> we have two child components: 
-// <EditPressable /> and <DeletePressable />
+// Inside of <FlatList /> we have two child components: // <EditPressable /> and <DeletePressable />
 	return(
     <FlatList data={data} renderItem={({
       item
@@ -59,39 +37,18 @@ const DisplayMomentsList = ({data, liftHandleEdit, updateDisplay, editMode, setE
                 </Text>
 
 
-
-
-                {/* CHILD COMPONENT: EDIT */}    
-
+                {/* CHILD COMPONENT: EDIT/DELETE */}
                 <HStack>
-                {!visible &&
-                  <EditPressable 
-                    handleEdit={()=>{
-                      handleEdit(item.id);
-                      }}
-                    item={item.id}
-                />}
- 
-                {visible &&
-                  <NevermindPressable 
-                    setVisible={setVisible}
-                    editMode={editMode}
-                    setEditMode={setEditMode}
-                />}
-                  <Text>   </Text> 
-
-                {!visible &&
+                  <EditPressable editId={item.id} />
+                  <Text>   </Text>
                   <DeletePressable 
-                    item={item.id}
+                    deleteId={item.id} 
                     updateDisplay={updateDisplay}
-                   />}
-
-                {/* END CHILD COMPONENTS */}     
-
-
-
-
+                  />
                 </HStack>
+                {/* END CHILD COMPONENT */}
+
+
               </VStack>
               <Spacer />
               <Text fontSize="xs" _dark={{ color: "warmGray.50" }} 
