@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, useToast, Center } from 'native-base';   
 import l from '../../helpers/consolelog';
-import { postRequest} from '../api/ApiRequests.jsx'
-import { ToastBox } from './ToastBox';
+// import { ToastBox } from './ToastBox';
+import { postRequest } from '../functions/ApiRequests.jsx';
 
 // This page contains ALL BUTTON/LINK COMPONENTS FOR CRUD MOMENTS
 
@@ -27,7 +27,7 @@ export function ValueButtons({inputValues, colors, setLevel}) {
     	{inputValues.map(val => 
       	<Button key={val}
         	borderRadius="25"
-          m="3" p="7" size="lg"
+          m="2" p="3" size="lg"
           variant={buttonSelect}
           colorScheme={colors}
           // ref={myRef}

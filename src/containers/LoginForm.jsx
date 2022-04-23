@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from "react-native";
 import { FormControl, Link, Box, Input } from 'native-base';
 import l from '../../helpers/consolelog';
 
@@ -6,7 +7,6 @@ export default function LoginForm() {
 
   const handleText = (text) => {
     l(text);
-    // setName(text);
   }
 
 	return (
@@ -35,3 +35,11 @@ export default function LoginForm() {
 	</Box>
 	)
 }
+
+// const styles = StyleSheet.create({
+//   text: {
+//     fontSize: "xs",
+//     fontWeight: "500",
+//     color: "indigo.500"
+//   }
+// });

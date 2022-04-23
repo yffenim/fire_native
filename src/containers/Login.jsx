@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VStack, HStack, Center, Text, Box, Link } from "native-base";
-import { SignInButton, NewUserLink } from './AuthButtons';
+import { SignInButton, NewUserLink } from '../components/AuthButtons';
 import LoginForm from './LoginForm';
 import l from '../../helpers/consolelog';
 

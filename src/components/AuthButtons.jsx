@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
-import { postSignInRequest, postSignUpRequest } from '../api/AuthApiRequests.jsx'
+import { postSignInRequest, postSignUpRequest } from '../functions/AuthApiRequests.jsx'
 import l from '../../helpers/consolelog';
 
 // Register New User Button

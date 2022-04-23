@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { VStack, Center, Text, Box, Button } from "native-base";
-import DisplayModel0 from '../src/components/DisplayModel0';
-import * as Linking from 'expo-linking';
-import { getRequest, getAuthenticatedRequest } from '../src/api/ApiRequests.jsx';
-import l from "../helpers/consolelog.js";
+import DisplayMoments from '../containers/DisplayMoments';
+import { getRequest, getAuthenticatedRequest } from '../functions/ApiRequests.jsx';
+import l from "../../helpers/consolelog.js";
 
+// display recently created data + EDIT/DELETE
+// chart model data
 
-function DataScreen({navigation }) {
+export default function SummaryScreen({ navigation }) {
   const [moments, setMoments] = useState({});
 
   const getApiCall = async () => {
@@ -28,8 +29,7 @@ function DataScreen({navigation }) {
       px={4}
       flex={1}
     >
-      <Text onPress={()=>testLink()}>Link</Text>
-      <DisplayModel0
+      <DisplayMoments
         moments={moments}
         updateDisplay={getApiCall}
       />
@@ -37,4 +37,3 @@ function DataScreen({navigation }) {
   );
 }
 
-export default DataScreen;

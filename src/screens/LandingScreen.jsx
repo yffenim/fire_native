@@ -1,28 +1,24 @@
 import React, { useState } from "react";
 import { Center, StorageManager, ColorMode, VStack } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ToggleDarkMode from "../src/components/ToggleDarkMode"
-import WelcomeLine from "../src/components/WelcomeLine";
-import Login from "../src/components/Login";
-import Register from "../src/components/Register";
+import WelcomeLine from "../presentations/WelcomeLine";
+import Login from "../containers/Login";
+import Register from "../containers/Register";
+import ToggleDarkMode from "../containers/ToggleDarkMode"
 
 
 export default function LandingScreen({ navigation }) {
   const [ auth, setAuth ] = useState("login");
 
   return (
-    <Center
-      _dark={{ bg: "blueGray.900" }}
-      _light={{ bg: "blueGray.50" }}
-      px={4}
-      flex={1}
-     >
+    <Center>
       <WelcomeLine />
       {auth === 'login' ?
         <Login setAuth={setAuth}/> :
       auth === 'register' ?
         <Register setAuth={setAuth} /> :
       null}
+      <ToggleDarkMode />
     </Center>
   );
 }

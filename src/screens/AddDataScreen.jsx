@@ -1,45 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import { VStack, HStack, Center, Text, Box, Button } from "native-base";
-import { ValueButtons, rowValues, SubmitButton } from "../src/components/InputButtons";
-import { DataTitle } from "../src/components/DataTitle";
-import l from "../helpers/consolelog.js";
-import { postRequest } from '../src/api/ApiRequests.jsx';
+import { Center, ScrollView, Button } from "native-base";
+import { ModelTitle } from "../presentations/ModelTitle";
+import AddData from "../containers/AddData";
+import l from "../../helpers/consolelog.js";
 
-// PARENT COMPONENT for POSTing model  data
-// Track Alertness, Track Second Model, Track Third Model
+// TODO: add scrollview here
+// 
+// second and third need to make an UPDATE api call
+// children of <AddModel /> are input buttons and sub buttons
 
-function HomeScreen({ navigation }) {
-  const [level, setLevel] = useState({});
-  l("level has been set: ", level);
-
+export default function AddDataScreen({ navigation }) {
+  
   return (
-    <Center
-      _dark={{ bg: "blueGray.900" }}
-      _light={{ bg: "blueGray.50" }}
-      px={5}
-      flex={1}
-    >
-      <DataTitle />  
-      <ValueButtons 
-        inputValues={rowValues[0]} 
-        colors="warning" 
-        setLevel={setLevel} 
-      />
-      <ValueButtons 
-        inputValues={rowValues[1]} 
-        colors="secondary" 
-        setLevel={setLevel} 
-      />
-      <ValueButtons 
-        inputValues={rowValues[2]} 
-        colors="tertiary"
-        setLevel={setLevel} 
-      />
-        <SubmitButton level={level}/>
+    <Center>
+      <ScrollView>
+        <AddData /> 
+        <AddData /> 
+        <AddData /> 
+      </ScrollView>
     </Center>
   );
 }
 
-export default HomeScreen;
 
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { VStack, FormControl, Input, Box } from 'native-base';
-import { RegisterButton } from './AuthButtons';
+import { RegisterButton } from '../components/AuthButtons';
 import l from '../../helpers/consolelog';
 
 

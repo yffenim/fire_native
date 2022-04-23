@@ -1,39 +1,61 @@
 import * as React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LandingScreen from "../../screens/LandingScreen";
-import HomeScreen from "../../screens/HomeScreen";
-import UserScreen from "../../screens/UserScreen";
-import DataScreen from "../../screens/DataScreen";
+import LandingScreen from "../screens/LandingScreen";
+// Authentication + Registration
 
-// https://reactnavigation.org/docs/tab-based-navigation
+import UserScreen from "../screens/UserScreen";
+// Edit User Info
+// Visual Settings
+
+import AddDataScreen from "../screens/AddDataScreen";
+// POST new model data
+
+// import SummaryScreen from "../screens/SummaryScreen";
+// Edit recently created data (display last 5 of each model)
+// Chart model data
+
+// import ExportScreen from "../screens/ExportScreen";
+// Export combined data organized by hourly
+// Export individual model data
+
 
 const Tab = createBottomTabNavigator();
+// https://reactnavigation.org/docs/tab-based-navigation
 
 export const LandingNavigator = 
   <Tab.Screen
-    name="Landing" // name can now be used in nav methods
+    name="Landing"
     component={LandingScreen} 
     options={{ title: "Landing Screen" }}
 	/>;
 
-export const HomeNavigator = 
-	<Tab.Screen
-    name="Home"
-    component={HomeScreen}
-    options={{ title: "Home Screen" }}
-  />;
-
- export const UserNavigator =
+export const UserNavigator = 
 	<Tab.Screen
     name="User"
     component={UserScreen}
     options={{ title: "User Screen" }}
   />;
 
- export const DataNavigator =
+ export const AddDataNavigator =
 	<Tab.Screen
-    name="Data"
-    component={DataScreen}
-    options={{ title: "Data Screen" }}
+    name="AddData"
+    component={AddDataScreen}
+    options={{ title: "Add Data Screen" }}
   />;
+ 
+ {/*
+export const SummaryNavigator =
+	<Tab.Screen
+    name="Summary"
+    component={SummaryScreen}
+    options={{ title: "Summary Screen" }}
+  />;
+
+ export const ExportNavigator =
+	<Tab.Screen
+    name="Export"
+    component={ExportScreen}
+    options={{ title: "Export Screen" }}
+  />;
+ */}
 

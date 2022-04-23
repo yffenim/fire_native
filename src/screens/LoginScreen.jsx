@@ -11,7 +11,7 @@ import {
   Input,
   Link,
 } from "native-base";
-const l = (arg) => console.log(arg);
+import l from "../../helpers/consolelog.js";
 
 
 function LoginScreen({ navigation }) {

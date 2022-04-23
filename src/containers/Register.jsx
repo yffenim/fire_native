@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, VStack, Heading } from "native-base";
 import RegisterForm from './RegisterForm';
-import { RegisterButton, BackToLoginLink } from './AuthButtons';
+import { RegisterButton, BackToLoginLink } from '../components/AuthButtons';
 
 export default function Register({setAuth}) {
   return (

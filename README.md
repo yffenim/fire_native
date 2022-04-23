@@ -9,6 +9,7 @@ Back-end: https://github.com/yffenim/fire_api
 - [ ] accessible UI to track your alertness on scale of 1-9 available rounded to the hour
 - [ ] option to track up to two other models
 - [ ] export your current data in combined and individual model form in CSV emailed to user and downloadable onto phone
+- [ ] view and edit recently created data
 - [ ] view daily summary graphs of individual models
 - [ ] user authentication 
 - [ ] OAUTH integration 
@@ -27,13 +28,17 @@ Navigate to the project directory.
 
 OR, if this is not your first time running this project, please use: `npm start --reset-cache`
 
-*Note that many features, such as emailing the CSV or scrolling through an extended view will _not_ work on browser.*
+**Note that many features, such as emailing the CSV or scrolling through an extended view will _not_ work on browser.**
 
 ### Using mobile
 
-Download Expo for Android (Google Play Store Link: https://play.google.com/store/apps/details?id=host.exp.exponent) or Expo for iOS (App Store Link: https://itunes.apple.com/us/app/expo-client/id982107779) onto your phone.
+Download onto your phone:
 
-Scan the QR code from the terminal.
+Expo for Android (Google Play Store Link: https://play.google.com/store/apps/details?id=host.exp.exponent)
+
+or Expo for iOS (App Store Link: https://itunes.apple.com/us/app/expo-client/id982107779) 
+
+Scan the QR code from the terminal from your camera. Expo will load project automatically. Shake your phone to reload.
 
 ### Using Simulator
 
@@ -45,24 +50,21 @@ You will see a terminal message indicating that the bundling is happening if it 
 
 ### Using browser
 
-Follow the instructions from your terminal. 
+Follow the instructions from your terminal.
 
-### Troubleshooting
-
-If any navigation stack changes have been made, you must restart the server: `npm start --reset-cache`
+# General Troubleshooting
 
 `r` to reload. 
 
-If more than 75 requests have been made to the FIRE API, you will have to wait for the next hour.
+`npm start --reset-cache`
 
+`npm upgrade`
 
 If you have used `yarn` to install any dependencies, please remove the `yarn.lock` and re-install modules with `npm`.
 
 If there are still cache issues, please try:
 
 _(Note that if you do not have `watchman` installed or if your DIR is slightly different, you may have to install watchman and/or modify the exact command you use.)_
-
-`npm upgrade`
 
 `watchman watch-del-all`
 
@@ -76,7 +78,19 @@ _(Note that if you do not have `watchman` installed or if your DIR is slightly d
 
 ` npm install && npm start -- --reset-cache`
 
-## Development Docs
+## Development Troubleshooting
+
+If any navigation stack changes have been made, you must restart the server: `npm start --reset-cache`
+
+If more than 75 requests have been made to the FIRE API, you will have to wait for the next hour.
+
+Note that the rendering on native vs browser may be different. It is useful to check browser version if native display is empty without reason. Browser dev tools are also useful for full error message rendering.
+
+Network issues: Easiest to use  https://proxyman.io/ on your IOS to capture requests. (This is different from proxyman.)
+
+# Development Docs
+
+## Repo Hierarchy
 
 ### Root Level 
 
@@ -85,7 +99,6 @@ _(Note that if you do not have `watchman` installed or if your DIR is slightly d
 `helpers` -> function helpful to development, not neccesary to app itself.
 
 `__tests__` -> testing via jest. Use `npm run test`.
-
 
 ### `SRC` level
 
@@ -114,9 +127,9 @@ src
 
 ## Component hierarchy
 
-Level 1. _[`LandingScreen`]_
+Level 1. _`[LandingScreen]`_
 
-Level 2. _[[`SettingsScreen`],[AddDataScreen],[`SummaryScreen`],[ExportScreen]]_
+Level 2. _`[UserScreen]`,`[AddDataScreen]`,`[SummaryScreen]`,`[ExportScreen]`_
 
 Detailed diagram coming soon.
 

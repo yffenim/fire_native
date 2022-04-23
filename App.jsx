@@ -3,38 +3,36 @@ import { AppRegistry } from "react-native";
 // Navigation and Screens (instead of routing)
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, extendTheme } from "native-base";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { defaultTheme } from "./src/styles/styles";
 
-// Load Navigation Stack
 import { 
   LandingNavigator, 
-  DashboardNavigator, 
-  DataNavigator,
-  HomeNavigator, 
-  UserNavigator } from './src/navigations/NavigationTabScreen'
-
+  UserNavigator, 
+  AddDataNavigator,
+  SummyarNavigator, 
+  ExportNavigator } from './src/containers/NavigationTabScreen'
+import l from "./helpers/consolelog";
 
 export default class App extends React.Component {
   render() {
-    // set default theme to dark
-    const config = {
-      useSystemColorMode: false,
-      initialColorMode: "dark",
-    };
-    // extend the theme
-    const customTheme = extendTheme({ config });
+
     // Create Tab Object for Navigator
-     const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator();
 
     return (
-      <NativeBaseProvider theme={customTheme}>
+      <NativeBaseProvider theme={defaultTheme}>
         <NavigationContainer>
           <Tab.Navigator>
           {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
             {LandingNavigator}
-            {HomeNavigator}
             {UserNavigator}
-            {DataNavigator}
+            {AddDataNavigator}
+            
+            {/*
+            {SummaryNavigator}
+            {ExportNavigator}
+            */}
           </Tab.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
