@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { VStack, HStack, Center, Text, Box, Button } from "native-base";
+import { View } from "react-native";
+import { Center } from "native-base";
 import { ValueButtons, rowValues, SubmitButton } from "./InputButtons";
 import l from "../../helpers/consolelog.js";
 
@@ -26,7 +27,7 @@ export default function AddData() {
         colors="tertiary"
         setLevel={setLevel} 
       />
-        <SubmitButton level={level}/>
+        <SubmitButton level={level} model="Alertness"/>
     </Center>
   );
 }

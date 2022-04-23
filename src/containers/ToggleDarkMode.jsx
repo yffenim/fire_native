@@ -4,7 +4,7 @@ import { useColorMode, Switch, Text, HStack } from "native-base";
 export default function ToggleDarkMode() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <HStack space={2} alignItems="center">
+    <HStack space={2} alignItems="center" mt="3">
       <Text>Dark</Text>
       <Switch
         colorScheme="indigo"

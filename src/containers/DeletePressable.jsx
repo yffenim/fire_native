@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, Text, useToast, Box } from 'native-base';
-import { ToastBox } from './ToastBox';
-import { deleteRequest } from '../api/ApiRequests.jsx';
+import { ToastBox } from '../presentations/ToastBox';
+import { deleteRequest } from '../functions/ApiRequests.jsx';
 import l from '../../helpers/consolelog';
 
 

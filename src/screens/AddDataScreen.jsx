@@ -10,13 +10,19 @@ import l from "../../helpers/consolelog.js";
 // children of <AddModel /> are input buttons and sub buttons
 
 export default function AddDataScreen({ navigation }) {
-  
+  const first = "Alertness";
+  const second = "Appetite";
+  const third = "";
+
   return (
     <Center>
       <ScrollView>
-        <AddData /> 
-        <AddData /> 
-        <AddData /> 
+        <ModelTitle model={first} />
+        <AddData model={first} /> 
+        <ModelTitle model={second} />
+        <AddData model={second} /> 
+        <ModelTitle model="" />
+        <AddData mdodel="" /> 
       </ScrollView>
     </Center>
   );
