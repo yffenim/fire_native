@@ -27,7 +27,7 @@ export function ValueButtons({inputValues, colors, setLevel}) {
     	{inputValues.map(val => 
       	<Button key={val}
         	borderRadius="25"
-          m="2" p="3" size="lg"
+          m="4" p="6" size="lg"
           variant={buttonSelect}
           colorScheme={colors}
           // ref={myRef}
@@ -48,25 +48,25 @@ export const rowValues =
 
 // Submit Value Button (POST request for New Alerts)
 // TODO: Update Display
-export function SubmitButton({level}) {
+export function SubmitButton({level, model}) {
   const toast = useToast();
 
 	const postApiCall = async () => {
     await postRequest(level, toast);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = ({model}) => {
     // l("Submit with level ", level);
     postApiCall();
   };
-
+  var submitButtonText = `+`;
   // const toast = useToast();
   const submitMsg = "Moment Created!"
 
   return (
     <Center>
-      <Button size="lg" w="100" h="50" m="5"
-        borderRadius="20"
+      <Button size="lg" m="6" h="70" w="70"
+        borderRadius="60"
         colorScheme="indigo"
         onPress={()=>{
           handleSubmit();
@@ -74,7 +74,7 @@ export function SubmitButton({level}) {
           //   return (<ToastBox text={submitMsg} />)
           // }
         // });
-			}}>Submit</Button>
+			}}>{submitButtonText}</Button>
  	</Center>
 	)
 }

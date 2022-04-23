@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Center, Text, extendTheme } from "native-base";
-// import { getUserRequest } from '../src/functions/UserApiRequests.jsx';
+import { getRequest } from '../functions/UserApiRequests.jsx';
 import l from "../../helpers/consolelog.js";
 
 // Edit User Data

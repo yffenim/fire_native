@@ -36,10 +36,4 @@ export default function LoginForm() {
 	)
 }
 
-// const styles = StyleSheet.create({
-//   text: {
-//     fontSize: "xs",
-//     fontWeight: "500",
-//     color: "indigo.500"
-//   }
-// });
+

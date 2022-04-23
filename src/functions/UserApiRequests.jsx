@@ -1,7 +1,7 @@
 import React from "react";
 import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
-import { ToastBox } from '../components/ToastBox';
+import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // ALL API CALLS FOR MOMENTS

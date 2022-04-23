@@ -18,7 +18,7 @@ export default function LandingScreen({ navigation }) {
       auth === 'register' ?
         <Register setAuth={setAuth} /> :
       null}
-      <ToggleDarkMode />
+        {/* <ToggleDarkMode /> */}
     </Center>
   );
 }

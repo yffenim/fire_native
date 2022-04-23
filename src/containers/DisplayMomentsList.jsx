@@ -5,7 +5,6 @@ import {
   Text,
   Box,
   FlatList,
-  Spacer,
   Pressable,
   Button
 } from "native-base";
