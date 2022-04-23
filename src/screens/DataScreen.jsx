@@ -21,7 +21,6 @@ function DataScreen({navigation }) {
   }, []);
 
 
-
   return (
     <Center
       _dark={{ bg: "blueGray.900" }}
