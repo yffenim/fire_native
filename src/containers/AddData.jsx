@@ -6,10 +6,8 @@ import l from "../../helpers/consolelog.js";
 
 // MODEL COMPONENT for POST data
 
-export default function AddData() {
-  const [level, setLevel] = useState({});
-  l("level has been set: ", level);
-
+export default function AddData({level, setLevel}) {
+  l("level: ", level);
   return (
     <Center>
       <ValueButtons 

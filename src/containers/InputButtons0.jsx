@@ -13,10 +13,14 @@ import { postRequest } from '../functions/ApiRequests.jsx';
 export function ValueButtons({inputValues, colors, setLevel}) {
   // const [buttonSelect, setButtonSelect] = useState("outline");
   const [selectionMode, setSelectionMode] = useState(null);
+  
+
 
   function handleValueButton(val){
     setLevel(val);
   }
+
+
 
   return ( 
 		<Button.Group>
@@ -47,11 +51,13 @@ export const rowValues =
 export function SubmitButton({level, model}) {
   // const toast = useToast();
 
-	const postApiCall = async () => {
-    await postRequest(level);
-	};
+	// const postApiCall = async () => {
+    // await postRequest(level, toast);
+	// };
+  const [ buttonVariant, setButtonVariant ] = useState()
 
-	const handleSubmit = (mode) => {
+
+	const handleSubmit = ({model}) => {
     l("Submit with level ", level);
     postApiCall();
   };
@@ -66,7 +72,8 @@ export function SubmitButton({level, model}) {
         borderRadius="60"
         variant="solid"
         onPress={()=>{
-          handleSubmit();
+          // handleSubmit();
+          onButtonPress("outline");
           // toast.show({render: () => {
           //   return (<ToastBox text={submitMsg} />)
           // }

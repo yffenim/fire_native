@@ -6,12 +6,12 @@ Back-end: https://github.com/yffenim/fire_api
 
 ## Features
 
-- [ ] accessible UI to track your alertness on scale of 1-9 available rounded to the hour
-- [ ] option to track up to two other models
-- [ ] export your current data in combined and individual model form in CSV emailed to user and downloadable onto phone
-- [ ] view and edit recently created data
-- [ ] view daily summary graphs of individual models
-- [ ] user authentication 
+- [ ] Track alertness levels on scale of 1-9 with times rounded to the hour
+- [ ] Track up to two other models
+- [ ] Export current data in CSV form
+- [ ] Display recently created data so one can edit or delete
+- [ ] View daily summary graphs of individual models
+- [ ] User authentication
 - [ ] OAUTH integration 
 
 ## Instructions for Use

@@ -3,7 +3,7 @@ import { Button, Link, HStack, Text } from 'native-base';
 import { postSignInRequest, postSignUpRequest } from '../functions/AuthApiRequests.jsx'
 import l from '../../helpers/consolelog';
 
-// Register New User Button
+// Register New User Sign up Button
 export const RegisterButton = ({email, password}) => {
   const handleSignUp = () => {
     // make API call with: email, password, confirm password
@@ -12,8 +12,8 @@ export const RegisterButton = ({email, password}) => {
   };
 
   return (
-    <Button 
-      m="5" 
+    <Button  
+      m="10" 
       colorScheme="indigo" 
       onPress={()=>{handleSignUp()}}
     >

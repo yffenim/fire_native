@@ -10,7 +10,7 @@ export default function LoginForm() {
   }
 
 	return (
-	<Box>
+  <Box w="200">
 		<FormControl>
   	<FormControl.Label>Email:</FormControl.Label>
     	<Input

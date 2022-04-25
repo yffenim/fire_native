@@ -13,12 +13,17 @@ export default function AddDataScreen({ navigation }) {
   const first = "Alertness";
   const second = "Appetite";
   const third = "";
+  const [level, setLevel] = useState(null);
+
+ useEffect(() => {
+  l("New Level State from AddDataScr: ", level);
+  }, [level]);
 
   return (
     <Center>
       <ScrollView>
-        <ModelTitle model={first} />
-        <AddData model={first} /> 
+        <ModelTitle model={first} level={level} />
+        <AddData model={first} setLevel={setLevel} level={level} /> 
         <ModelTitle model={second} />
         <AddData model={second} /> 
         <ModelTitle model="" />

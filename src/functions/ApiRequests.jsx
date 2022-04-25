@@ -52,7 +52,7 @@ export const getAuthenticatedRequest = () =>  {
 }
 
 // POST
-export const postRequest = (level, toast) =>  {
+export const postRequest = (level) =>  {
 
 		l("Adding a new Moment to server...");
 		fetch(momentsURL, {
@@ -64,7 +64,7 @@ export const postRequest = (level, toast) =>  {
 			body: JSON.stringify({
 				alert: {
 					level: level,
-					user_id: 1
+					user_id: 17
 					},
 				}),
 			})
@@ -100,7 +100,7 @@ export const patchRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 1
+          user_id: 17
         }
       })
     })
