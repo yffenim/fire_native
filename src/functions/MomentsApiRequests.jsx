@@ -4,13 +4,20 @@ import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// ALL API CALLS FOR MOMENTS
-// const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/16"
-const userURL = 'http://localhost:3000/api/users/16';
+
+// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts"
+const momentsURL = 'http://localhost:3000/api/alerts';
+const secondsURL = 'http://localhost:3000/api/seconds';
+
+	// const bearerToken = async (token) => {
+    // // await AsyncStorage.setItem('access-token', token);
+    // const value = await AsyncStorage.getItem('access-token');
+    // console.log("Access-Token from AsyncStorage: ", value);
+  // };
 
 // GET
 export const getRequest = () => 
-  fetch(userURL)
+  fetch(momentsURL)
   .then((response) => {
     if (response.ok) {
       return response.json()
@@ -46,9 +53,10 @@ export const getAuthenticatedRequest = () =>  {
 }
 
 // POST
-export const postRequest = (level, toast) =>  {
+// have to send  differently for model title + url
+export const postMomentRequest = (level) =>  {
 
-		l("Adding a new Moment to server...");
+    l("Adding a new Moment to server...");
 		fetch(momentsURL, {
 			method: 'POST',
 			headers: {
@@ -56,12 +64,12 @@ export const postRequest = (level, toast) =>  {
 				"X-Requested-With": "XMLHttpRequest"
 				},
 			body: JSON.stringify({
-				alert: {
+        alert: {
 					level: level,
 					user_id: 2
 					},
 				}),
-			})
+      })
 		.then((response) => {
 			if (response.ok) {
         alert("Level Successfully Submitted!");
@@ -94,7 +102,7 @@ export const patchRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 1
+          user_id: 17
         }
       })
     })

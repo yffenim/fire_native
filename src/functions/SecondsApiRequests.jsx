@@ -4,64 +4,29 @@ import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// ALL API CALLS FOR MOMENTS
-// const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/16"
-const userURL = 'http://localhost:3000/api/users/16';
 
-// GET
-export const getRequest = () => 
-  fetch(userURL)
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
+// const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
+const secondsURL = 'http://localhost:3000/api/seconds';
 
-
-// GET
-export const getAuthenticatedRequest = () =>  {
-  // var value = ""
-	const bearerToken = async (token) => {
-    var value = await AsyncStorage.getItem('access-token');
-    console.log("Access-Token from AsyncStorage: ", value);
-    return value;
-  };
-
-  bearerToken(); // need to return token, pass via headers
-
-  fetch(momentsURL,{
-    headers: {
-      "Authorization": "Bearer kvNFXLuXtU8nNpeHyuxZJw",
-    },
-  })
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
-}
 
 // POST
-export const postRequest = (level, toast) =>  {
+// have to send  differently for model title + url
+export const postSecondRequest = (level) =>  {
 
-		l("Adding a new Moment to server...");
-		fetch(momentsURL, {
+    l("Adding a new Moment to server...");
+		fetch(secondsURL, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
 				"X-Requested-With": "XMLHttpRequest"
 				},
 			body: JSON.stringify({
-				alert: {
+       second: {
 					level: level,
 					user_id: 2
 					},
 				}),
-			})
+      })
 		.then((response) => {
 			if (response.ok) {
         alert("Level Successfully Submitted!");
@@ -94,7 +59,7 @@ export const patchRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 1
+          user_id: 2
         }
       })
     })

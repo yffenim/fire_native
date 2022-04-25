@@ -3,7 +3,9 @@ import { TouchableHighlight } from 'react-native';
 import { Button, useToast, Center } from 'native-base';   
 import l from '../../helpers/consolelog';
 // import { ToastBox } from './ToastBox';
-import { postRequest } from '../functions/ApiRequests.jsx';
+import { postMomentRequest } from '../functions/MomentsApiRequests.jsx';
+import { postSecondRequest } from '../functions/SecondsApiRequests.jsx';
+import { postThirdRequest } from '../functions/ThirdsApiRequests.jsx';
 
 // This page contains ALL BUTTON/LINK COMPONENTS FOR CRUD MOMENTS
 
@@ -11,8 +13,6 @@ import { postRequest } from '../functions/ApiRequests.jsx';
 // HOME SCREEN
 // Input Value Buttons
 export function ValueButtons({inputValues, colors, setLevel}) {
-  // const [buttonSelect, setButtonSelect] = useState("outline");
-  const [selectionMode, setSelectionMode] = useState(null);
 
   function handleValueButton(val){
     setLevel(val);
@@ -43,16 +43,31 @@ export const rowValues =
 
 
 // Submit Value Button (POST request for New Alerts)
-// TODO: Update Display
+// needs to check which model
 export function SubmitButton({level, model}) {
   // const toast = useToast();
-
-	const postApiCall = async () => {
-    await postRequest(level);
+  // depending o which mode, call a different request
+  // l("model: ", model); // PROBLEM IS THAT I NEED SECOND NOT APPETITE
+  l("model: ", model);
+  const postApiCall = async () => {
+    switch (model) {
+      case "alertness" : await postMomentRequest(level);
+      break;
+      case "second" : await postSecondRequest(level);
+      break;
+      case "third" : await postThirdRequest(level);
+      break;
+      default: l("Something is wrong in SubmitButton()");
+    }
 	};
 
-	const handleSubmit = (mode) => {
-    l("Submit with level ", level);
+	const handleSubmit = () => {
+    // l("Submit with level: ", level);
+    // l("Submit with model: ", title);
+    // figure out which model is being passed through
+    // only call that request
+    // or do that in the API request part?
+
     postApiCall();
   };
 

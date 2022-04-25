@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, forwardRef, useRef, useImperativeHandle} from 'react';
 import { Text, Heading, Center, HStack, Box, Button } from 'native-base';
 import l from '../../helpers/consolelog';
 // Model Title Heading for AddDataScreen
 // Make API call here for which model is being tracked? 
 
-export function ModelTitle({model, level}) {
+function ModelTitle({title, level}) {
+
 
 	return (
 		<Center>
@@ -15,7 +16,7 @@ export function ModelTitle({model, level}) {
 					mt="20" mb="5"
 					borderRadius="10" 
 				>
-					Track Your {model}:
+					Track your {title}
 				</Heading>
 				<Text>{"      "}</Text>
 				<Box h="39" w="35" mt="20" 
@@ -30,3 +31,5 @@ export function ModelTitle({model, level}) {
 		</Center>
 	)
 }
+
+export default ModelTitle;

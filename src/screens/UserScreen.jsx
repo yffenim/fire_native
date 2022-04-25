@@ -3,10 +3,13 @@ import { Center, Text, extendTheme } from "native-base";
 import { getRequest } from '../functions/UserApiRequests.jsx';
 import l from "../../helpers/consolelog.js";
 
+// UserScreen contains:
+// Display Averages / Total Counts as Stats
 // Edit User Data
+// Delete User Account
 // Toggle ColorMode
 
-export default function UserScreen({navigation }) {
+export default function UserScreen({navigation}) {
   const [user, setUser] = useState({});
 
   const getApiCall = async () => {
@@ -22,7 +25,7 @@ export default function UserScreen({navigation }) {
 
   return (
     <Center>
-      <Text>USER SCREEN: SETTINGS FOR USER/APP OVERALL</Text>
+      <Text>USER SCREEN: USER SETTINGS + STATS + TOGGLE COLOURS</Text>
     {/*
       <AppSettings />
       <UserSettings />

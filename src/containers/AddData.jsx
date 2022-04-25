@@ -6,8 +6,11 @@ import l from "../../helpers/consolelog.js";
 
 // MODEL COMPONENT for POST data
 
-export default function AddData({level, setLevel}) {
-  l("level: ", level);
+export default function AddData({level, setLevel, model}) {
+  // l("level: ", level);
+  // depending on which model is passed through?
+  // l("model from AddData: ", model);
+
   return (
     <Center>
       <ValueButtons 
@@ -25,7 +28,7 @@ export default function AddData({level, setLevel}) {
         colors="tertiary"
         setLevel={setLevel} 
       />
-        <SubmitButton level={level} model="Alertness"/>
+        <SubmitButton level={level} model={model} />
     </Center>
   );
 }

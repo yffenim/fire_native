@@ -6,7 +6,9 @@ import {
   Box,
   FlatList,
   Pressable,
-  Button
+  Button, 
+  Spacer,
+  ScrollView
 } from "native-base";
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
@@ -20,10 +22,11 @@ const DisplayMomentsList = ({data, updateDisplay}) => {
 
 // please forgive me for not refactoring this FlatList -___- 
 // Inside of <FlatList /> we have two child components: // <EditPressable /> and <DeletePressable />
-	return(
-    <FlatList data={data} renderItem={({
-      item
-    }) => <Box borderBottomWidth="1" 
+  return(
+    <ScrollView>
+      <FlatList data={data} renderItem={({
+        item
+      }) => <Box borderBottomWidth="1" 
             _dark={{ borderColor: "gray.600" }} 
             borderColor="coolGray.200" pl="4" pr="5" py="2"
           >
@@ -58,7 +61,8 @@ const DisplayMomentsList = ({data, updateDisplay}) => {
             </HStack>
           </Box>} 
         keyExtractor={item => item.id.toString()} 
-    />
+      />
+    </ScrollView>
   )
 };
 
