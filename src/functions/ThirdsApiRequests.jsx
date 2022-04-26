@@ -45,7 +45,7 @@ export const postThirdRequest = (level) =>  {
 
 
 // PATCH
-export const patchRequest = (editId, level) => {
+export const patchThirdRequest = (editId, level) => {
 		l("Sending a PATCH request to server with id: ", editId);
     let editURL = momentsURL + editId;
     l("to URL: ", editURL);

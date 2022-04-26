@@ -28,7 +28,6 @@ export default function AddDataScreen({ navigation }) {
   const conditionalRenderSeconds = () => {
     setShowSeconds(true);
   }
-
   const conditionalRenderThirds = () => {
     setShowThirds(true);
   }
@@ -37,17 +36,18 @@ export default function AddDataScreen({ navigation }) {
   const getApiCall = async () => {
     l("Sending a GET Request to server...");
     const data = await getRequest();
-    // l("Return data from AddDataScreen: ", data[2][0]);
-    let secondsCount = data[3].count;
-    let thirdsCount = data[5].count;
-    setSecondsTitle(data[2][0].title_for_seconds);
-    setThirdsTitle(data[4][0].title_for_thirds);
-
+    // l("Return data from AddDataScreen: ", data[3]);
+    // check if the second and third model exist
+    let secondsCount = data[3];
+    let thirdsCount = data[5];
+    // if they exist, render and add title
     if (secondsCount > 0) {
       conditionalRenderSeconds();
+      setSecondsTitle(data[2][0].title_for_seconds);
     };
     if (thirdsCount > 0) {
       conditionalRenderThirds();
+      setThirdsTitle(data[4][0].title_for_thirds);
     };
   }
 
@@ -58,9 +58,9 @@ export default function AddDataScreen({ navigation }) {
   }, []);
 
 
-  useEffect(() => {
-    l("New Level State from AddDataScr: ", level);
-  }, [level]);
+  // useEffect(() => {
+  //   l("New Level State from AddDataScr: ", level);
+  // }, [level]);
 
   return (
     <Center>

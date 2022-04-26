@@ -16,11 +16,21 @@ import l from '../../helpers/consolelog';
 
 // TODO: REFACTORRRRR
 
-
 const DisplayMomentsList = ({data, onPressCall}) => { 
 
-// please forgive me for not refactoring this FlatList -___- 
-// Inside of <FlatList /> we have two child components: // <EditPressable /> and <DeletePressable />
+// var one = data[0];
+// var jsonDate = one.updated_at
+// var json = "\"2014-01-01T23:28:56.782Z\"";
+
+// var dateStr = JSON.parse(json);
+// l("json time: ", jsonDate); 
+// l("parsed time: ", dateStr); 
+// var date = new Date(dateStr);
+// l("date :", date);
+  // var dateStr = JSON.parse(json);
+
+// Inside of <FlatList /> we have two child components: 
+// // <EditPressable /> and <DeletePressable />
   return(
     <ScrollView>
       <FlatList data={data} 
@@ -34,16 +44,15 @@ const DisplayMomentsList = ({data, onPressCall}) => {
             <Text _dark={{ color: "warmGray.50" }} 
               color="coolGray.800" bold 
             >
-             LEVEL: {item.level}
+              LEVEL: {item.level} + ID: {item.id}
             </Text>
 
             {/* CHILD COMPONENT: EDIT/DELETE */}
             <HStack>
               <EditPressable 
-                editId={item.id}
-                level={item.level}
-                updated={item.updated_at}
-                item={item}
+                eId={item.id}
+                eLevel={item.level}
+                eUpdated={item.updated_at}
                 onPressCall={onPressCall}
               />
                <Text>   </Text>
@@ -61,7 +70,7 @@ const DisplayMomentsList = ({data, onPressCall}) => {
             _dark={{ color: "warmGray.50" }} 
             color="coolGray.800" alignSelf="flex-start"
           >
-            Updated: {item.updated_at}
+            {item.updated_at}
           </Text>
         </HStack>
       </Box>} 
