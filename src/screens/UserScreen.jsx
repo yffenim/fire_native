@@ -1,82 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
-import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { AndroidImportance, AndroidNotificationVisibility, NotificationChannel, NotificationChannelInput } from 'expo-notifications';
+import React, { useState, useEffect } from "react";
+import { Center, Text } from "native-base";
+// import { getRequest } from '../functions/UserApiRequests.jsx';
+import l from "../../helpers/consolelog.js";
+import { jsonToCSV } from 'react-native-csv'
 import { downloadToFolder } from 'expo-file-dl';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
 
-const channelId = "DownloadInfo"
+export default function UserScreen({navigation}) {
 
-export default function UserScreen() {
-  const [uri, setUri] = useState("");
-  const [filename, setFilename] = useState("");
-
-  async function setNotificationChannel() {
-    const loadingChannel: NotificationChannel | null = await Notifications.getNotificationChannelAsync(channelId);
-
-    // if we didn't find a notification channel set how we like it, then we create one
-    if (loadingChannel == null) {
-      const channelOptions: NotificationChannelInput = {
-        name: channelId,
-        importance: AndroidImportance.HIGH,
-        lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
-        sound: 'default',
-        vibrationPattern: [250],
-        enableVibrate: true
-      };
-      await Notifications.setNotificationChannelAsync(channelId, channelOptions);
-    }
+const jsonData = `[
+  {
+      "Column 1": "1-1",
+      "Column 2": "1-2",
+      "Column 3": "1-3",
+      "Column 4": "1-4"
+  },
+  {
+      "Column 1": "2-1",
+      "Column 2": "2-2",
+      "Column 3": "2-3",
+      "Column 4": "2-4"
+  },
+  {
+      "Column 1": "3-1",
+      "Column 2": "3-2",
+      "Column 3": "3-3",
+      "Column 4": "3-4"
+  },
+  {
+      "Column 1": 4,
+      "Column 2": 5,
+      "Column 3": 6,
+      "Column 4": 7
   }
+]`;
 
-  useEffect(() => {
-    setNotificationChannel();
-  });
-
-  async function getCameraRollPermissions() {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  }
-  useEffect(() => {
-    getCameraRollPermissions();
-  });
+const results = jsonToCSV(jsonData);
+l("json data: ", jsonData);
+l("csv results: ", results);
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <TextInput
-        value={uri}
-        placeholder="http://www.example.com/image.jpg"
-        onChangeText={(uri) => setUri(uri)}
-        style={{width: '80%'}}
-      />
-      <TextInput
-        value={filename}
-        placeholder="image.jpg"
-        onChangeText={(filename) => setFilename(filename)}
-        style={{width: '80%'}}
-      />
-      <Button title='Download' onPress={async () => {
-        await downloadToFolder(uri, filename, "Download", channelId);
-      }}
-      />
-    </View>
+    <Center>
+      <Text>User</Text>
+
+
+    </Center>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
