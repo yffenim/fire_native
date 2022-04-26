@@ -5,7 +5,7 @@ import EditModal from './EditModal';
 import l from '../../helpers/consolelog'
 
 
-export default function EditPressable({editId}) {
+export default function EditPressable({eId, eLevel, eUpdated, onPressCall}) {
 	const [showModal, setShowModal] = useState(false);
 
 	const toggleModal = () => {
@@ -27,7 +27,9 @@ export default function EditPressable({editId}) {
 				<EditModal 
 					setShowModal={setShowModal} 
 					showModal={showModal} 
-					editId={editId} 
+					eId={eId} eLevel={eLevel}
+					eUpdated={eUpdated}
+					onPressCall={onPressCall}
 				/>
 			}
 		</Box>

@@ -1,82 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
-import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { AndroidImportance, AndroidNotificationVisibility, NotificationChannel, NotificationChannelInput } from 'expo-notifications';
-import { downloadToFolder } from 'expo-file-dl';
+import React, { useState, useEffect } from "react";
+import { Center, Text, Button } from "native-base";
+import UserGreeting from "../containers/UserGreeting"
+import NewModelForm from "../containers/NewModelForm"
+// import { getRequest } from '../functions/UserApiRequests.jsx';
+import l from "../../helpers/consolelog.js";
+// import { jsonToCSV } from 'react-native-csv'
+// import { downloadToFolder } from 'expo-file-dl';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
 
-const channelId = "DownloadInfo"
+export default function UserScreen({navigation}) {
+  const [formData, setData] = React.useState({});
+  const [errors, setErrors] = React.useState({});
 
-export default function UserScreen() {
-  const [uri, setUri] = useState("");
-  const [filename, setFilename] = useState("");
-
-  async function setNotificationChannel() {
-    const loadingChannel: NotificationChannel | null = await Notifications.getNotificationChannelAsync(channelId);
-
-    // if we didn't find a notification channel set how we like it, then we create one
-    if (loadingChannel == null) {
-      const channelOptions: NotificationChannelInput = {
-        name: channelId,
-        importance: AndroidImportance.HIGH,
-        lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
-        sound: 'default',
-        vibrationPattern: [250],
-        enableVibrate: true
-      };
-      await Notifications.setNotificationChannelAsync(channelId, channelOptions);
+  const validate = () => {
+    if (formData.name === undefined) {
+      setErrors({ ...errors,
+        name: 'Title is required'
+      });
+      return false;
+    } else if (formData.name.length < 3) {
+      setErrors({ ...errors,
+        name: 'Title is too short'
+      });
+      return false;
     }
-  }
+    return true;
+  };
 
-  useEffect(() => {
-    setNotificationChannel();
-  });
-
-  async function getCameraRollPermissions() {
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  }
-  useEffect(() => {
-    getCameraRollPermissions();
-  });
+  const onSubmit = () => {
+    validate() ? l('Submitted') : l('Validation Failed');
+  };
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <TextInput
-        value={uri}
-        placeholder="http://www.example.com/image.jpg"
-        onChangeText={(uri) => setUri(uri)}
-        style={{width: '80%'}}
-      />
-      <TextInput
-        value={filename}
-        placeholder="image.jpg"
-        onChangeText={(filename) => setFilename(filename)}
-        style={{width: '80%'}}
-      />
-      <Button title='Download' onPress={async () => {
-        await downloadToFolder(uri, filename, "Download", channelId);
-      }}
-      />
-    </View>
-  );
+    <Center>
+      <UserGreeting />
+      <NewModelForm />
+    </Center>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 

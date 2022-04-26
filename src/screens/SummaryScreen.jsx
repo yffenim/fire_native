@@ -46,11 +46,16 @@ export default function SummaryScreen({ navigation }) {
     // setSecondsTitle(data[2][0].title_for_seconds);
     // setThirdsTitle(data[4][0].title_for_thirds);
   } 
-
   
   const onPressCall = () => {
     getApiCall();
   }
+
+
+  // useEffect(()=> {
+  //   l("moments have been updated");
+  //   l("time: ", moments);
+  // }, [moments]);
 
   return (
     <Center>

@@ -76,7 +76,7 @@ _(Note that if you do not have `watchman` installed or if your DIR is slightly d
 
 `npm cache clean --force`
 
-` npm install && npm start -- --reset-cache`
+` npm install && npm start --reset-cache`
 
 ## Development Troubleshooting
 

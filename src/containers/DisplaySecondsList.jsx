@@ -10,6 +10,7 @@ import {
   Spacer,
   ScrollView
 } from "native-base";
+import { View } from "react-native";
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
 import l from '../../helpers/consolelog';
@@ -24,6 +25,7 @@ const DisplayMomentsList = ({data, onPressCall}) => {
 // Inside of <FlatList /> we have two child components: // <EditPressable /> and <DeletePressable />
   return(
     <ScrollView>
+    <View>
       <FlatList data={data} renderItem={({
         item
       }) => <Box borderBottomWidth="1" 
@@ -62,6 +64,7 @@ const DisplayMomentsList = ({data, onPressCall}) => {
           </Box>} 
         keyExtractor={item => item.id.toString()} 
       />
+     </View>
     </ScrollView>
   )
 };

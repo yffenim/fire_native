@@ -5,8 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts"
-const momentsURL = 'http://localhost:3000/api/alerts/';
+const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
+// const momentsURL = 'http://localhost:3000/api/alerts/';
 
 	// const bearerToken = async (token) => {
     // // await AsyncStorage.setItem('access-token', token);
@@ -65,7 +65,7 @@ export const postMomentRequest = (level) =>  {
 			body: JSON.stringify({
         alert: {
 					level: level,
-					user_id: 2
+					user_id: 1
 					},
 				}),
       })
@@ -87,7 +87,7 @@ export const postMomentRequest = (level) =>  {
 
 
 // PATCH
-export const patchRequest = (editId, level) => {
+export const patchMomentRequest = (editId, level) => {
 		l("Sending a PATCH request to server with id: ", editId);
     let editURL = momentsURL + editId;
     l("to URL: ", editURL);
@@ -101,7 +101,7 @@ export const patchRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 17
+          user_id: 1
         }
       })
     })

@@ -5,8 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-// const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
-const secondsURL = 'http://localhost:3000/api/seconds';
+const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
+// const secondsURL = 'http://localhost:3000/api/seconds';
 
 
 // POST
@@ -23,7 +23,7 @@ export const postSecondRequest = (level) =>  {
 			body: JSON.stringify({
        second: {
 					level: level,
-					user_id: 2
+					user_id: 1
 					},
 				}),
       })
@@ -45,7 +45,7 @@ export const postSecondRequest = (level) =>  {
 
 
 // PATCH
-export const patchRequest = (editId, level) => {
+export const patchSecondRequest = (editId, level) => {
 		l("Sending a PATCH request to server with id: ", editId);
     let editURL = momentsURL + editId;
     l("to URL: ", editURL);
@@ -59,7 +59,7 @@ export const patchRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 2
+          user_id: 1
         }
       })
     })
