@@ -5,8 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // ALL API CALLS FOR MOMENTS
-// const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/16"
-const userURL = 'http://localhost:3000/api/users/4';
+const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/1"
+// const userURL = 'http://localhost:3000/api/users/4';
 
 // GET
 export const getRequest = () => 
@@ -58,7 +58,7 @@ export const postRequest = (level, toast) =>  {
 			body: JSON.stringify({
 				alert: {
 					level: level,
-					user_id: 2
+					user_id: 1
 					},
 				}),
 			})

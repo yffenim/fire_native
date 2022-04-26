@@ -5,8 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-// const thirdsURL = "https://limitless-citadel-71686.herokuapp.com/api/thirdss"
-const thirdsURL = 'http://localhost:3000/api/thirds';
+const thirdsURL = "https://limitless-citadel-71686.herokuapp.com/api/thirds"
+// const thirdsURL = 'http://localhost:3000/api/thirds';
 
 
 // POST
@@ -23,7 +23,7 @@ export const postThirdRequest = (level) =>  {
 			body: JSON.stringify({
         third: {
 					level: level,
-					user_id: 2
+					user_id: 1
 					},
 				}),
       })
@@ -59,7 +59,7 @@ export const patchThirdRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 2
+          user_id: 1
         }
       })
     })

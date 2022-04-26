@@ -43,12 +43,9 @@ export const rowValues =
 
 
 // Submit Value Button (POST request for New Alerts)
-// needs to check which model
 export function SubmitButton({level, model}) {
   // const toast = useToast();
-  // depending o which mode, call a different request
-  // l("model: ", model); // PROBLEM IS THAT I NEED SECOND NOT APPETITE
-  l("model: ", model);
+  
   const postApiCall = async () => {
     switch (model) {
       case "alertness" : await postMomentRequest(level);
