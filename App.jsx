@@ -1,13 +1,11 @@
 import 'react-native-gesture-handler'; // test out this at a dif pos
 import * as React from "react";
 import { AppRegistry } from "react-native";
-// Navigation and Screens (instead of routing)
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, extendTheme, Center } from "native-base";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { defaultTheme } from "./src/styles/nativeBaseStyles";
 import { navStyles } from "./src/styles/styles";
-
 import { 
   LandingNavigator, 
   UserNavigator, 
@@ -16,6 +14,7 @@ import {
   ExportNavigator
   } from './src/containers/NavigationScreens'
 import l from "./helpers/consolelog";
+
 
 export default class App extends React.Component {
   render() {

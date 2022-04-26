@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // ALL API CALLS FOR MOMENTS
 // const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/16"
-const userURL = 'http://localhost:3000/api/users/16';
+const userURL = 'http://localhost:3000/api/users/4';
 
 // GET
 export const getRequest = () => 

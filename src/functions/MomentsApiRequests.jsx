@@ -6,8 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts"
-const momentsURL = 'http://localhost:3000/api/alerts';
-const secondsURL = 'http://localhost:3000/api/seconds';
+const momentsURL = 'http://localhost:3000/api/alerts/';
 
 	// const bearerToken = async (token) => {
     // // await AsyncStorage.setItem('access-token', token);

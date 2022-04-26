@@ -2,41 +2,55 @@ import React, { useState } from "react";
 import { Pressable, Heading, Button, HStack, Box } from "native-base";
 import l from "../../helpers/consolelog";
 
-const DisplayButtons = ({showMoments, setShowMoments, onPressCall}) => {
+const DisplayButtons = ({
+	// showMoments, 
+	setShowMoments, 
+	onPressCall, 
+	secondsTitle, 
+	thirdsTitle,
+	setShowSeconds,
+	setShowThirds
+}) => {
 	
-const togglePressable = () => { setShowMoments(!showMoments) }
-const [ buttonLabel, setButtonLabel] = useState("View");
+	const togglePressable = () => { setShowMoments(true) }
+	const toggleSecondPressable = () => { setShowSeconds(true) }
+	const toggleThirdPressable = () => { setShowThirds(true) }
+	const [ buttonLabel, setButtonLabel] = useState("alertness");
 
 // View vs Collapse for button
 	return (
-		<Box>
-			<Button variant="outline" 
-				w="120" h="120" mt="1"
+		<HStack mt="-480">
+			<Button 
+				variant="outline" 
+				colorScheme="secondary"
+				w="125" h="125" mt="1"
 				onPress={()=>{
 					onPressCall();
 					togglePressable();
 			}}>
-				{buttonLabel}Alertness
+				View {buttonLabel} 
 			</Button>
-		
-			<Button variant="outline"
-				w="120" h="120" mt="1"
+			<Button 
+				variant="outline"
+				colorScheme="warning"
+				w="125" h="125" mt="1"
 				onPress={()=>{
 					onPressCall();
-					togglePressable();
+					toggleSecondPressable();
 			}}>
-				{buttonLabel} SECOND
+				View {secondsTitle}
 			</Button>
-		
-			<Button variant="outline"
-				w="120" h="120" mt="1"
+			<Button 
+				variant="outline"
+				colorScheme="emerald"
+				w="125" h="125" mt="1"
 				onPress={()=>{
 					onPressCall();
-					togglePressable();
+					toggleThirdPressable();
 			}}>
-				{buttonLabel} THIRD
+				View {thirdsTitle}
 			</Button>
-		</Box>
+		</HStack>
 	)
 }
 

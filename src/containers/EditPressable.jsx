@@ -14,17 +14,23 @@ export default function EditPressable({editId}) {
 
 	return(
 		<Box>
-		<Pressable onPress={()=>{
-			toggleModal();
-			}}
-		>
-			<Text color="indigo.600" _dark={{ color: "indigo.600" } }>
-				EDIT
-			</Text>
-		</Pressable>
-		{showModal &&
-		<EditModal setShowModal={setShowModal} showModal={showModal} editId={editId} />}
-	</Box>
+			<Pressable onPress={()=>{
+				toggleModal();
+			}}>
+				<Text color="indigo.600" 
+					_dark={{ color: "indigo.600" }}
+				>
+					EDIT
+				</Text>
+			</Pressable>
+			{showModal &&
+				<EditModal 
+					setShowModal={setShowModal} 
+					showModal={showModal} 
+					editId={editId} 
+				/>
+			}
+		</Box>
 	)
 }
 

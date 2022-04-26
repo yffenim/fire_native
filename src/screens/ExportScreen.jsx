@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import l from "../../helpers/consolelog.js";
+import { CSVLink, CSVDownload } from "react-csv";
 
 // create as class component for memory retention purposes
 // advantages of class components: access to lifestyle methods

@@ -4,8 +4,13 @@ import l from '../../helpers/consolelog';
 
 // TODO: Finish Edit
 
-export default function EditModal({setShowModal, showModal, editId}) {
-  l("showModal on EditModal: ", showModal);
+export default function EditModal({setShowModal, showModal, editId, item, level, updated}) {
+  // l("showModal on EditModal: ", showModal);
+  l("editId: ", editId);
+  l("level: ",level);
+  l("item ", item);
+  // l("Item: ", item);
+
   return (
     <Center>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>

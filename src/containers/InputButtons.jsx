@@ -80,6 +80,7 @@ export function SubmitButton({level, model}) {
       <Button size="lg" m="6" h="70" w="70"
         borderRadius="60"
         variant="solid"
+        colorScheme="indigo"
         onPress={()=>{
           handleSubmit();
           // toast.show({render: () => {

@@ -5,12 +5,12 @@ import { deleteRequest } from '../functions/MomentsApiRequests.jsx';
 import l from '../../helpers/consolelog';
 
 
-export default function DeletePressable({deleteId, updateDisplay}) {
+export default function DeletePressable({deleteId, onPressCall}) {
 
 // handler for DELETE request
 	const deleteApiCall = async () => {
 		await deleteRequest({deleteId});
-		updateDisplay();
+		onPressCall();
 	}
 
 // component for nicer user alerts 
@@ -28,7 +28,9 @@ export default function DeletePressable({deleteId, updateDisplay}) {
         }
 			});					
 		}}>
-			<Text	color="indigo.600" _dark={{ color: "indigo.600" }}>
+			<Text	color="indigo.600" 
+				_dark={{ color: "indigo.600" }}
+			>
 				DELETE
 			</Text>
 		</Pressable>
