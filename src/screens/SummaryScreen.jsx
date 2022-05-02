@@ -7,6 +7,8 @@ import DisplaySecondsList from '../containers/DisplaySecondsList';
 import { getRequest, getAuthenticatedRequest } from '../functions/MomentsApiRequests.jsx';
 import {CSVLink, CSVDownload} from 'react-csv';
 import l from "../../helpers/consolelog.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 // This Screen contains:
 // display recently created data
@@ -30,27 +32,36 @@ export default function SummaryScreen({ navigation }) {
   const [showSeconds, setShowSeconds] = useState(false);
   const [showThirds, setShowThirds] = useState(false);
 
-  const csvData =[
-    ['firstname', 'lastname', 'email'] ,
-    ['John', 'Doe' , 'john.doe@xyz.com'] ,
-    ['Jane', 'Doe' , 'jane.doe@xyz.com']
-  ];
+  // retrieve the header data from storage
+  var setHeaders = null;
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('requestHeaders')
+      setHeaders = jsonValue != null ? JSON.parse(jsonValue) : null;
+      // l("headers from MomentsApiRequests: ", setHeaders);
+    } catch(e) {
+      l("Error from MomentsApiRequests async retrieval: ", e);
+   }
+  }
+
+  const onPressCall = () => {
+    getData(); // getting headers
+    getApiCall();
+  }
+
 // request for all model data
   const getApiCall = async () => {
-    l("Sending a GET Request to server...");
+    l("Sending a unauthenticated GET Request to server...");
     const data = await getRequest();
+    // const data = await getAuthenticatedRequest(setHeaders);
     l("Return data from SummaryScreen: ", data);
     setMoments(data[0]);
     setSeconds(data[2]);
     setThirds(data[5]);
-    // setSecondsTitle(data[2][0].title_for_seconds);
-    // setThirdsTitle(data[4][0].title_for_thirds);
+    setSecondsTitle(data[2][0].title_for_seconds);
+    setThirdsTitle(data[4][0].title_for_thirds);
   } 
-  
-  const onPressCall = () => {
-    getApiCall();
-  }
-
 
   // useEffect(()=> {
   //   l("moments have been updated");
@@ -59,6 +70,7 @@ export default function SummaryScreen({ navigation }) {
 
   return (
     <Center>
+      <Button onPress={()=>{onPressCall()}}>Call</Button>
       {!showMoments &&
         <DisplayButtons
           setShowMoments={setShowMoments}

@@ -1,42 +1,67 @@
-import React, { Component } from "react";
-// import { Center, Text, Button, Input, Link,} from "native-base";
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Table, Row, Rows } from 'react-native-table-component';
+import React, { useState, useEffect } from "react";
+import { VStack, Center, Text, Box, Button } from "native-base";
+import DisplayButtons from '../containers/DisplayButtons';
+import DisplayMomentsList from '../containers/DisplayMomentsList';
+import HideDisplayButton from '../containers/HideDisplayButton';
+import DisplaySecondsList from '../containers/DisplaySecondsList';
+import { getRequest, getAuthenticatedRequest } from '../functions/MomentsApiRequests.jsx';
 import l from "../../helpers/consolelog.js";
-import { CSVLink, CSVDownload } from "react-csv";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getString } from "../functions/getStorageData.jsx"
 
-// create as class component for memory retention purposes
-// advantages of class components: access to lifestyle methods
+// This Screen contains:
+// display recently created data
+// EDIT/DELETE recently created data
+// chart model data
 
-export default class ExportScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ['Level', 'Updated'],
-      tableData: [
-        ['1', 'the date'],
-        ['3', 'the date'],
-        ['5', 'the date'],
-        ['7', 'the date']
-      ]
+export default function ExportScreen({ navigation }) {
+  const [moments, setMoments] = useState({});
+  const [headers, setHeaders] = useState({});
+
+// get the request headers and pass them into the request call
+  const onPressCall = () => {
+    getHeaders("requestHeaders");
+    getApiCall();
+    // getAuthenticatedRequest(headers);
+  }
+
+  const getApiCall = async () => {
+    // l("Sending a GET Request to server...");
+    // const data = await getRequest();
+    const data = await getAuthenticatedRequest(headers);
+    l("Return data from ExportScreen: ", data);
+  }
+
+// getting authenticated request header
+  const getHeaders = async (key='requestHeaders') => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key)
+        if(jsonValue !== null) {
+        let value = JSON.parse(jsonValue)
+        // l("Headers from ExportScreen: ", value);
+        setHeaders(value);
+      }
+      } catch(e) {
+        l("error with async storage: ", e);
     }
-  }
+  };
 
-  render() {
-    const state = this.state;
-    return (
-      <View style={styles.container}>
-        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-          <Rows data={state.tableData} textStyle={styles.text}/>
-        </Table>
-      </View>
-    )
-  }
+// let me know when headers are updated
+  useEffect(() => {
+    l("headers has been updated: ",headers);
+  }, [headers]);
+
+  return (
+    <Center>
+      <Text>EXPORT SCREEN</Text>
+      <Button onPress={()=>{onPressCall()}}>CALL API</Button>
+    </Center>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
-});
+// or
+// Have three display lists
+// render which ever one depending on click
+// thi means still have to pass up click
+// might as well do first one
+

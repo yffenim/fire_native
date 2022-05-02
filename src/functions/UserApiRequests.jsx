@@ -4,46 +4,57 @@ import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// ALL API CALLS FOR MOMENTS
-const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/1"
-// const userURL = 'http://localhost:3000/api/users/4';
+// ALL API CALLS FOR USERS
+
+
+// const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/1"
+const userURL = 'http://localhost:3000/api/users/4';
 
 // GET
-export const getRequest = () => 
-  fetch(userURL)
+export const getRequest = () => {
+// need explcit return for fetch bc curly braces
+  return fetch(userURL)
   .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
-
-
-// GET
-export const getAuthenticatedRequest = () =>  {
-  // var value = ""
-	const bearerToken = async (token) => {
-    var value = await AsyncStorage.getItem('access-token');
-    console.log("Access-Token from AsyncStorage: ", value);
-    return value;
-  };
-
-  bearerToken(); // need to return token, pass via headers
-
-  fetch(momentsURL,{
-    headers: {
-      "Authorization": "Bearer kvNFXLuXtU8nNpeHyuxZJw",
-    },
-  })
-  .then((response) => {
-    if (response.ok) {
+      if (response.ok) {
       return response.json()
     }
     throw new Error("Network response was not ok.")
   })
   .catch(err => l("Error: ", err))
 }
+
+// same Get request using await instead of explicit return for fetch
+// export const getRequest = await fetch(userURL);
+//   if (response.ok) {
+//     let resp = await response.json();
+//   } else {
+//     throw new Error("Network response was not ok.");
+// }
+
+
+// GET
+export const getAuthenticatedRequest = (headers) => 
+  // const testHeaders = {
+		// "client": "FSYSXVmoJp7nQSv637qkNQ",
+		// "expiry": "1652698658",
+		// "access-token": "IJx8MiE2_tveHD1Y5pl6sA",
+		// "token-type": "Bearer",
+		// "uid": "ada@ardour.com"
+  // }
+
+  fetch(userURL,{
+    headers: headers
+    // headers: testHeaders
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+    throw new Error("Network response was not ok.")
+  })
+  // .then((response) => {l("response: ", response)})
+  .catch(err => l("Error from User Get Request: ", err));
+
 
 // POST
 export const postRequest = (level, toast) =>  {

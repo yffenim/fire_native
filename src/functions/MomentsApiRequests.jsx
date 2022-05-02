@@ -5,14 +5,10 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
-// const momentsURL = 'http://localhost:3000/api/alerts/';
 
-	// const bearerToken = async (token) => {
-    // // await AsyncStorage.setItem('access-token', token);
-    // const value = await AsyncStorage.getItem('access-token');
-    // console.log("Access-Token from AsyncStorage: ", value);
-  // };
+// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
+const momentsURL = 'http://localhost:3000/api/alerts/';
+
 
 // GET
 export const getRequest = () => 
@@ -26,29 +22,21 @@ export const getRequest = () =>
   .catch(err => l("Error: ", err))
 
 
+
 // GET
-export const getAuthenticatedRequest = () =>  {
-  // var value = ""
-	const bearerToken = async (token) => {
-    var value = await AsyncStorage.getItem('access-token');
-    console.log("Access-Token from AsyncStorage: ", value);
-    return value;
-  };
-
-  bearerToken(); // need to return token, pass via headers
-
-  fetch(momentsURL,{
-    headers: {
-      "Authorization": "Bearer kvNFXLuXtU8nNpeHyuxZJw",
-    },
+export const getAuthenticatedRequest = (headers) =>  {
+  l("Making a GET request for moments with headers: ", headers);
+  
+    fetch(momentsURL,{
+    headers: headers
   })
   .then((response) => {
     if (response.ok) {
       return response.json()
     }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
+     throw new Error("Network response was not ok.")
+   })
+   .catch(err => l("Error from getAuthenticatedRequest: ", err))
 }
 
 // POST

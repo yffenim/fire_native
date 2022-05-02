@@ -25,8 +25,7 @@ export const RegisterButton = ({email, password}) => {
 export const SignInButton = () => {
 
 	const postApiCall = async () => {
-    await validateTokenRequest();
-    // await postSignInRequest();
+    await postSignInRequest();
 	};
 
 	const handleLogin = () => {

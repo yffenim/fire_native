@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Center, Text, Button, FormControl, VStack, Input } from "native-base";
-// import { getRequest } from '../functions/UserApiRequests.jsx';
+import { validateTitle } from '../functions/formValidations.jsx';
 import l from "../../helpers/consolelog.js";
 
-// For Making a New Model
-// needs: title, first object
+// NewModelForm contains:
+// - form itself
+// - validation 
+// - error messages
+// - submit button
+
 export default function NewModelForm() {
   const [formData, setData] = React.useState({});
   const [errors, setErrors] = React.useState({});
+  const titlePlaceholder = "Please Enter A Title for Your Tracked Moment"
 
-  const validate = () => {
-    if (formData.title === undefined) {
-      setErrors({ ...errors,
-        title: 'Title is required'
-      });
-      return false;
-    } else if (formData.title.length < 3) {
-      setErrors({ ...errors,
-        title: 'Title is too short'
-      });
-      return false;
-    }
-    return true;
-  };
-
+// submit button handler 
   const onSubmit = () => {
-    validate() ? l('Submitted') : l('Validation Failed');
+    validateTitle({formData, setErrors, errors}) ? 
+      l('Submitted') : l('Validation Failed');
   };
 
   return (
@@ -37,20 +29,22 @@ export default function NewModelForm() {
           New Title:
         </FormControl.Label>
         <Input 
-          placeholder="Please Enter A Title for Your Tracked Moment" 
+          placeholder={titlePlaceholder}
           onChangeText={value => setData(
             { ...formData, title: value}
           )} 
 				/>
 				<Input mt="3"
-					placeholder="Please Enter A Level" />
+          placeholder="Please Enter A Level" />
+
         {'title' in errors ? 
           <FormControl.ErrorMessage>
-            Error
+            {errors.title}
           </FormControl.ErrorMessage> : 
           <FormControl.HelperText>
             Title should contain at least 3 character.
-          </FormControl.HelperText>}
+            </FormControl.HelperText>}
+
         </FormControl>
         <Button onPress={onSubmit} mt="5" colorScheme="indigo">
           Submit

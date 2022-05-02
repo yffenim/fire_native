@@ -4,8 +4,9 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
 // ALL API CALLS FOR USER  AUTHENTICATION / REGISTRATION
+
+
 
 // API ENDPOINTS:
 // LOGIN USER
@@ -24,18 +25,15 @@ const validateURL = 'http://localhost:3000/auth/validate_token'
 // const userURL = "https://limitless-citadel-71686.herokuapp.com/api/users/"
 // const userURL = "https://localhost:3000/api/users/"
 
-// refactored logic, to be moved
+
+
+// refactored, to be moved
 const loginRequestHeader = {
 	"Content-Type": "application/json",
 	"X-Requested-With": "XMLHttpRequest"
 };
 
-// var token = "";
-// var uid = "ada@ardour.com"; // should always be email of user
-// var tokenType = "Bearer";
-// var client = ""
-// var expiry = ""
-
+// create header object for authenticated requests
 export const setTokenHeaders = (client, expiry, token, tokenType, uid) => {
 	return ({ 
 		"client": client,
@@ -46,33 +44,24 @@ export const setTokenHeaders = (client, expiry, token, tokenType, uid) => {
 	})
 }
 
-// l("authenticatedHeaders: ", authenticatedHeaders);
-
+// Validate access-token
+// Used in callback of postSignInRequest() fetch request
 export const validateTokenRequest = (tokenHeaders) => {
-	l("sending token validation request");
-	
-	const testHeaders = {
-		"client": "Pq9G32givfpB52n6yHNtCw",
-		"expiry": "1652673036",
-		"access-token": "_Q41bQcjloF9eAwrhXmDIw",
-		"token-type": "Bearer",
-		"uid": "ada@ardour.com"
-	}
-
-	l("headers sent:", testHeaders);
-
+	l("sending token validation request with headers: ", tokenHeaders);
 	fetch(validateURL, {
 			method: 'GET',
-			headers: testHeaders
+			headers: tokenHeaders
 	})
 	.then((response) => {
 		if (response.ok) {
-			l("success? ", response.body["success"]);
-			l("body: ", response.body);
+			l("Validate Token Request Success!");
 			return response.json();
 		}
-		alert("Token Validation Request failed");
+		alert("Login failed. Please try again!");
 		throw new Error("Network response was not ok from token validation.");
+	})
+	.then((response) => {
+		l(response.success);
 	})
 	.catch((err) => l(err));
 }
@@ -82,15 +71,20 @@ export const validateTokenRequest = (tokenHeaders) => {
 // POST REQUEST FOR SIGN IN USER
 export const postSignInRequest = () =>  {
 
-// get the access token then save it into AsyncStorage
-	// var token = "";
-	// const storeToken = async (token) => {
-    // await AsyncStorage.setItem('access-token', token);
-    // const value = await AsyncStorage.getItem('access-token');
-    // console.log("Access-Token from AsyncStorage: ", value);
-  // };
+// for passing headers into validateToken request 
+	var tokenHeaders = {}
 
-		l("From AuthApiRequests: Authenticating user...");
+// Store the response headers in Async 
+	const storeHeaders = async (tokenHeaders) => {
+		const jsonHeaders = JSON.stringify(tokenHeaders)
+		await AsyncStorage.setItem('requestHeaders', jsonHeaders);
+		// const jsonValue = await AsyncStorage.getItem('requestHeaders')
+    // let value = jsonValue != null ? JSON.parse(jsonValue) : null;
+    // l("tokenHeaders from AuthApiRequests: ", value);
+	}
+
+	l("Authenticating user login...");
+
 		fetch(loginURL, {
 			method: 'POST',
 			headers: loginRequestHeader,
@@ -101,33 +95,28 @@ export const postSignInRequest = () =>  {
 		})
 		.then((response) => {
 			if (response.ok) {
-				// alert("Login Successful!");
-				// l("headers: ", response.headers);
-				
+				alert("Login Successful!");
+				// get the header values
 				let expiry = response.headers["map"]["expiry"];
 				let client = response.headers["map"]["client"];
 				let token = response.headers["map"]["access-token"];
 				let tokenType = response.headers["map"]["token-type"];
 				let uid = response.headers["map"]["uid"];
-
-				let tokenHeaders = setTokenHeaders(client, expiry, token, tokenType, uid);
-				l("tokenHeaders: ", tokenHeaders);
-				validateTokenRequest(tokenHeaders);
-				// l("token: ", response.headers["map"]["access-token"]);
-				// const getToken = response.headers["map"]["access-token"];
-				// storeToken(getToken);
+				// make the header object
+				tokenHeaders = setTokenHeaders(client, 
+					expiry, token, tokenType, uid);
+				// store header into async storage
+				storeHeaders(tokenHeaders);
 				return response.json();
 			}
 				alert("Oops, could not login.")
 				throw new Error("Network response was not ok from Login request.");
 		})
 		.then((response) => {
-			// getEntries();
+			// callback to validate the access-token
+			validateTokenRequest(tokenHeaders);
 		})
 		.catch((err) => l(err));
-
-
-
 	};
 
 // POST REQUEST FOR REGISTERING NEW USER
