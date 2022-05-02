@@ -7,7 +7,11 @@ import Register from "../containers/Register";
 import ToggleDarkMode from "../containers/ToggleDarkMode"
 
 
+// Display Login or Register
+
 export default function LandingScreen({ navigation }) {
+
+// used to toggle login vs register form
   const [ auth, setAuth ] = useState("login");
 
   return (
@@ -18,7 +22,9 @@ export default function LandingScreen({ navigation }) {
       auth === 'register' ?
         <Register setAuth={setAuth} /> :
       null}
-        {/* <ToggleDarkMode /> */}
+        {/* 
+        <ToggleDarkMode /> 
+        */}
     </Center>
   );
 }

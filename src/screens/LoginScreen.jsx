@@ -25,12 +25,7 @@ function LoginScreen({ navigation }) {
 }
 
   return (
-    <Center
-      _dark={{ bg: "blueGray.900" }}
-      _light={{ bg: "blueGray.50" }}
-      px={4}
-      flex={1}
-    >
+    <Center>
       <Box safeArea p="2" py="8" w="90%" maxW="290">
         <Heading
           size="lg"

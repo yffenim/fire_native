@@ -1,13 +1,12 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
-import { postSignInRequest, postSignUpRequest } from '../functions/AuthApiRequests.jsx'
+import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
 import l from '../../helpers/consolelog';
 
-// Register New User Sign up Button
+// REGISTER NEW USER
 export const RegisterButton = ({email, password}) => {
+
   const handleSignUp = () => {
-    // make API call with: email, password, confirm password
-    // these are passed in as props from parent Register Form
     postSignUpRequest(email, password);   
   };
 
@@ -21,6 +20,32 @@ export const RegisterButton = ({email, password}) => {
     </Button>
   )
 }
+
+// SIGN IN USER
+export const SignInButton = () => {
+
+	const postApiCall = async () => {
+    await validateTokenRequest();
+    // await postSignInRequest();
+	};
+
+	const handleLogin = () => {
+    postApiCall();
+  };
+
+  return(
+    <Button
+      onPress={() => {
+        handleLogin()
+        }
+      }
+      mt="2" colorScheme="indigo">
+        Sign in
+    </Button>
+  )
+}
+
+
 
 // Return to Login component Link (I know it's not a button)
 export const BackToLoginLink = ({setAuth}) => {
@@ -85,31 +110,6 @@ export const NewUserLink = ({setAuth}) => {
         Sign Up
       </Link>
     </HStack>
-  )
-}
-
-
-// Sign In Button -- currently goes to Home Screen
-export const SignInButton = () => {
-
-	const postApiCall = async () => {
-    await postSignInRequest();
-	};
-
-	const handleLogin = () => {
-    postApiCall();
-    getApiCall();
-  };
-
-  return(
-    <Button
-      onPress={() => {
-        handleLogin()
-        }
-      }
-      mt="2" colorScheme="indigo">
-        Sign in
-    </Button>
   )
 }
 
