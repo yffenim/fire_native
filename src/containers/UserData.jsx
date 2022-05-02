@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Center, Text, Button } from "native-base";
+import { Center, Text, Button, VStack, Input, FormControl, Heading } from "native-base";
 import { getAuthenticatedRequest, getRequest } from '../functions/UserApiRequests.jsx';
+import { SubmitButton, DeleteButton } from "../containers/UserButtons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import l from "../../helpers/consolelog.js";
 
@@ -8,42 +9,46 @@ import l from "../../helpers/consolelog.js";
 // API GET request
 // child components will make API update/delete requests
 
-export default function UserData(){
-	const [user, setUser] = useState({});
-  const [headers, setHeaders] = useState({});
-
-// button handler
-	const onPressCall = () => {
-		getHeaders();
-		getApiCall();
-	}
-
-// making the call and using return data to set user state
-	const getApiCall = async () => {
-		// const data = await getAuthenticatedRequest(headers);
-		const data = await getRequest();
-		l("Returned UserData: ", data);
-	}
-
-// get authenticated request headers and save into state
-  const getHeaders = async (key='requestHeaders') => {
-    try {
-      const jsonValue = await AsyncStorage.getItem(key)
-        if(jsonValue !== null) {
-        let value = JSON.parse(jsonValue)
-        // l("Headers from ExportScreen: ", value);
-        setHeaders(value);
-      }
-      } catch(e) {
-        l("error with async storage: ", e);
-    }
-  };
+export default function UserData({email, setEmail, name, setName}){
+	const username = name
+	l("UserData name :", name);
+	l(typeof name);
+	l("UserData username: ", username);
+	l(typeof username);
 
 	return (
 		<Center>
-			<Text>User Data Component </Text>
-			<Button onPress={()=>{onPressCall()}}>Get User Data</Button>
-		</Center>
+			<VStack width="90%" mx="3" maxW="300px">
+      <FormControl isRequired>
+        <FormControl.Label _text={{
+        bold: true
+      }}>Name</FormControl.Label>
+		
+				<Input placeholder="" onChangeText={value => setName({ ...formData,
+        name: value
+			})} />
+        <FormControl.Label _text={{
+        bold: true
+      }}>Email</FormControl.Label>
+				<Input placeholder="" onChangeText={value => setEmail({ ...formData,
+        name: value
+			})} />
+
+				<FormControl.HelperText _text={{
+        fontSize: 'xs'
+      }}>
+          Name should contain atleast 3 character.
+        </FormControl.HelperText>
+				
+				<FormControl.ErrorMessage _text={{
+        fontSize: 'xs'
+      }}>
+          Error Name
+        </FormControl.ErrorMessage>
+			</FormControl>
+			<SubmitButton />
+			<DeleteButton />
+		</VStack>
+	</Center>
 	)
 }
-

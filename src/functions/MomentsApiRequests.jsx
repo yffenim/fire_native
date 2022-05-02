@@ -27,7 +27,7 @@ export const getRequest = () =>
 export const getAuthenticatedRequest = (headers) =>  {
   l("Making a GET request for moments with headers: ", headers);
   
-    fetch(momentsURL,{
+  return fetch(momentsURL,{
     headers: headers
   })
   .then((response) => {

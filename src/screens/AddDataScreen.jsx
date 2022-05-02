@@ -54,7 +54,7 @@ export default function AddDataScreen({ navigation }) {
 // on page load
   useEffect(() => {
     getApiCall();
-    l("All Data has been updated.");
+    l("Add Data Screen Data has been updated.");
   }, []);
 
 

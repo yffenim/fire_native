@@ -15,4 +15,17 @@ export const getString = async (key="access-token") => {
       } catch(e) {
         l("error with async storage: ", e);
       }
+};
+
+export const getHeaders = async ({setheaders}) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('requestHeaders')
+        if(jsonValue !== null) {
+        let value = JSON.parse(jsonValue)
+        l("value is: ", value);
+        setHeaders(value);
+      }
+      } catch(e) {
+        l("error with async storage: ", e);
+    }
   };

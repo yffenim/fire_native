@@ -33,7 +33,7 @@ export const getRequest = () => {
 
 
 // GET
-export const getAuthenticatedRequest = (headers) => 
+export const getAuthenticatedRequest = (headers) =>  {
   // const testHeaders = {
 		// "client": "FSYSXVmoJp7nQSv637qkNQ",
 		// "expiry": "1652698658",
@@ -41,8 +41,8 @@ export const getAuthenticatedRequest = (headers) =>
 		// "token-type": "Bearer",
 		// "uid": "ada@ardour.com"
   // }
-
-  fetch(userURL,{
+  l("Sending a Get Request for UserData...");
+  return fetch(userURL,{
     headers: headers
     // headers: testHeaders
   })
@@ -54,7 +54,7 @@ export const getAuthenticatedRequest = (headers) =>
   })
   // .then((response) => {l("response: ", response)})
   .catch(err => l("Error from User Get Request: ", err));
-
+}
 
 // POST
 export const postRequest = (level, toast) =>  {

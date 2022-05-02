@@ -31,14 +31,14 @@ export default function SummaryScreen({ navigation }) {
   const [showMoments, setShowMoments] = useState(false);
   const [showSeconds, setShowSeconds] = useState(false);
   const [showThirds, setShowThirds] = useState(false);
-
-  // retrieve the header data from storage
-  var setHeaders = null;
+  
+  const [headers, setHeaders] = useState({});
 
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('requestHeaders')
-      setHeaders = jsonValue != null ? JSON.parse(jsonValue) : null;
+      let value = jsonValue != null ? JSON.parse(jsonValue) : null;
+      setHeaders(value)
       // l("headers from MomentsApiRequests: ", setHeaders);
     } catch(e) {
       l("Error from MomentsApiRequests async retrieval: ", e);
@@ -52,9 +52,9 @@ export default function SummaryScreen({ navigation }) {
 
 // request for all model data
   const getApiCall = async () => {
-    l("Sending a unauthenticated GET Request to server...");
-    const data = await getRequest();
-    // const data = await getAuthenticatedRequest(setHeaders);
+    // l("Sending a unauthenticated GET Request to server...");
+    // const data = await getRequest();
+    const data = await getAuthenticatedRequest(headers);
     l("Return data from SummaryScreen: ", data);
     setMoments(data[0]);
     setSeconds(data[2]);
