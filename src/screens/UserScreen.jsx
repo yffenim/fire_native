@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Center, Text, Button, VStack } from "native-base";
+import { Center, Text, Button, VStack, HStack } from "native-base";
 import UserGreeting from "../containers/UserGreeting"
 import UserData from "../containers/UserData"
+import EditUser from "../containers/EditUser"
 import UserStats from "../containers/UserStats"
+import { DeleteButton } from "../containers/UserButtons"
 import NewModelForm from "../containers/NewModelForm"
 // import { getRequest } from '../functions/UserApiRequests.jsx';
 import { getAuthenticatedRequest, getRequest } from '../functions/UserApiRequests.jsx';
 import l from "../../helpers/consolelog.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { getHeaders } from '../functions/getStorageData';
-
 // import { jsonToCSV } from 'react-native-csv'
 // import { downloadToFolder } from 'expo-file-dl';
 
 // User Screen:
 // - greeting with name
-// - display basic stats
 // - edit user details / change password / delete account
-// - email CSV data to yourself
 
 export default function UserScreen({navigation}) {
 // get data for the screen + set state needed by all children
@@ -41,8 +40,8 @@ export default function UserScreen({navigation}) {
     l("Returned UserData: ", data);
     l("Returned Ob1: ", data[0]);
     setUser(data);
-    // setEmail(data[0]);
-    // setName(data[0].name);
+    setEmail(data[0]);
+    setName(data[0].name);
     // setModels(data.slice(1,3));
   }
 
@@ -74,7 +73,7 @@ export default function UserScreen({navigation}) {
 
   return (
     <Center>
-      <UserGreeting />
+      <UserGreeting name={name} />
       <Button variant="outline"
         onPress={()=>{
           onPressCall();
@@ -84,10 +83,12 @@ export default function UserScreen({navigation}) {
           Edit Your Info
       </Button>
       {visible &&
-        <UserData email={email} setEmail={setEmail} name={name} setName={setName} /> 
-        }   
+        <UserData 
+          email={email} setEmail={setEmail} 
+          name={name} setName={setName} 
+        />}   
       {/* UserData needs state for email, name */}  
-        
+      <DeleteButton /> 
         {/*
       <EmailCSV />
       <NewModelForm />

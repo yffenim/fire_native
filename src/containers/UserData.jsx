@@ -10,11 +10,11 @@ import l from "../../helpers/consolelog.js";
 // child components will make API update/delete requests
 
 export default function UserData({email, setEmail, name, setName}){
-	const username = name
-	l("UserData name :", name);
-	l(typeof name);
-	l("UserData username: ", username);
-	l(typeof username);
+	// const username = name
+	// l("UserData name :", name);
+	// l(typeof name);
+	// l("UserData username: ", username);
+	// l(typeof username);
 
 	return (
 		<Center>
@@ -37,7 +37,7 @@ export default function UserData({email, setEmail, name, setName}){
 				<FormControl.HelperText _text={{
         fontSize: 'xs'
       }}>
-          Name should contain atleast 3 character.
+          Name should contain at least 3 character.
         </FormControl.HelperText>
 				
 				<FormControl.ErrorMessage _text={{

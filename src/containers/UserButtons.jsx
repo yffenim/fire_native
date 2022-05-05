@@ -31,7 +31,7 @@ export const DeleteButton = () => {
   return (
     <Button  
       m="10" variant="outline"
-      colorScheme="indigo" 
+      colorScheme="red" 
       onPress={()=>{handleDelete()}}
     >
       Delete User
