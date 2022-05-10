@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Pressable} from "native-base";
-// import DisplayButtons from '../containers/DisplayButtons';
-// import DisplayMomentsList from '../containers/DisplayMomentsList';
-// import HideDisplayButton from '../containers/HideDisplayButton';
-// import DisplaySecondsList from '../containers/DisplaySecondsList';
-// import { getRequest, getAuthenticatedRequest } from '../functions/MomentsApiRequests.jsx';
 // import {CSVLink, CSVDownload} from 'react-csv';
 import l from "../../helpers/consolelog.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions, Animated } from 'react-native';
 import { renderScene } from '../presentations/renderScene' 
+import { modelsAtom } from '../atoms/modelsAtom';
+import { useRecoilState } from 'recoil';
 
 
 // This Page contains:
@@ -19,6 +16,8 @@ import { renderScene } from '../presentations/renderScene'
 
 export default function SummaryScreen({ navigation }){
   const layout = useWindowDimensions();
+
+  const [model, setModel] = useRecoilState(modelsAtom);
 // State for choosing the Tab Bar
   const [index, setIndex] = React.useState(0);
 
@@ -89,6 +88,7 @@ export default function SummaryScreen({ navigation }){
       renderTabBar={renderTabBar} 
       onIndexChange={setIndex} 
       initialLayout={{width: layout.width}}
+      // setModel={setModel}
       // style={{marginTop: StatusBar.currentHeight}} 
     />
   );

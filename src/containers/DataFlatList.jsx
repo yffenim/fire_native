@@ -17,16 +17,15 @@ import l from '../../helpers/consolelog';
 
 // TODO: REFACTORRRRR
 
-const DisplayMomentsList = ({data, refresh}) => { 
+const DataFlatList = ({data, refresh}) => { 
 
-// l("data is: ", data);
 
 // Inside of <FlatList /> we have two child components: 
 // // <EditPressable /> and <DeletePressable />
   return(
     <ScrollView>
       <View>
-        <Text>Your Last 20 Entries...</Text>
+        <Text>Your Latest Entries...</Text>
         <FlatList data={data} 
           renderItem={({ item }) => 
             <Box borderBottomWidth="1" 
@@ -74,4 +73,4 @@ const DisplayMomentsList = ({data, refresh}) => {
 };
 
 
-export default DisplayMomentsList;
+export default DataFlatList;

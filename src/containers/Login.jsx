@@ -15,8 +15,15 @@ function Login({navigation, setForm}) {
 
   return (
       <Box>
-        <LoginForm setEmail={setEmail} setPassword={setPassword} />
-        <SignInButton email={email} password={password} setHeaders={setHeaders}/>
+        <LoginForm 
+          setEmail={setEmail} 
+          setPassword={setPassword} 
+        />
+        <SignInButton 
+          email={email} 
+          password={password} 
+          setHeaders={setHeaders}
+        />
         <SignInButton0 />
         <NewUserLink setForm={setForm} />
       </Box>

@@ -29,42 +29,40 @@ export const RegisterButton = ({email, password}) => {
   )
 }
 
-const loginURL = 'http://localhost:3000/auth/sign_in';
 
 // SIGN IN USER
 // export const SignInButton = ({email, password}) => {
 export function SignInButton ({email, password, setHeaders}) {
   const api = new API;
   const handleSignin = () => {
-  const model = "session"
-  // const [header, setHeader] = useRecoilState(headersAtom);
-  // const setHeaders = useSetRecoilState(headersAtom);
-
-  const body = JSON.stringify({
-    email: email,
-    password: password  
-  })
-
-  api.post(loginURL, model, body)
-    .then(headers => {
-      setHeaders(headers);
-      l("return in callback should be headers: ", headers);
+    const model = "sessions"
+  
+    // set login body based on user input
+    const body = JSON.stringify({
+      email: email,
+      password: password  
     })
-    .catch(error => {
-      console.error(error);
-    });
-  }
-  return (
 
-    <Button
-      onPress={() => {
-        handleSignin()
+    api.post( model, body)
+      .then(headers => {
+        setHeaders(headers);
+        l("return in callback should be headers: ", headers);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
+    return (
+
+      <Button
+        onPress={() => {
+          handleSignin()
+         }
         }
-      }
-      mt="2" colorScheme="indigo">
-        Sign in New
-    </Button>
-  )
+        mt="2" colorScheme="indigo">
+          Sign in New
+      </Button>
+   )
 }
 
 

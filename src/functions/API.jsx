@@ -1,14 +1,23 @@
 import l from '../../helpers/consolelog';
 
 // API class for all requests
+// TODO: get all the heroku urls
 
-// default login
+
+// ALL THE URLS
+const loginURL = 'http://localhost:3000/auth/sign_in';
+const momentsURL = 'http://localhost:3000/api/alerts';
+const secondsURL = 'http://localhost:3000/api/seconds';
+const thirdsURL = 'http://localhost:3000/api/thirds';
+
+
+// default login for dev
 const defaultBody = JSON.stringify({
   email: "ada@ardour.com",
 	password: "password",
 })
 
-// refactor this away?
+// refactor this?
 const requestHeader = {
 	"Content-Type": "application/json",
 	"X-Requested-With": "XMLHttpRequest"
@@ -84,9 +93,28 @@ export default class API {
     })
       .then(this.handleResponse);
   }
-  post(url, model, body) {
-    l("the model for post req is: ", model);
-    l("the body for post req is: ", body);
+
+  post(model, body) {
+
+  // which URL? 
+    let url = ""
+    switch (model) {
+      case 'sessions':
+        url = loginURL;
+        break;
+      case 'moments':
+        url = momentsURL;
+        break;
+      case 'seconds':
+        url = secondsURL;
+        break;
+      case 'thirds':
+        url = thirdsURL;
+        break;
+      default:
+        l("URL error in API.post");
+    }
+  // fetching
     return fetch(url, {
       method: 'POST',
       headers: this.constructHeaders(),
