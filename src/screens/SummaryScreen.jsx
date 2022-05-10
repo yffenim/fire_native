@@ -68,7 +68,6 @@ export default function SummaryScreen({ navigation }){
             > 
               <Pressable 
                 onPress={() => {
-                  l(i);
                   setIndex(i);
                 }}
               >
