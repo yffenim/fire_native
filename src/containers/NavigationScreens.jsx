@@ -2,22 +2,11 @@ import * as React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Entypo, FontAwesome5, Ionicons, Foundation } from '@expo/vector-icons';
 import LandingScreen from "../screens/LandingScreen";
-// Authentication + Registration
-
 import UserScreen from "../screens/UserScreen";
-// Edit User Info
-// Visual Settings
-
 import AddDataScreen from "../screens/AddDataScreen";
-// POST new model data
-
 import SummaryScreen from "../screens/SummaryScreen";
-// Edit recently created data (display last 5 of each model)
-// Chart model data
-
 import ExportScreen from "../screens/ExportScreen";
-// Export combined data organized by hourly
-// Export individual model data
+import l from "../../helpers/consolelog";
 
 
 // ICONS

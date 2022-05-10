@@ -5,21 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
 const momentsURL = 'http://localhost:3000/api/alerts/';
-
-
-// GET
-export const getRequest = () => 
-  fetch(momentsURL)
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
 
 
 
@@ -35,8 +22,8 @@ export const getAuthenticatedRequest = (headers) =>  {
       return response.json()
     }
      throw new Error("Network response was not ok.")
-   })
-   .catch(err => l("Error from getAuthenticatedRequest: ", err))
+    })
+  .catch(err => l("Error from getAuthenticatedRequest: ", err))
 }
 
 // POST
@@ -109,14 +96,36 @@ export const deleteRequest = (item) => {
 		let id = item.deleteId
     let deleteURL = momentsURL + id
     l("deleteURL: ", deleteURL);
-    fetch(deleteURL, {
-      method: "DELETE",
-    })
+    
+      fetch(deleteURL, {
+        method: "DELETE",
+      })
     .then((response) => {
-      throw new Error("Network response was not ok.");
+      if (response.ok) {
+        l(`Deleted ${id}? `, response.ok);
+        return response;
+      }
+      alert("Something went wrong with the delete!");
+      throw new Error("Network response was not ok from Delete Request.");
 		})
 		.catch((err) => l(err));
 		};
+
+
+// UNAUTHENTICATED VERSIONS
+
+// GET, no auth
+export const getRequest = () => 
+  fetch(momentsURL)
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+    throw new Error("Network response was not ok.")
+  })
+  .catch(err => l("Error: ", err))
+
+
 
 
 {/* Resources */}

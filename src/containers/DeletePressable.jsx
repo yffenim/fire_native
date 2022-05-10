@@ -5,12 +5,14 @@ import { deleteRequest } from '../functions/MomentsApiRequests.jsx';
 import l from '../../helpers/consolelog';
 
 
-export default function DeletePressable({deleteId, onPressCall}) {
+export default function DeletePressable({deleteId, refresh}) {
+
+// const [alert, setAlert] = useState(false);
 
 // handler for DELETE request
 	const deleteApiCall = async () => {
 		await deleteRequest({deleteId});
-		onPressCall();
+		refresh();
 	}
 
 // component for nicer user alerts 

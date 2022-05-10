@@ -17,24 +17,16 @@ import l from '../../helpers/consolelog';
 
 // TODO: REFACTORRRRR
 
-const DisplayMomentsList = ({data, onPressCall}) => { 
+const DisplayMomentsList = ({data, refresh}) => { 
 
-// var one = data[0];
-// var jsonDate = one.updated_at
-// var json = "\"2014-01-01T23:28:56.782Z\"";
-
-// var dateStr = JSON.parse(json);
-// l("json time: ", jsonDate); 
-// l("parsed time: ", dateStr); 
-// var date = new Date(dateStr);
-// l("date :", date);
-  // var dateStr = JSON.parse(json);
+// l("data is: ", data);
 
 // Inside of <FlatList /> we have two child components: 
 // // <EditPressable /> and <DeletePressable />
   return(
     <ScrollView>
       <View>
+        <Text>Your Last 20 Entries...</Text>
         <FlatList data={data} 
           renderItem={({ item }) => 
             <Box borderBottomWidth="1" 
@@ -46,26 +38,23 @@ const DisplayMomentsList = ({data, onPressCall}) => {
               <Text _dark={{ color: "warmGray.50" }} 
                 color="coolGray.800" bold 
               >
-                LEVEL: {item.level}
+                LEVEL: {item.level}: {item.id}
               </Text>
 
 
-              {/* CHILD COMPONENT: EDIT/DELETE */}
               <HStack>
                 <EditPressable 
                   eId={item.id}
                   eLevel={item.level}
                   eUpdated={item.updated_at}
-                  onPressCall={onPressCall}
+                  refresh={refresh}
                 />
                 <Text>   </Text>
                 <DeletePressable 
                   deleteId={item.id}
-                  onPressCall={onPressCall}
+                  refresh={refresh}
                 />
               </HStack>
-            {/* END CHILD COMPONENT */}
-
 
             </VStack>
             <Spacer />

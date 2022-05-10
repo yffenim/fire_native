@@ -10,27 +10,31 @@ import l from "../../helpers/consolelog.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions, Animated } from 'react-native';
-import { renderScene } from '../presentations/renderScene'
-// import { color } from '../styles/customStyles';
+import { renderScene } from '../presentations/renderScene' 
 
 
-// layout for Summary Screen 
+// This Page contains:
+// - Layout/Styling for Tabs 
+// - renderScene imports each individual tabview screen
+
 export default function SummaryScreen({ navigation }){
   const layout = useWindowDimensions();
+// State for choosing the Tab Bar
+  const [index, setIndex] = React.useState(0);
 
-const [index, setIndex] = React.useState(0);
-
+// Routes for the Tab bar
   const [routes] = React.useState([{
     key: "first",
-    title: "Tab 1"
+    title: "Alertness"
   }, {
     key: "second",
-    title: "Tab 2"
+    title: "Appetite"
   }, {
     key: "third",
     title: "Tab 3"
   }]);
 
+// Rendering the Tab Bar + Styling
   const renderTabBar = props => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
     return (
@@ -41,18 +45,19 @@ const [index, setIndex] = React.useState(0);
             inputRange,
             outputRange: inputRange.map(inputIndex => inputIndex === i ? 1 : 0.5)
            });
-        
+
+        // styling for selected / unselecte & color modes
           const color = index === i ? 
-            useColorModeValue("#000", "#e5e5e5") :  // don't show title when selected
+            useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
             useColorModeValue("#E94560", "#E94560");
 
           const bgcolor = index === i ? 
-            useColorModeValue("secondary.300", "secondary.900") :
-            useColorModeValue("primary.300", "darkBlue.300");
+            useColorModeValue("#E94560", "#E94560") :
+            useColorModeValue("#0F3460", "#0F3460");
 
           const borderColor = index === i ? 
-            "cyan.500" : 
-            useColorModeValue("coolGray.200", "gray.400");
+            "#0F3460" : 
+            useColorModeValue("#16213E", "#16213E");
         
           return (
             <Box 
