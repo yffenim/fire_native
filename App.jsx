@@ -12,7 +12,14 @@ import {
   AddDataNavigator,
   SummaryNavigator,
   ExportNavigator
-  } from './src/containers/NavigationScreens'
+} from './src/containers/NavigationScreens'
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 import l from "./helpers/consolelog";
 
 // this has to be turned off for web dev use
@@ -28,6 +35,7 @@ export default class App extends React.Component {
 
     const Drawer = createDrawerNavigator();
     return (
+    <RecoilRoot>
       <NativeBaseProvider theme={defaultTheme}>
         <NavigationContainer>
           <Drawer.Navigator 
@@ -47,6 +55,7 @@ export default class App extends React.Component {
           </Drawer.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
+    </RecoilRoot>
     );
   }
 }

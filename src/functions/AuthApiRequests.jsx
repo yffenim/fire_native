@@ -84,7 +84,7 @@ export const postSignInRequest = () =>  {
 	}
 
 	l("Authenticating user login...");
-
+	l("Login request headers: ", loginRequestHeader);
 		fetch(loginURL, {
 			method: 'POST',
 			headers: loginRequestHeader,

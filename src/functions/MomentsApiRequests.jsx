@@ -9,7 +9,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const momentsURL = 'http://localhost:3000/api/alerts/';
 
 
-
 // GET
 export const getAuthenticatedRequest = (headers) =>  {
   l("Making a GET request for moments with headers: ", headers);
