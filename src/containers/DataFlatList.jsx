@@ -40,7 +40,6 @@ const DataFlatList = ({data, refresh}) => {
                 LEVEL: {item.level}: {item.id}
               </Text>
 
-
               <HStack>
                 <EditPressable 
                   eId={item.id}

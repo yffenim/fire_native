@@ -17,7 +17,6 @@ import { useRecoilState } from 'recoil';
 export default function SummaryScreen({ navigation }){
   const layout = useWindowDimensions();
 
-  const [model, setModel] = useRecoilState(modelsAtom);
 // State for choosing the Tab Bar
   const [index, setIndex] = React.useState(0);
 

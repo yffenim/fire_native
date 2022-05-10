@@ -11,8 +11,6 @@ import { MomentsList } from './MomentsList';
 
 // GET / EDIT / DELETE for Alerts
 export default function TabRouteFirst() {
-  const [model, setModel] = useRecoilState(modelsAtom);
-  setModel("moments");
 
 return (
   <Center>

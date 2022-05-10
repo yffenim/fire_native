@@ -7,6 +7,7 @@ import l from '../../helpers/consolelog';
 
 export default function DeletePressable({deleteId, refresh}) {
 
+	// const data = useRecoilValue(fetchMomentsData);
 // const [alert, setAlert] = useState(false);
 
 // handler for DELETE request
