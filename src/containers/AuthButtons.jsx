@@ -2,6 +2,14 @@ import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
 import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
 import l from '../../helpers/consolelog';
+import API from '../functions/API';
+import { headersAtom } from '../atoms/headersAtom';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+
+// This Page contains all the Buttons for the Login/Registration/Landing Page
+// i should reorganize this
+
+
 
 // REGISTER NEW USER
 export const RegisterButton = ({email, password}) => {
@@ -21,35 +29,49 @@ export const RegisterButton = ({email, password}) => {
   )
 }
 
+const loginURL = 'http://localhost:3000/auth/sign_in';
+
 // SIGN IN USER
-export const SignInButton = () => {
+// export const SignInButton = ({email, password}) => {
+export function SignInButton ({email, password, setHeaders}) {
+  const api = new API;
+  const handleSignin = () => {
+  const model = "session"
+  // const [header, setHeader] = useRecoilState(headersAtom);
+  // const setHeaders = useSetRecoilState(headersAtom);
 
-	const postApiCall = async () => {
-    await postSignInRequest();
-	};
+  const body = JSON.stringify({
+    email: email,
+    password: password  
+  })
 
-	const handleLogin = () => {
-    postApiCall();
-  };
+  api.post(loginURL, model, body)
+    .then(headers => {
+      setHeaders(headers);
+      l("return in callback should be headers: ", headers);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+  return (
 
-  return(
     <Button
       onPress={() => {
-        handleLogin()
+        handleSignin()
         }
       }
       mt="2" colorScheme="indigo">
-        Sign in
+        Sign in New
     </Button>
   )
 }
 
 
-
 // Return to Login component Link (I know it's not a button)
-export const BackToLoginLink = ({setAuth}) => {
+export const BackToLoginLink = ({setForm}) => {
   const handleLink = () => {
-    setAuth("login");
+    setForm("login");
   }
   return (
     <HStack mt="6" justifyContent="center">
@@ -79,10 +101,10 @@ export const BackToLoginLink = ({setAuth}) => {
 }
 
 // New User Link, also technically not a button..
-export const NewUserLink = ({setAuth}) => {
+export const NewUserLink = ({setForm}) => {
 // toggle between login and register form
   const handleLink = () => {
-    setAuth("register");
+    setForm("register");
   }
 
   return (
@@ -163,3 +185,29 @@ export const LetsPretendButton = (props) => {
   }
 
 
+
+
+/// OLD
+
+// SIGN IN USER PRE-API CLASS
+export const SignInButton0 = () => {
+
+	const postApiCall = async () => {
+    await postSignInRequest();
+	};
+
+	const handleLogin = () => {
+    postApiCall();
+  };
+
+  return(
+    <Button
+      onPress={() => {
+        handleLogin()
+        }
+      }
+      mt="2" colorScheme="indigo">
+        Sign in
+    </Button>
+  )
+}

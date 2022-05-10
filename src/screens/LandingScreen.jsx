@@ -12,15 +12,15 @@ import ToggleDarkMode from "../containers/ToggleDarkMode"
 export default function LandingScreen({ navigation }) {
 
 // used to toggle login vs register form
-  const [ auth, setAuth ] = useState("login");
+  const [ form, setForm ] = useState("login");
 
   return (
     <Center>
       <WelcomeLine />
-      {auth === 'login' ?
-        <Login setAuth={setAuth}/> :
-      auth === 'register' ?
-        <Register setAuth={setAuth} /> :
+      {form === 'login' ?
+        <Login setForm={setForm}/> :
+      form === 'register' ?
+        <Register setForm={setForm} /> :
       null}
         {/* 
         <ToggleDarkMode /> 
