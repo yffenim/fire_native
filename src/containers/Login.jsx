@@ -24,7 +24,6 @@ function Login({navigation, setForm}) {
           password={password} 
           setHeaders={setHeaders}
         />
-        <SignInButton0 />
         <NewUserLink setForm={setForm} />
       </Box>
   );
