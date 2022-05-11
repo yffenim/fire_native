@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, useToast, Box } from 'native-base';
+import { Pressable, Text, useToast, Box, VStack } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import { deleteRequest } from '../functions/MomentsApiRequests.jsx';
 import l from '../../helpers/consolelog';
@@ -7,8 +7,6 @@ import l from '../../helpers/consolelog';
 
 export default function DeletePressable({deleteId, refresh}) {
 
-	// const data = useRecoilValue(fetchMomentsData);
-// const [alert, setAlert] = useState(false);
 
 // handler for DELETE request
 	const deleteApiCall = async () => {
@@ -21,22 +19,29 @@ export default function DeletePressable({deleteId, refresh}) {
 	const deleteMsg = "Moment Deleted"
 
 	return (
-		<Pressable 
+  	<Pressable
+    	w="70" bg="red.500"
+      justifyContent="center"
+      // onPress={() => deleteRow(rowMap, data.item.key)}
+      _pressed={{
+        opacity: 0.5}}
 			onPress={()=>{
 				deleteApiCall({deleteId});
 				toast.show({render: () => { 
 					return (
 						<ToastBox text={deleteMsg} />
-					)
-        }
-			});					
-		}}>
-			<Text	color="indigo.600" 
-				_dark={{ color: "indigo.600" }}
-			>
-				DELETE
-			</Text>
-		</Pressable>
+					)}
+				});					
+			}}
+		>
+			<VStack alignItems="center" space={2}>
+    		<Text color="white" fontSize="xs" fontWeight="medium">
+        	DELETE
+        </Text>
+      </VStack>
+    </Pressable>
 	)
 }
+
+
 

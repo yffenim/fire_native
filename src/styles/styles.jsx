@@ -5,8 +5,7 @@ import { StyleSheet } from 'react-native';
 export const navStyles = StyleSheet.create({
 	drawerStyle: {
 		backgroundColor: '#a5b4fc',  
-		width: 60,
-  	color: 'white'	
+		width: 200,
 	}
 })	
 
