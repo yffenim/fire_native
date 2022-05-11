@@ -1,94 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Pressable} from "native-base";
-// import {CSVLink, CSVDownload} from 'react-csv';
-import l from "../../helpers/consolelog.js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { View, useWindowDimensions, Animated } from 'react-native';
-import { renderScene } from '../presentations/renderScene' 
-import { modelsAtom } from '../atoms/modelsAtom';
-import { useRecoilState } from 'recoil';
+import React, { useState }  from 'react';
+import { Center, Text, Box, Heading } from "native-base";
+import { SwipeListView } from 'react-native-swipe-list-view';
+import SwipeList from '../containers/SwipeList';
+import { atom, selector, useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
+import API from '../functions/API';
+import l from '../../helpers/consolelog';
+// import { modelsAtom } from '../atoms/modelsAtom';
 
 
-// This Page contains:
-// - Layout/Styling for Tabs 
-// - renderScene imports each individual tabview screen
 
-export default function ThirdsScreen({ navigation }){
-  const layout = useWindowDimensions();
+// On Each DataScreen:
+// Display Total & Average
+// Display latest 20 entries
+// Edit/Delete + timer for Undo Delete
 
-// State for choosing the Tab Bar
-  const [index, setIndex] = React.useState(0);
+// SwipeList component needs:
+// data from api
+// Do I want to save it in state
 
-// Routes for the Tab bar
-  const [routes] = React.useState([{
-    key: "first",
-    title: "Alertness"
-  }, {
-    key: "second",
-    title: "Appetite"
-  }, {
-    key: "third",
-    title: "Tab 3"
-  }]);
+export default function ThirdsScreen() {
+  const [mode, setMode] = useState("Basic");
 
-// Rendering the Tab Bar + Styling
-  const renderTabBar = props => {
-    const inputRange = props.navigationState.routes.map((x, i) => i);
-    return (
-      <Box flexDirection="row">
-        {props.navigationState.routes.map((route, i) => {
+  return ( 
+    <Center>
+      <Box flex="1" safeAreaTop 
+        maxW="400px" w="100%"
+    >
 
-          const opacity = props.position.interpolate({
-            inputRange,
-            outputRange: inputRange.map(inputIndex => inputIndex === i ? 1 : 0.5)
-           });
+        <Heading size="md" color="coolGray.200">
+          ADD MODEL STATS
+          ADD LAST UPDATED OF THIS LIST
+        </Heading>
 
-        // styling for selected / unselecte & color modes
-          const color = index === i ? 
-            useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
-            useColorModeValue("#E94560", "#E94560");
-
-          const bgcolor = index === i ? 
-            useColorModeValue("#E94560", "#E94560") :
-            useColorModeValue("#0F3460", "#0F3460");
-
-          const borderColor = index === i ? 
-            "#0F3460" : 
-            useColorModeValue("#16213E", "#16213E");
-        
-          return (
-            <Box 
-              borderBottomWidth="3"
-              bg={bgcolor}
-              borderColor={borderColor} 
-              flex={1} alignItems="center" p="3"
-            > 
-              <Pressable 
-                onPress={() => {
-                  setIndex(i);
-                }}
-              >
-                <Animated.Text style={{color}}>
-                  {route.title}
-                </Animated.Text>
-              </Pressable>
-            </Box>
-           )
-        })}
-    </Box>
+        <React.Suspense fallback={<Text>Loading...</Text>}>
+          <SwipeList />
+        </React.Suspense>
+      
+      </Box>
+    </Center>
   )
-};
-
-	return (
-    <TabView 
-      navigationState={{index,routes}} 
-      renderScene={renderScene} 
-      renderTabBar={renderTabBar} 
-      onIndexChange={setIndex} 
-      initialLayout={{width: layout.width}}
-      // setModel={setModel}
-      // style={{marginTop: StatusBar.currentHeight}} 
-    />
-  );
 }
+
+

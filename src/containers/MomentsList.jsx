@@ -11,7 +11,6 @@ import { fetchMomentsData } from '../functions/fetchModelSelector';
 // Data returned from Selector is READ-ONLY
 export const MomentsList= () => {
     const data = useRecoilValue(fetchMomentsData);
-    // const refresh = () => {}
     const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
     return (
