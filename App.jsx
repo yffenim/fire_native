@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'; // test out this at a dif pos
 import * as React from "react";
 import { AppRegistry } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeBaseProvider, extendTheme, Center } from "native-base";
+import { NativeBaseProvider, extendTheme, Center, Divider } from "native-base";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { defaultTheme } from "./src/styles/nativeBaseStyles";
 import { navStyles } from "./src/styles/styles";
@@ -10,7 +10,9 @@ import {
   LandingNavigator, 
   UserNavigator, 
   AddDataNavigator,
-  SummaryNavigator,
+  AlertnessNavigator,
+  SecondsNavigator,
+  ThirdsNavigator,
   ExportNavigator
 } from './src/containers/NavigationScreens'
 import {
@@ -43,11 +45,12 @@ export default class App extends React.Component {
             screenOptions={navStyles}>
           {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
             {LandingNavigator}
-            {UserNavigator}
             {AddDataNavigator}
-            
-            {SummaryNavigator}
+            {UserNavigator}
             {ExportNavigator}
+            {AlertnessNavigator}
+            {SecondsNavigator}
+            {ThirdsNavigator}
             {/*
             Add Toggle Dark Mode Here?
             Add Export Data Here?

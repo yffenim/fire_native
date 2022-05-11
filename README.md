@@ -4,13 +4,15 @@ That which is not measured, cannot be managed. Get to know your circadian rhythm
 
 Back-end: https://github.com/yffenim/fire_api
 
-## Features
+## Roadmap
 
 - [x] Track alertness levels on scale of 1-9 with times rounded to the hour
 - [x] Track up to two other models
-- [x] Display recently created data so one can edit or delete
-- [ ] View daily summary graphs of individual models
+- [ ] Create, read, upate, delete for all 3 models
+- [ ] Display CSV table and email to user
+- [ ] User stats
 - [ ] User authentication
+- [ ] Toggle theme
 - [ ] OAUTH integration 
 
 ## Instructions for Use
@@ -59,6 +61,8 @@ Follow the instructions from your terminal.
 
 `npm upgrade`
 
+`npm install --force`
+
 If you have used `yarn` to install any dependencies, please remove the `yarn.lock` and re-install modules with `npm`.
 
 If there are still cache issues, please try:
@@ -76,6 +80,8 @@ _(Note that if you do not have `watchman` installed or if your DIR is slightly d
 `npm cache clean --force`
 
 ` npm install && npm start --reset-cache`
+
+_If you have Expo SDK44 or higher, you will have to resolve many dependencies._
 
 ## Development Troubleshooting
 
