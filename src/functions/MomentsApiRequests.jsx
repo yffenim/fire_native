@@ -90,9 +90,8 @@ export const patchMomentRequest = (editId, level) => {
   };
 
 
-export const deleteRequest = (item) => {
-    l("Making Delete Api Request for ", item);
-		let id = item.deleteId
+export const deleteRequest = (id) => {
+    l("Making Delete Api Request for ", id);
     let deleteURL = momentsURL + id
     l("deleteURL: ", deleteURL);
     

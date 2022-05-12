@@ -17,11 +17,9 @@ export default function AddDataScreen({ navigation }) {
   const [model, setModel] = useState("default")
 
 
-
   return (
     <Center>
-      <AddEntry model={model} />
-
+        <AddEntry model={model} />
     </Center>
   );
 }

@@ -18,13 +18,10 @@ export default function LandingScreen({ navigation }) {
     <Center>
       <WelcomeLine />
       {form === 'login' ?
-        <Login setForm={setForm}/> :
+        <Login setForm={setForm} navigation={navigation}/> :
       form === 'register' ?
         <Register setForm={setForm} /> :
       null}
-        {/* 
-        <ToggleDarkMode /> 
-        */}
     </Center>
   );
 }

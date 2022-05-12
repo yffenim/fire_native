@@ -9,12 +9,8 @@ import l from "../../helpers/consolelog.js";
 // API GET request
 // child components will make API update/delete requests
 
-export default function UserData({email, setEmail, name, setName}){
-	// const username = name
-	// l("UserData name :", name);
-	// l(typeof name);
-	// l("UserData username: ", username);
-	// l(typeof username);
+export default function UserData({
+	email, setEmail, name, setName}){
 
 	return (
 		<Center>

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { VStack, Center, Text, Box, Heading, useColorModeValue, Pressable, Button} from "native-base";
-// import { modelsAtom } from '../atoms/modelsAtom';
-// import { useRecoilState } from 'recoil';
-import Communications from 'react-native-communications';
-import { DownloadButton, EmailButton } from '../containers/ExportButtons'
+import { Box, Pressable } from "native-base";
 import { EasterEggText } from '../presentations/EasterEggText';
 import { 
   defaultStyle,
@@ -17,37 +13,17 @@ import {
   GradientSelector8,
   GradientSelector9,
 } from '../presentations/GradientStyles';
-
-import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet }  from "react-native";
 import l from "../../helpers/consolelog.js";
 
-// API DATA NEEDS: user email
-// default is no gradient
-// on click anywhere = change colours!
 
-const styles = StyleSheet.create({
-  linearGradient: {
-    width: '100%',
-    height: '100%',
-    opacity: 0.95,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-});
-
-
-// can't pass in variable into color for gradient?
-// original background to start
-// per click, load a linear gradient page!
-// change text to say congrats, you found the egg!
+// Layout Page for Export Screen
 
 export default function ExportScreen({ navigation }){
-  // initialize state for which gradient to render
-  const [gradientContainer, setGradientContainer] = useState(defaultStyle());
+  const [gradientContainer, setGradientContainer] = 
+    useState(defaultStyle);
+
   // initialize var for storing which gradient use
   var num = null
-
   // Select a random value upon click and update state
   function onPageClick() {
     num = Math.floor(Math.random() * 9);
@@ -86,8 +62,8 @@ export default function ExportScreen({ navigation }){
         break;
       default:
         setGradientContainer(defaultStyle);
-    }
-}
+      }
+  }
 
   return (
     <Box>

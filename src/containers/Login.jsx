@@ -4,6 +4,8 @@ import { Box } from "native-base";
 import { SignInButton, NewUserLink, SignInButton0 } from './AuthButtons';
 import LoginForm from './LoginForm';
 import { headersAtom } from '../atoms/headersAtom';
+import { userAtom } from '../atoms/userAtom';
+import { uidAtom } from '../atoms/uidAtom';
 import l from '../../helpers/consolelog';
 
 
@@ -11,7 +13,7 @@ function Login({navigation, setForm}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [headers, setHeaders] = useRecoilState(headersAtom);
-  
+  const [uid, setUid] = useRecoilState(uidAtom);
 
   return (
       <Box>
@@ -23,6 +25,8 @@ function Login({navigation, setForm}) {
           email={email} 
           password={password} 
           setHeaders={setHeaders}
+          setUid={setUid}
+          navigation={navigation}
         />
         <NewUserLink setForm={setForm} />
       </Box>

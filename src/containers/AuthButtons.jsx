@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
 import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
-import l from '../../helpers/consolelog';
 import API from '../functions/API';
 import { headersAtom } from '../atoms/headersAtom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { uidAtom } from '../atoms/uidAtom';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import l from '../../helpers/consolelog';
 
 // This Page contains all the Buttons for the Login/Registration/Landing Page
 // Including:
@@ -32,11 +33,12 @@ export const RegisterButton = ({email, password}) => {
   )
 }
 
-
 // SIGN IN USER
-// export const SignInButton = ({email, password}) => {
-export function SignInButton ({email, password, setHeaders}) {
-  const api = new API;
+export function SignInButton ({
+	email, password, setHeaders, setUid, navigation}) {
+	
+	const api = new API;
+
   const handleSignin = () => {
     const model = "sessions"
   
@@ -46,11 +48,15 @@ export function SignInButton ({email, password, setHeaders}) {
       password: password  
     })
 
+// Login, save authenticated headers, make a GET request for User Data, store in Atom state
     api.post( model, body)
       .then(headers => {
-        setHeaders(headers);
-        l("return in callback should be headers: ", headers);
-      })
+				setHeaders(headers);
+				l("Login callback headers: ", headers);
+				let uid = headers["uid"];
+				setUid(uid);
+				navigation.navigate("Add Entry");
+			})
       .catch(error => {
         console.error(error);
       });

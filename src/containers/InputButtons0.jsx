@@ -12,29 +12,26 @@ import { postThirdRequest } from '../functions/ThirdsApiRequests.jsx';
 
 // HOME SCREEN
 // Input Value Buttons
-export function ValueButtons({colors, setLevel}) {
+export function ValueButtons({inputValues, colors, setLevel}) {
 
   function handleValueButton(val){
     setLevel(val);
   }
 
-const inputValues = [1,2,3]
-const inputColours = ["warning", "secondary", "tertiary"]
-// create 9 colours
-// map through them
-
   return ( 
 		<Button.Group>
-    	{inputColours.map(col => 
+    	{inputValues.map(val => 
         <Button 
-          key={col}
+          key={val}
         	borderRadius="25"
           m="4" p="6" size="lg"
-          colorScheme={col}
+          variant="outline"
+          colorScheme={colors}
           onPress={()=>
-            handleValueButton(col)
+            handleValueButton(val)
           }
         >
+          {val}
         </Button>)}
 		</Button.Group>  
 	)

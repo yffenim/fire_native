@@ -1,16 +1,21 @@
 import React from 'react';
+import { useRecoilRefresher_UNSTABLE } from 'recoil';
 import { Pressable, Text, useToast, Box, VStack } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
+import { momentsAtom } from '../atoms/momentsAtom';
 import { deleteRequest } from '../functions/MomentsApiRequests.jsx';
 import l from '../../helpers/consolelog';
 
+// TODO: move toast to success condition
 
-export default function DeletePressable({deleteId, refresh}) {
-
+export default function DeletePressable({id, refresh}) {
+	
 
 // handler for DELETE request
 	const deleteApiCall = async () => {
-		await deleteRequest({deleteId});
+		l("delete id: ", id);
+		await deleteRequest(id);
+		// the recoil method wasn't working so this refresh is a GET api call
 		refresh();
 	}
 
@@ -22,11 +27,10 @@ export default function DeletePressable({deleteId, refresh}) {
   	<Pressable
     	w="70" bg="red.500"
       justifyContent="center"
-      // onPress={() => deleteRow(rowMap, data.item.key)}
       _pressed={{
         opacity: 0.5}}
 			onPress={()=>{
-				deleteApiCall({deleteId});
+				deleteApiCall();
 				toast.show({render: () => { 
 					return (
 						<ToastBox text={deleteMsg} />

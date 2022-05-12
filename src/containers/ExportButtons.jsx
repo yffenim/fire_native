@@ -1,17 +1,21 @@
 import React from "react";
-import { Text, Box, Button} from "native-base";
+import { Text, Box, Button } from "native-base";
 import Communications from 'react-native-communications';
 import l from "../../helpers/consolelog.js";
+import { uidAtom } from '../atoms/uidAtom';
+import { useRecoilValue } from 'recoil';
 
 
-// TODO: API DATA TO GENERATE EMAIL/LINK ONCE AUTH DONE
+// Buttons for the Export Screen
+// TODO: backend authenticated logic for generating the csv files
+
 export const DownloadButton = () => {
   return (
     <Button mt="100"
       colorScheme="indigo"
       variant="outline"
       onPress={() => {
-        l("Downloading CSV");
+        l("Creating CSV...");
         Communications.web('http://localhost:3000/export_csv.csv')
     }}>
       <Text bold>DOWNLOAD CSV</Text>
@@ -20,13 +24,18 @@ export const DownloadButton = () => {
 };
 
 export const EmailButton = () => {
+
+// reading from uidAtom 
+  const email = useRecoilValue(uidAtom);
+  l("email is: ", email);
+
   return (
     <Button mt="3"
       variant="outline"
       colorScheme="indigo"
       onPress={() => {
         l("Opening Email...");
-        Communications.email(['effymmin@protonmail.com'],
+        Communications.email([email],
         null,null,'My CSV Data Link','http://localhost:3000/export_csv.csv')
     }}>
       <Text bold>EMAIL CSV</Text>

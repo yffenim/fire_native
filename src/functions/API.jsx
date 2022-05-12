@@ -10,7 +10,6 @@ const momentsURL = 'http://localhost:3000/api/alerts';
 const secondsURL = 'http://localhost:3000/api/seconds';
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
-
 // default login for dev
 const defaultBody = JSON.stringify({
   email: "ada@ardour.com",
@@ -49,7 +48,7 @@ export default class API {
 // responses handlers 
   handleResponse(response) {
     if (response.ok) {
-      l("Network response is good.");
+      l("Network response for GET is good.");
       return response.json();
     } else {
       return Promise.reject({
@@ -85,8 +84,8 @@ export default class API {
     }
   }
 
-// requests by type
-// add logic about whether this is a login, register,  or post
+// API REQUESTS BY TYPE
+// Get
   get(url) {
     return fetch(url, {
       headers: this.constructHeaders(),
@@ -94,8 +93,8 @@ export default class API {
       .then(this.handleResponse);
   }
 
+// POST
   post(model, body) {
-
   // which URL? 
     let url = ""
     switch (model) {
