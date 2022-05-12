@@ -7,7 +7,10 @@ import { headersAtom } from '../atoms/headersAtom';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 
 // This Page contains all the Buttons for the Login/Registration/Landing Page
-// i should reorganize this
+// Including:
+// - Sign Up and Sign in Button
+// - links to toggle between the two forms
+// - Forgot Password? Link << TODO
 
 
 
@@ -133,79 +136,27 @@ export const NewUserLink = ({setForm}) => {
 }
 
 
-
-// not currently in use
-
-export const CurrentWipButton = (props) => {
-  return(
-    <Button
-      mt="2"
-      colorScheme="gray"
-      variant="outline"
-      onPress={() => {
-        props.navigation.navigate("Home",)}
-      }
-     >
-      Current WIP
-    </Button>
-    )
+export const ForgotPasswordLink = ({}) => {
+  
+  const handleLink = () => {
+    // email password to user
   }
 
-export const LoginButton = (props) => {
-  return(
-    <Button
-      shadow={2}
-      colorScheme="indigo"
-      onPress={() => {
-        props.navigation.navigate("Login");
-       }}
-     >
-      Sign in or Sign up!
-    </Button>
-    )
-  }
-
-export const LetsPretendButton = (props) => {
-  return(
-    <Button
-      mt="2"
-      colorScheme="gray"
-      variant="outline"
-      onPress={() => {
-        props.navigation.navigate("Dashboard",
-          { nameParam: { "name": "default" } }
-        )}
-      }
-     >
-      But for now: Let's Pretend To Sign In
-    </Button>
-    )
-  }
-
-
-
-
-/// OLD
-
-// SIGN IN USER PRE-API CLASS
-export const SignInButton0 = () => {
-
-	const postApiCall = async () => {
-    await postSignInRequest();
-	};
-
-	const handleLogin = () => {
-    postApiCall();
-  };
-
-  return(
-    <Button
-      onPress={() => {
-        handleLogin()
-        }
-      }
-      mt="2" colorScheme="indigo">
-        Sign in
-    </Button>
+  return (
+      <Link
+        _text={{
+        fontSize: "xs",
+      	fontWeight: "500",
+        color: "indigo.500",
+        }}
+        alignSelf="flex-end"
+        mt="1"
+        onPress={()=>{handleLink()}}
+      >
+      	Forget Password?
+      </Link>
   )
 }
+
+
+

@@ -2,85 +2,26 @@ import React, { useRef, useState, useEffect } from "react";
 import { Center, ScrollView, Button, Box } from "native-base";
 import ModelTitle from "../presentations/ModelTitle";
 // import SummaryScreen from "./SummaryScreen";
-import AddData from "../containers/AddData";
+// import AddData from "../containers/AddData";
+import AddEntry from "../containers/AddEntry"; 
 import l from "../../helpers/consolelog.js";
-import { getRequest } from '../functions/MomentsApiRequests.jsx';
+// import { getRequest } from '../functions/MomentsApiRequests.jsx';
 
 // This is the Parent for All Model Data
-// make api call and set state for everything here
-// ok apparently i will not be 
+// Data needed: POST request and which Model?
 
-// ok new plan:
-// If I need to make all these calls in the SummaryScreen, let's dry up here
-// so: what do we need?
-// - count 
-// - title 
+
+
 
 export default function AddDataScreen({ navigation }) {
-  const [level, setLevel] = useState(null);
-  const [secondsTitle, setSecondsTitle ] = useState("");
-  const [showSeconds, setShowSeconds] = useState(false)
-  const [thirdsTitle, setThirdsTitle ] = useState("");
-  const [showThirds, setShowThirds] = useState(false)
-  const defaultTitle = "alertness";
-
-// render if second/third models exist
-  const conditionalRenderSeconds = () => {
-    setShowSeconds(true);
-  }
-  const conditionalRenderThirds = () => {
-    setShowThirds(true);
-  }
-
-// request for all user models
-  const getApiCall = async () => {
-    l("Sending a GET Request to server...");
-    const data = await getRequest();
-    // l("Return data from AddDataScreen: ", data[3]);
-    // check if the second and third model exist
-    let secondsCount = data[3];
-    let thirdsCount = data[5];
-    // if they exist, render and add title
-    if (secondsCount > 0) {
-      conditionalRenderSeconds();
-      setSecondsTitle(data[2][0].title_for_seconds);
-    };
-    if (thirdsCount > 0) {
-      conditionalRenderThirds();
-      setThirdsTitle(data[4][0].title_for_thirds);
-    };
-  }
-
-// on page load
-  useEffect(() => {
-    getApiCall();
-    l("Add Data Screen Data has been updated.");
-  }, []);
+  const [model, setModel] = useState("default")
 
 
-  // useEffect(() => {
-  //   l("New Level State from AddDataScr: ", level);
-  // }, [level]);
 
   return (
     <Center>
-      <ScrollView>
-        <ModelTitle title={defaultTitle} level={level} />
-        <AddData model={defaultTitle} setLevel={setLevel} level={level} /> 
-        {showSeconds &&
-          <Box>
-            <ModelTitle title={secondsTitle} level={level} />
-            <AddData model="second" setLevel={setLevel} level={level} />
-         </Box>
-        }
-        {showThirds &&
-          <Box>
-            <ModelTitle title={thirdsTitle} level={level} />
-            <AddData model="third" setLevel={setLevel} level={level} />
-          </Box>
-        }
+      <AddEntry model={model} />
 
-      </ScrollView>
     </Center>
   );
 }

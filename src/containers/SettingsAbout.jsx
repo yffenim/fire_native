@@ -22,11 +22,19 @@ import API from '../functions/API';
 import l from '../../helpers/consolelog';
 import { modelsAtom } from '../atoms/modelsAtom';
 
-export default function TabRouteSecond() {
+// - [ ]  About Fire
+//     - [ ]  Core Concept → a series of pages explaining
+//     - [ ]  Github Link to API/Browser/Native
+// - [ ]  Customize
+//     - [ ]  Colour Themes
+//     - [ ]  Logging (Dev Mode)
+
+
+export default function SettingsAbout() {
 
   return(
     <Center>
-      <Text>TabRouteSecond</Text>
+      <Text>Settings: About</Text>
     </Center>
   )
 }

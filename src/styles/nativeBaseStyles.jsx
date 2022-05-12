@@ -22,8 +22,10 @@ export const components = {
       flex: 1,
     }
   },
-  Text: {
-    baseStyle: { }
+  Button: {
+    baseStyle: {
+      colorScheme: "indigo" 
+    }
   },
   
 };

@@ -9,10 +9,10 @@ Back-end: https://github.com/yffenim/fire_api
 - [x] Track alertness levels on scale of 1-9 with times rounded to the hour
 - [x] Track up to two other models
 - [ ] Create, read, upate, delete for all 3 models
-- [ ] Display CSV table and email to user
+- [x] Display CSV table and email to user
 - [ ] User stats
 - [ ] User authentication
-- [ ] Toggle theme
+- [ ] Toggle themes
 - [ ] OAUTH integration 
 
 ## Instructions for Use
@@ -47,11 +47,15 @@ Scan the QR code from the terminal from your camera. Expo will load project auto
 
 `r` to reload if nothing is happening after 10 seconds of it loading. 
 
-You will see a terminal message indicating that the bundling is happening if it is loading. 
+You will see a terminal message indicating that the bundling is happening if it is loading.
 
-### Using browser
+**Note that some features, such as emailing CSV to yourself, will only work on a real phone.**
+
+### Using browser 
 
 Follow the instructions from your terminal.
+
+Not recommended unless debugging. You will have to turn the Logging back in app entrypoint (`App.jsx`)
 
 # General Troubleshooting
 
@@ -109,6 +113,7 @@ Network issues: Easiest to use  https://proxyman.io/ on your IOS to capture requ
 
 ```
 src
+|---atoms
 |---assets
 |---containers
 |---functions
@@ -118,11 +123,13 @@ src
 
 ```
 
+`atoms` -> global source of truth from [Recoil state management]('https://github.com/facebookexperimental/Recoil')
+
 `assets` -> static assets
 
 `containers` -> how things work; stateful components; provides data and behaviour; minimal styling but will have wrapping elements or JSX will be unhappy
 
-`functions` -> functions used by containers or presentations, including API calls
+`functions` -> functions used by containers or presentations, including API calls and [selectors]('https://recoiljs.org/docs/api-reference/core/selector/')
 
 `presentation` -> how things look; stateless components; mostly pure functions (gauranteed to return the same result given the same props and state); no deep mutations/
 

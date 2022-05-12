@@ -1,94 +1,100 @@
 import React, { useState, useEffect } from "react";
-import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Pressable} from "native-base";
-// import {CSVLink, CSVDownload} from 'react-csv';
+import { VStack, Center, Text, Box, Heading, useColorModeValue, Pressable, Button} from "native-base";
+// import { modelsAtom } from '../atoms/modelsAtom';
+// import { useRecoilState } from 'recoil';
+import Communications from 'react-native-communications';
+import { DownloadButton, EmailButton } from '../containers/ExportButtons'
+import { EasterEggText } from '../presentations/EasterEggText';
+import { 
+  defaultStyle,
+  GradientSelector1,
+  GradientSelector2,
+  GradientSelector3,
+  GradientSelector4,
+  GradientSelector5,
+  GradientSelector6,
+  GradientSelector7,
+  GradientSelector8,
+  GradientSelector9,
+} from '../presentations/GradientStyles';
+
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet }  from "react-native";
 import l from "../../helpers/consolelog.js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { View, useWindowDimensions, Animated } from 'react-native';
-import { renderScene } from '../presentations/renderScene' 
-import { modelsAtom } from '../atoms/modelsAtom';
-import { useRecoilState } from 'recoil';
+
+// API DATA NEEDS: user email
+// default is no gradient
+// on click anywhere = change colours!
+
+const styles = StyleSheet.create({
+  linearGradient: {
+    width: '100%',
+    height: '100%',
+    opacity: 0.95,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+});
 
 
-// This Page contains:
-// - Layout/Styling for Tabs 
-// - renderScene imports each individual tabview screen
+// can't pass in variable into color for gradient?
+// original background to start
+// per click, load a linear gradient page!
+// change text to say congrats, you found the egg!
 
-export default function AlertnessScreen({ navigation }){
-  const layout = useWindowDimensions();
+export default function ExportScreen({ navigation }){
+  // initialize state for which gradient to render
+  const [gradientContainer, setGradientContainer] = useState(defaultStyle());
+  // initialize var for storing which gradient use
+  var num = null
 
-// State for choosing the Tab Bar
-  const [index, setIndex] = React.useState(0);
+  // Select a random value upon click and update state
+  function onPageClick() {
+    num = Math.floor(Math.random() * 9);
+    selectGradient(num)
+  }
 
-// Routes for the Tab bar
-  const [routes] = React.useState([{
-    key: "first",
-    title: "Alertness"
-  }, {
-    key: "second",
-    title: "Appetite"
-  }, {
-    key: "third",
-    title: "Tab 3"
-  }]);
+  // Set gradient state based on num
+  function selectGradient(n){
+    switch (num) {
+      case 1:
+        setGradientContainer(GradientSelector1);
+        break;
+      case 2: 
+        setGradientContainer(GradientSelector2);
+        break;
+      case 3: 
+        setGradientContainer(GradientSelector3);
+        break;
+      case 4: 
+        setGradientContainer(GradientSelector4);
+        break;
+      case 5: 
+        setGradientContainer(GradientSelector5);
+        break;
+      case 6:
+        setGradientContainer(GradientSelector6);
+        break;
+      case 7: 
+        setGradientContainer(GradientSelector7);
+        break;
+      case 8:
+        setGradientContainer(GradientSelector8);
+        break;      
+      case 9:
+        setGradientContainer(GradientSelector9);
+        break;
+      default:
+        setGradientContainer(defaultStyle);
+    }
+}
 
-// Rendering the Tab Bar + Styling
-  const renderTabBar = props => {
-    const inputRange = props.navigationState.routes.map((x, i) => i);
-    return (
-      <Box flexDirection="row">
-        {props.navigationState.routes.map((route, i) => {
-
-          const opacity = props.position.interpolate({
-            inputRange,
-            outputRange: inputRange.map(inputIndex => inputIndex === i ? 1 : 0.5)
-           });
-
-        // styling for selected / unselecte & color modes
-          const color = index === i ? 
-            useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
-            useColorModeValue("#E94560", "#E94560");
-
-          const bgcolor = index === i ? 
-            useColorModeValue("#E94560", "#E94560") :
-            useColorModeValue("#0F3460", "#0F3460");
-
-          const borderColor = index === i ? 
-            "#0F3460" : 
-            useColorModeValue("#16213E", "#16213E");
-        
-          return (
-            <Box 
-              borderBottomWidth="3"
-              bg={bgcolor}
-              borderColor={borderColor} 
-              flex={1} alignItems="center" p="3"
-            > 
-              <Pressable 
-                onPress={() => {
-                  setIndex(i);
-                }}
-              >
-                <Animated.Text style={{color}}>
-                  {route.title}
-                </Animated.Text>
-              </Pressable>
-            </Box>
-           )
-        })}
-    </Box>
-  )
-};
-
-	return (
-    <TabView 
-      navigationState={{index,routes}} 
-      renderScene={renderScene} 
-      renderTabBar={renderTabBar} 
-      onIndexChange={setIndex} 
-      initialLayout={{width: layout.width}}
-      // setModel={setModel}
-      // style={{marginTop: StatusBar.currentHeight}} 
-    />
+  return (
+    <Box>
+      <Pressable onPress={()=>{onPageClick()}}>
+        {gradientContainer}
+      </Pressable>
+    </Box> 
   );
 }
+

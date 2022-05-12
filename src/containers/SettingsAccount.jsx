@@ -7,7 +7,7 @@ import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 import API from '../functions/API';
 import { modelsAtom } from '../atoms/modelsAtom';
 
-// - [ ]  User Account
+// - [ ]  About User
 //     - [ ]  Edit Password / Email
 //     - [ ]  Alertness
 //     - [ ]  Set Model 2
@@ -18,12 +18,18 @@ import { modelsAtom } from '../atoms/modelsAtom';
 //         - [ ]  Icon
 //     - [ ]  Set Reminders
 //     - [ ]  Delete Account
+// - [ ]  About Fire
+//     - [ ]  Core Concept → a series of pages explaining
+//     - [ ]  Github
+// - [ ]  Customize
+//     - [ ]  Colour Themes
+//     - [ ]  Logging (Dev Mode)
 
-export default function SettingsAccount() {
+export default function TabRouteFirst() {
 
 return (
   <Center>
-    <Text>User Settings
+    <Text>USER ACCOUNT PAGE
     </Text>
   </Center>
   )
