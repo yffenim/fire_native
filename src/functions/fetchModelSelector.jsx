@@ -13,7 +13,9 @@ const momentsURL = 'http://localhost:3000/api/alerts';
 const secondsURL = 'http://localhost:3000/api/seconds';
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
-export const fetchMomentsData = atom({
+
+// GET request for Alertness as SELECTOR
+ export const fetchMomentsData = selector({
     key: `MomentsDataSelector`,
     get: async ({ get }) => {
     try {
@@ -25,22 +27,6 @@ export const fetchMomentsData = atom({
         }
     }
 });
-
-
-
-// GET request for Alertness as SELECTOR
- // export const fetchMomentsData = selector({
- //    key: `MomentsDataSelector`,
- //    get: async ({ get }) => {
- //    try {
- //        const response = await fetch(momentsURL);
- //        const data = await response.json();
- //        return data;
- //    } catch(error) {
- //        throw error;
- //        }
- //    }
-// });
 
 // GET for second model
  export const fetchSecondsData = selector({

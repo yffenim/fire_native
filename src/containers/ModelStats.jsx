@@ -4,12 +4,9 @@ import { Center, Box, Text, Heading, VStack, HStack } from 'native-base';
 // import { momentsAtom } from '../atoms/momentsAtom';
 import l from '../../helpers/consolelog';
 
-// TODO:
-// Try this in old way of passing state not reaching for atom
 
+// Display Model Stats Heading
 export default function ModelStats({avg, count}) {
-	// make them stacked 
-
 	return (
 		<Box p="4" mb="5"
 			bg="coolGray.800" 

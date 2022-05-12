@@ -15,7 +15,6 @@ export default function DeletePressable({id, refresh}) {
 	const deleteApiCall = async () => {
 		l("delete id: ", id);
 		await deleteRequest(id);
-		// the recoil method wasn't working so this refresh is a GET api call
 		refresh();
 	}
 

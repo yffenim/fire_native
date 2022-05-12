@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState }  from 'react';
 import { 
   VStack, 
   HStack,
@@ -11,58 +11,30 @@ import {
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { fetchMomentsData } from '../functions/fetchModelSelector';
-import { formatTime } from '../functions/formatTime';
 import API from '../functions/API';
 import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
-import ModelStats from './ModelStats';
+// import { modelsAtom } from '../atoms/modelsAtom';
+import { momentsAtom } from '../atoms/momentsAtom';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
 import l from '../../helpers/consolelog';
 
 // TODO: How to make it listen to a swipe and not a click?
 
-
-export default function SwipeList() {
+export default function SwipeList({listData, refresh}) {
   const [ id, setId ] = useState(null);
-  const [avg, setAvg] = useState(null);
-  const [count, setCount] = useState(null);
 
-  // recoil hook that subscribes data to 
-  // selector fetchMomentsData which makes the GET request
-  const data = useRecoilValue(fetchMomentsData);
-  const listData = data[1];
-  
-  // recoil hook that refreshes page when changes happen
-  const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
-
-  // ROW ACTIONSw
-  const closeRow = (rowMap, rowKey) => {
-    if (rowMap[rowKey]) {
-      rowMap[rowKey].closeRow();
-    }
-  };
 
   const onRowDidOpen = rowKey => {
     l("This row opened", rowKey);
   };
 
-  // const deleteRow = (rowMap, rowKey) => {
-  //   closeRow(rowMap, rowKey);
-  //   const newData = [...listData];
-  //   const prevIndex = listData.findIndex(
-  //     item => item.key === rowKey
-  //   );
-  //   newData.splice(prevIndex, 1);
-  //   setListData(newData);
-  // };
-
-  // TODO: MAKE THE ROW LISTEN TO SWIPE NOT CLICK
+// need to get the item id from the row to the 
+// Delete / Edit pressables
   const renderItem = ({item, index}) => {
-    // var updated_str = item["updated_at"];
-    // l("updated str: ", updated_str);
 
     return (
-    <Box>
+      <Box>
       <Pressable 
         _dark={{bg: "coolGray.800"}} 
         _light={{bg: "white"}}
@@ -80,7 +52,7 @@ export default function SwipeList() {
               </Text>
               <Text color="coolGray.600" _dark={{
                 color: "warmGray.200" }}>
-                  Updated: {formatTime(item.updated_at)}
+                  Lasted Updated: {item.updated_at}
               </Text>
               </VStack>
           </HStack>
@@ -90,29 +62,21 @@ export default function SwipeList() {
     )
   };
 
-  // Swipe left shows Edit and Delete options
+// Swipe left shows Edit and Delete options
   const renderHiddenItem = (listData, rowMap) => (
     <HStack flex="1" pl="2">
-      <EditPressable id={id} refresh={refresh} />
+      <EditPressable id={id} />
       <DeletePressable id={id} refresh={refresh} />
     </HStack>
   );
 
-  // set state for average/count when page refreshes
-  useEffect(()=>{
-    setAvg(data[0]["average"]);
-    setCount(data[0]["count"]); 
-  },[])
-
-
-  // Returning the components
-  return (
-    <Box safeArea flex="1" > 
-      <Box bg="coolGray.800" borderRadius="10"> 
-        <ModelStats avg={avg} count={count}/>
-      </Box>
-
-      <Box bg="coolGray.800" borderRadius="10"> 
+// Returning the SwipeList
+  return ( 
+    <Box 
+      bg="coolGray.800" 
+      safeArea flex="1"
+       borderRadius="10"
+      > 
         <SwipeListView 
           data={listData} 
           renderItem={renderItem} 
@@ -123,8 +87,9 @@ export default function SwipeList() {
           previewOpenDelay={3000} 
           onRowDidOpen={onRowDidOpen} 
         />
-      </Box>
     </Box>
   )
 }
 
+      {/*
+      */}

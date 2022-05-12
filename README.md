@@ -10,10 +10,10 @@ Back-end: https://github.com/yffenim/fire_api
 - [x] Track up to two other models
 - [ ] Create, read, upate, delete for all 3 models
 - [x] Display CSV table and email to user
-- [ ] User stats
+- [ ] User stats + editing
 - [ ] User authentication
-- [ ] Toggle themes
 - [ ] OAUTH integration 
+- [ ] Toggle themes
 
 ## Instructions for Use
 
@@ -95,7 +95,7 @@ If more than 75 requests have been made to the FIRE API, you will have to wait f
 
 Note that the rendering on native vs browser may be different. It is useful to check browser version if native display is empty without reason. Browser dev tools are also useful for full error message rendering.
 
-Network issues: Easiest to use  https://proxyman.io/ on your IOS to capture requests. (This is different from proxyman.)
+**Network issues:** Easiest to use  https://proxyman.io/ on your IOS to capture requests.
 
 # Development Docs
 

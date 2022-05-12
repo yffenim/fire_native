@@ -17,47 +17,28 @@ import l from '../../helpers/consolelog';
 
 export default function AlertnessScreen() {
   const [mode, setMode] = useState("Basic");
-  const [moments, setMoments] = useRecoilState(momentsAtom);
+  // const [moments, setMoments] = useRecoilState(momentsAtom);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
-  const [listData, setListData] = useState(null);
-  const refresh = useRecoilRefresher_UNSTABLE; // why did this work in how I created FlatList but not in how I'm creating SwipeList?
-
-  const api = new API;
-  const url = "http://localhost:3000/api/alerts";
-  var stats = moments[0];
-
-  function fetchData() {
-    api.get(url)
-      .then(response => {
-        setMoments(response);
-        setCount(response[0]["count"]);
-        setAvg(response[0]["average"]);
-        setListData(response[1]);
-    })
-    .catch(error => {console.error(error)
-    })
-  };
-
-  useEffect(()=>{
-    fetchData(url);
-  },[]);
-  
   
   return ( 
     <Center>
       <Box flex="1" safeAreaTop 
         maxW="400px" w="100%"
       >
-          <ModelStats avg={avg} count={count}/>
 
         <React.Suspense fallback={loadingText}>
-          <SwipeList listData={listData} refresh={fetchData}/>
+          <SwipeList setAvg={setAvg} setCount={setCount}/>
         </React.Suspense>
       
       </Box>
     </Center>
   )
 }
+
+{/*
+
+          <ModelStats avg={avg} count={count}/>
+*/}
 
 
