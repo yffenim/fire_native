@@ -15,20 +15,16 @@ import l from '../../helpers/consolelog';
 
 // Setting all State needed for Alertness components
 
-export default function AlertnessScreen() {
+export default function AlertnessScreen({navigation}) {
   const [mode, setMode] = useState("Basic");
-  // const [moments, setMoments] = useRecoilState(momentsAtom);
-  const [avg, setAvg] = useState(null);
-  const [count, setCount] = useState(null);
   
   return ( 
     <Center>
       <Box flex="1" safeAreaTop 
         maxW="400px" w="100%"
       >
-
         <React.Suspense fallback={loadingText}>
-          <SwipeList setAvg={setAvg} setCount={setCount}/>
+          <SwipeList navigation={navigation} />
         </React.Suspense>
       
       </Box>
@@ -36,9 +32,6 @@ export default function AlertnessScreen() {
   )
 }
 
-{/*
 
-          <ModelStats avg={avg} count={count}/>
-*/}
 
 

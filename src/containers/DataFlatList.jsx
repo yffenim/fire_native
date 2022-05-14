@@ -15,7 +15,6 @@ import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
 import l from '../../helpers/consolelog';
 
-// TODO: REFACTORRRRR
 
 const DataFlatList = ({data, refresh}) => { 
 

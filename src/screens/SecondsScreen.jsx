@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
 import { Center, Text, Box, Heading } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import SwipeList from '../containers/SwipeList';
+import SwipeListSeconds from '../containers/SwipeListSeconds';
 import { atom, selector, useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from 'recoil';
 import API from '../functions/API';
 import l from '../../helpers/consolelog';
@@ -18,7 +18,7 @@ import l from '../../helpers/consolelog';
 // data from api
 // Do I want to save it in state
 
-export default function AlertnessScreen() {
+export default function SecondsScreen() {
   const [mode, setMode] = useState("Basic");
 
   return ( 
@@ -26,16 +26,9 @@ export default function AlertnessScreen() {
       <Box flex="1" safeAreaTop 
         maxW="400px" w="100%"
     >
-
-        <Heading size="md" color="coolGray.200">
-          ADD MODEL STATS
-          ADD LAST UPDATED OF THIS LIST
-        </Heading>
-
-        <React.Suspense fallback={<Text>Loading...</Text>}>
-          <SwipeList />
-        </React.Suspense>
-      
+      <React.Suspense fallback={<Text>Loading...</Text>}>
+        <SwipeListSeconds />
+      </React.Suspense>
       </Box>
     </Center>
   )

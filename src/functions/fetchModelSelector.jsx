@@ -44,24 +44,18 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
 
 
 // GET for third model
- // export const fetchThirdsData = selector({
- //    key: `ThirdsDataSelector`,
- //    get: async ({ get }) => {
- //    try {
- //        const response = await fetch(thirdsURL);
- //        const data = await response.json();
- //        return data;
- //    } catch(error) {
- //        throw error;
- //        }
- //    }
-// });
-
-
-
-
-
-
+ export const fetchThirdsData = selector({
+    key: `ThirdsDataSelector`,
+    get: async ({ get }) => {
+    try {
+        const response = await fetch(thirdsURL);
+        const data = await response.json();
+        return data;
+    } catch(error) {
+        throw error;
+        }
+    }
+});
 
 
 

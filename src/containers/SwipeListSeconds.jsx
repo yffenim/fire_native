@@ -10,7 +10,7 @@ import {
   Button
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { fetchMomentsData } from '../functions/fetchModelSelector';
+import { fetchSecondsData } from '../functions/fetchModelSelector';
 import { formatTime } from '../functions/formatTime';
 import API from '../functions/API';
 import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
@@ -22,19 +22,19 @@ import l from '../../helpers/consolelog';
 // TODO: How to make it listen to a swipe and not a click?
 
 
-export default function SwipeList() {
-  const [ id, setId ] = useState(null);
+export default function SwipeListSeconds() {
+  const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
 
   // recoil hook that subscribes data to 
   // selector fetchMomentsData which makes the GET request
-  const data = useRecoilValue(fetchMomentsData);
+  const data = useRecoilValue(fetchSecondsData);
   const listData = data[1];
   
   // recoil hook that refreshes page when changes happen
-  const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
+  const refresh = useRecoilRefresher_UNSTABLE(fetchSecondsData);
 
   // ROW ACTIONSw
   const closeRow = (rowMap, rowKey) => {
@@ -115,13 +115,13 @@ export default function SwipeList() {
   return (
     <Box safeArea flex="1" > 
 
-      <Box bg="coolGray.800" mb="3">
+      <Box bg="coolGray.800" mb="3"> 
         {dataExists &&
           <ModelStats avg={avg} count={count}/>
         }
         {!dataExists &&
           <NoStats />
-        }
+        }      
       </Box>
 
       <Box bg="coolGray.800"> 
