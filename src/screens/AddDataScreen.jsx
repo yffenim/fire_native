@@ -12,10 +12,8 @@ import l from "../../helpers/consolelog.js";
 
 
 
-
 export default function AddDataScreen({ navigation }) {
   const [model, setModel] = useState("default")
-
 
   return (
     <Center>

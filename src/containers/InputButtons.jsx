@@ -1,93 +1,72 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { Button, useToast, Center } from 'native-base';   
+import { Animated } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { atom, useSetRecoilState } from "recoil";
 import l from '../../helpers/consolelog';
-// import { ToastBox } from './ToastBox';
-import { postMomentRequest } from '../functions/MomentsApiRequests.jsx';
-import { postSecondRequest } from '../functions/SecondsApiRequests.jsx';
-import { postThirdRequest } from '../functions/ThirdsApiRequests.jsx';
 
-// This page contains ALL BUTTON/LINK COMPONENTS FOR CRUD MOMENTS
+export function AnimatedButton({color, value, setFirstValue, setSecondValue, setThirdValue, model}) {
+  
+  function handlePress(value) {
+    // l("model is: ", model);
 
-
-// HOME SCREEN
-// Input Value Buttons
-export function ValueButtons({colors, setLevel}) {
-
-  function handleValueButton(val){
-    setLevel(val);
+    if ( model === "moments" ) {
+      setFirstValue(value);
+      l("moments: ", model);
+    } else if ( model === "seconds" ) {
+      setSecondValue(value);
+      l("seconds: ", model); 
+    } else if ( model === "thirds" ) {
+      setThirdValue(value);
+      l("thirds: ", model);
+    } else {
+      l("Error with passing model value to AnimatedButton");
+    }
   }
 
-const inputValues = [1,2,3]
-const inputColours = ["warning", "secondary", "tertiary"]
-// create 9 colours
-// map through them
+// Animation 
+// Initial scale value of 1 means no scale applied initially.
+    const animatedButtonScale = new Animated.Value(1);
+
+    // When button is pressed in, animate the scale to 5
+    const onPressIn = () => {
+        Animated.spring(animatedButtonScale, {
+            toValue: 5,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    // When button is pressed out, animate the scale back to 1
+    const onPressOut = () => {
+        Animated.spring(animatedButtonScale, {
+            toValue: 1,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    // The animated style for scaling the button within the Animated.View
+    const animatedScaleStyle = {
+        transform: [{scale: animatedButtonScale}]
+    };
 
   return ( 
-		<Button.Group>
-    	{inputColours.map(col => 
+    <TouchableWithoutFeedback
+      onPress={()=>{handlePress(value)}}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+    >
+      <Animated.View style={animatedScaleStyle}>
         <Button 
-          key={col}
-        	borderRadius="25"
-          m="4" p="6" size="lg"
-          colorScheme={col}
-          onPress={()=>
-            handleValueButton(col)
-          }
+          borderRadius="25"
+          m="1" p="3" w="12"
+          colorScheme={color}
         >
-        </Button>)}
-		</Button.Group>  
+          {value}
+        </Button>
+      </Animated.View>
+    </TouchableWithoutFeedback>
 	)
 }
 
-// values for Value Buttons
-export const rowValues = 
-  [["1","2","3"], ["4","5","6"],["7","8","9"]];
 
-
-// Submit Value Button (POST request for New Alerts)
-export function SubmitButton({level, model}) {
-  // const toast = useToast();
-  
-  const postApiCall = async () => {
-    switch (model) {
-      case "alertness" : await postMomentRequest(level);
-      break;
-      case "second" : await postSecondRequest(level);
-      break;
-      case "third" : await postThirdRequest(level);
-      break;
-      default: l("Something is wrong in SubmitButton()");
-    }
-	};
-
-	const handleSubmit = () => {
-    // l("Submit with level: ", level);
-    // l("Submit with model: ", title);
-    // figure out which model is being passed through
-    // only call that request
-    // or do that in the API request part?
-
-    postApiCall();
-  };
-
-  var submitButtonText = `+`;
-  // const toast = useToast();
-  const submitMsg = "Moment Created!"
-
-  return (
-    <Center>
-      <Button size="lg" m="6" h="70" w="70"
-        borderRadius="60"
-        variant="solid"
-        colorScheme="indigo"
-        onPress={()=>{
-          handleSubmit();
-          // toast.show({render: () => {
-          //   return (<ToastBox text={submitMsg} />)
-          // }
-        // });
-      }}>{submitButtonText}</Button>
- 	</Center>
-	)
-}

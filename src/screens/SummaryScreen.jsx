@@ -9,6 +9,8 @@ import { renderScene } from '../presentations/renderScene'
 import { modelsAtom } from '../atoms/modelsAtom';
 import { useRecoilState } from 'recoil';
 
+// THIS IS AN OLD PAGE; NOT CURRENTLY IN USE
+
 
 // This Page contains:
 // - Layout/Styling for Tabs 
@@ -87,8 +89,6 @@ export default function SummaryScreen({ navigation }){
       renderTabBar={renderTabBar} 
       onIndexChange={setIndex} 
       initialLayout={{width: layout.width}}
-      // setModel={setModel}
-      // style={{marginTop: StatusBar.currentHeight}} 
     />
   );
 }

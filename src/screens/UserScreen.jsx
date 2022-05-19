@@ -43,12 +43,17 @@ export default function UserScreen({ navigation }){
 
         // styling for selected / unselecte & color modes
           const color = index === i ? 
-            useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
-            useColorModeValue("#E94560", "#E94560");
+            // useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
+            // useColorModeValue("#E94560", "#E94560");
+            useColorModeValue("#addbff", "#addbff") :  
+            useColorModeValue("#0077e6", "#0077e6"); // selected
 
           const bgcolor = index === i ? 
-            useColorModeValue("#E94560", "#E94560") :
-            useColorModeValue("#0F3460", "#0F3460");
+            // useColorModeValue("#002851", "#002851") : 
+            // useColorModeValue("#0F3460", "#0F3460");
+            useColorModeValue("#002851", "#002851") :
+            useColorModeValue("#0F3460", "#0F3460"); // sekected
+
 
           const borderColor = index === i ? 
             "#0F3460" : 
@@ -56,7 +61,7 @@ export default function UserScreen({ navigation }){
         
           return (
             <Box 
-              borderBottomWidth="3"
+              // borderBottomWidth="1"
               bg={bgcolor}
               borderColor={borderColor} 
               flex={1} alignItems="center" p="3"

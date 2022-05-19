@@ -17,7 +17,8 @@ export default function AddData({level, setLevel, model}) {
         inputValues={rowValues[0]} 
         colors="warning" 
         setLevel={setLevel} 
-      />
+    />
+      [/*
       <ValueButtons 
         inputValues={rowValues[1]} 
         colors="secondary" 

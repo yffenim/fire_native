@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Text, Center, Box } from 'native-base';
+import { Text, Center, Box, Heading, VStack } from 'native-base';
 import l from '../../helpers/consolelog'
-// CURRENT INACTIVE THOUGH WORKING/WILL BE USED
 
-const UserGreeting = ({name}) => {
-
-    
+export const UserGreeting = ({name}) => {
   return (
-    <Box>
-      <Text>Hello there {name}!</Text>
+    <Box h="80" pt="1"> 
+      <VStack>
+        <Heading size="md">Hello</Heading>
+        <Heading size="md">there</Heading>
+        <Heading size="md">{name}!</Heading>
+        <Text color="primary.400">How do you feel?</Text>
+      </VStack>
     </Box>
 
 	);
 }
 
-export default UserGreeting;
 
-{/*
-    <Box m="10" h="100" mt="-100">
-      <Text h="10" fontSize="2xl" color="indigo.200">
-        Hello there {name}!
-      </Text>
-    </Box>
-*/}
