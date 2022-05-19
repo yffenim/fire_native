@@ -27,9 +27,9 @@ import l from "./helpers/consolelog";
 // this has to be turned off for web dev use
 import { LogBox } from 'react-native';
 // Ignore log notification by message
-// LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreLogs(['Warning: ...']);
 //Ignore all log notifications
-// LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs(true);
 
 
 export default class App extends React.Component {

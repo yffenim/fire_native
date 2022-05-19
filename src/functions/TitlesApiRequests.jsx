@@ -6,40 +6,23 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
-const momentsURL = 'http://localhost:3000/api/alerts/';
+const secondsURL = 'http://localhost:3000/api/seconds/';
+const thirdsURL = 'http://localhost:3000/api/thirds/';
 
-
-// GET
-export const getAuthenticatedRequest = (headers) =>  {
-  l("Making a GET request for moments with headers: ", headers);
-  
-  return fetch(momentsURL,{
-    headers: headers
-  })
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-     throw new Error("Network response was not ok.")
-    })
-  .catch(err => l("Error from getAuthenticatedRequest: ", err))
-}
 
 // POST
-// have to send  differently for model title + url
-export const postMomentRequest = (level) =>  {
-
+export const postSecondRequest = (title) =>  {
     l("Adding a new Moment to server...");
-		fetch(momentsURL, {
+		fetch(secondsURL, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
 				"X-Requested-With": "XMLHttpRequest"
 				},
 			body: JSON.stringify({
-        alert: {
-					level: level,
-					user_id: 3
+        second: {
+					title: title,
+					user_id: 5
 					},
 				}),
       })
@@ -58,6 +41,39 @@ export const postMomentRequest = (level) =>  {
 		})
 		.catch((err) => l(err));
 	};
+
+export const postThirdRequest = (title) =>  {
+    l("Adding a new Moment to server...");
+		fetch(thirdsURL, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				"X-Requested-With": "XMLHttpRequest"
+				},
+			body: JSON.stringify({
+        second: {
+					title: title,
+					user_id: 5
+					},
+				}),
+      })
+		.then((response) => {
+			if (response.ok) {
+        alert("Level Successfully Submitted!");
+         // toast.show({render: () => {
+         //    return (<ToastBox text="Moment Submitted!" />)
+         //  }
+        // });
+				// updateDisplay();
+				return response.json();
+			}
+				alert("Oops, something went wrong!")
+			throw new Error("Network response was not ok.");
+		})
+		.catch((err) => l(err));
+	};
+
+
 
 
 // PATCH

@@ -13,7 +13,6 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 export function ModelButtons({setFirstValue, setSecondValue, setThirdValue, model}) {
 
   function handleValueButton(val){
-    // when I click on a button, it pops up and indicates the number
     setLevel(val);
   }
 

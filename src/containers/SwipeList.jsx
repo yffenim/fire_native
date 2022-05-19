@@ -36,7 +36,7 @@ export default function SwipeList() {
   // recoil hook that refreshes page when changes happen
   const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
-  // ROW ACTIONSw
+  // ROW ACTIONS
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
