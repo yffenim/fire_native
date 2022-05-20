@@ -6,6 +6,7 @@ import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 import API from '../functions/API';
 import { modelsAtom } from '../atoms/modelsAtom';
 import TrackModelForm from './TrackModelForm';
+import FirstTimeText from '../presentations/FirstTimeText';
 // import SubmitTitles from './SubmitTitles'; // the solo one
 import l from "../../helpers/consolelog.js";
 import { SubmitTitles } from "./SubmitButtons";
@@ -34,6 +35,7 @@ export default function TabRouteFirst({navigation}) {
   const [secondsTitle, setSecondsTitle] = useState("");
   const [thirdsTitle, setThirdsTitle] = useState("");
   const [level, setLevel] = useState("");
+  const [firstTime, setFirstTime] = useState(true);
   // const [errors, setErrors] = React.useState({});
   // const [formData, setData] = React.useState({});
 
@@ -57,15 +59,9 @@ export default function TabRouteFirst({navigation}) {
 return (
   <Center>
     <VStack alignItems="center" space={3}>
-      <Text>
-        Hello! You are being directed here because it's your first time logging on. 
-      </Text>
-      <Text>
-        This app allows you to track your alertness and two other categories. Please create the other two categories now: 
-      </Text>
-      <Text italic>
-        (You can change this later.)
-      </Text>
+      {firstTime &&
+        <FirstTimeText />
+      }
       <TrackModelForm 
         // errors={errors}
         setLevel={setLevel} level={level}
@@ -79,7 +75,8 @@ return (
         setThirdsTitle={setThirdsTitle}
       />  
       <SubmitTitles 
-        // validate={validate}
+      // validate={validate}
+        setFirstTime={setFirstTime}
         level={level}
         secondsTitle={secondsTitle} 
         thirdsTitle={thirdsTitle}

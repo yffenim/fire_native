@@ -5,8 +5,8 @@ import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
-// const secondsURL = 'http://localhost:3000/api/seconds';
+// const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
+const secondsURL = 'http://localhost:3000/api/seconds/';
 
 
 // POST
@@ -23,12 +23,13 @@ export const postSecondRequest = (level) =>  {
 			body: JSON.stringify({
        second: {
 					level: level,
-					user_id: 1
+					user_id: 6
 					},
 				}),
       })
 		.then((response) => {
-			if (response.ok) {
+      if (response.ok) {
+        l("Second Level Entry Successful");
         alert("Level Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)

@@ -11,7 +11,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds/';
 
 
 // POST
-export const postSecondRequest = (title) =>  {
+export const postSecondTitle = (title) =>  {
     l("Adding a new Moment to server...");
 		fetch(secondsURL, {
 			method: 'POST',
@@ -22,7 +22,7 @@ export const postSecondRequest = (title) =>  {
 			body: JSON.stringify({
         second: {
 					title: title,
-					user_id: 5
+					user_id: 6
 					},
 				}),
       })
@@ -42,7 +42,7 @@ export const postSecondRequest = (title) =>  {
 		.catch((err) => l(err));
 	};
 
-export const postThirdRequest = (title) =>  {
+export const postThirdTitle = (title) =>  {
     l("Adding a new Moment to server...");
 		fetch(thirdsURL, {
 			method: 'POST',

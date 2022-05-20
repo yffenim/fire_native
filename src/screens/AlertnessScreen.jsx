@@ -23,10 +23,9 @@ export default function AlertnessScreen({navigation}) {
       <Box flex="1" safeAreaTop 
         maxW="400px" w="100%"
       >
-        <React.Suspense fallback={loadingText}>
+        <React.Suspense fallback={loadingText} >
           <SwipeList navigation={navigation} />
         </React.Suspense>
-      
       </Box>
     </Center>
   )

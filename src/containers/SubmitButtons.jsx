@@ -1,31 +1,54 @@
 import React from 'react';
-import { Box, Heading, Text, Button, Pressable } from 'native-base';
+import { Box, Heading, Text, Button, Pressable, Fab, Center } from 'native-base';
 import { postMomentRequest } from '../functions/MomentsApiRequests';
-import { postSecondRequest, postThirdRequest } from '../functions/TitlesApiRequests';
+import { postSecondRequest } from '../functions/SecondsApiRequests';
+import { postThirdRequest } from '../functions/ThirdsApiRequests';
+import { postSecondTitle, postThirdTitle } from '../functions/TitlesApiRequests';
 import l from "../../helpers/consolelog";
 import { secondsAtom } from '../atoms/secondsAtom';
 import { thirdsAtom } from '../atoms/thirdsAtom';
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 
-// Submit for MOMENTS
-export function SubmitButton() {
-	const postApiCall = async () => {
-    await postMomentRequest(5);
+// Submit FAB (ADD ENTRY SCREEN)
+export function SubmitFab({firstValue, secondValue, thirdValue}) {
+
+	const handleFab = () => {
+		l("fab clicked");
+		postAlert();
+		postSecond();
+		postThird();
+	}
+
+	const postAlert = async () => {
+		await postMomentRequest(firstValue)
+	}
+
+	const postSecond = async () => {
+		await postSecondRequest(secondValue)
+	}
+
+	const postThird = async () => {
+		await postThirdRequest(thirdValue)
 	}
 
 	return (
-		<Box mt="5" w="300">
-			<Button onPress={()=>{postApiCall()}}>
-				Save My Data!
-			</Button>
-		</Box>		
+		<Fab renderInPortal={false} variant="outline"
+			shadow={2} size="lg" bg="pink.800"
+			onPress={()=>{handleFab()}}
+			icon={
+				<Entypo name="plus" size={24} color="white" />
+			}
+		/>
 	)
-}
+};
 
-export function SubmitTitles({secondsTitle, thirdsTitle}) {
+// ADD TITLES FOR MODELS (USER SCREEN)
+export function SubmitTitles({secondsTitle, thirdsTitle, setFirstTime}) {
 	const setSecondsAtom = useSetRecoilState(secondsAtom);
 	const setThirdsAtom = useSetRecoilState(thirdsAtom);
 	const testSecond = useRecoilValue(secondsAtom);
@@ -34,8 +57,8 @@ export function SubmitTitles({secondsTitle, thirdsTitle}) {
 	const atomTest = false;
 
 	const handleTitleSubmit = async () => {
-		await postSecondRequest(secondsTitle);
-		await postThirdRequest(thirdsTitle)
+		// await postSecondRequest(secondsTitle);
+		// await postThirdRequest(thirdsTitle)
 	}
 
 	// SETTING ATOMS VERSION
@@ -54,8 +77,8 @@ export function SubmitTitles({secondsTitle, thirdsTitle}) {
 		<Box mt="5" w="300">
 			<Button 
 				onPress={()=>{
+					setFirstTime(false);
 					handleTitleSubmit()
-
 					// onSubmit();
 				}}>
 				Save My Data!
@@ -69,3 +92,22 @@ export function SubmitTitles({secondsTitle, thirdsTitle}) {
 }
 
 
+// NOT CURRENTLY IN USE
+//
+
+
+// ADD NEW DATA ENTRY
+export function SubmitButton() {
+	const postApiCall = async () => {
+    await postMomentRequest(5);
+	}
+	return (
+		<Center>
+			<Button w="200" h="10"
+				onPress={()=>{postApiCall()}}
+			>
+				Save My Data!
+			</Button>
+		</Center>
+	)
+}

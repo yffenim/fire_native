@@ -6,14 +6,16 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { atom, useSetRecoilState } from "recoil";
 import l from '../../helpers/consolelog';
 
-export function AnimatedButton({color, value, setFirstValue, setSecondValue, setThirdValue, model}) {
-  
-  function handlePress(value) {
-    // l("model is: ", model);
 
-    if ( model === "moments" ) {
+
+export function AnimatedButton({color, value, setFirstValue, setSecondValue, setThirdValue, model}) {
+
+// setting state for pressed value
+  function handlePress(value) {
+    
+    if ( model === "alertness" ) {
       setFirstValue(value);
-      l("moments: ", model);
+      l("alertness: ", model);
     } else if ( model === "seconds" ) {
       setSecondValue(value);
       l("seconds: ", model); 

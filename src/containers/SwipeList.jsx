@@ -23,7 +23,7 @@ import l from '../../helpers/consolelog';
 
 
 export default function SwipeList() {
-  const [ id, setId ] = useState(null);
+  const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
@@ -73,7 +73,11 @@ export default function SwipeList() {
         }}>
         <Box pl="4" pr="5" py="2">
           <HStack alignItems="center" space={3}>
-          <Avatar size="48px" source={{ }} />    
+            <Button
+              borderRadius="25"
+              m="1" p="3" w="12" h="12"
+              // colorScheme="tertiary"
+            ></Button>
             <VStack>
               <Text color="coolGray.800" _dark={{
                 color: "warmGray.50" }} bold>
@@ -140,3 +144,6 @@ export default function SwipeList() {
   )
 }
 
+{/*       
+<Avatar size="48px" source={{ }} />
+*/}

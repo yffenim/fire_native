@@ -39,12 +39,13 @@ export const postMomentRequest = (level) =>  {
 			body: JSON.stringify({
         alert: {
 					level: level,
-					user_id: 3
+					user_id: 6
 					},
 				}),
       })
 		.then((response) => {
-			if (response.ok) {
+      if (response.ok) {
+        l("Alert Level Entry Successful")
         alert("Level Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)

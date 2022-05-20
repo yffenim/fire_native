@@ -8,7 +8,17 @@ import AlertnessScreen from "../screens/AlertnessScreen";
 import SecondsScreen from "../screens/SecondsScreen";
 import ThirdsScreen from "../screens/ThirdsScreen";
 import ExportScreen from "../screens/ExportScreen";
-import l from "../../helpers/consolelog";
+import { useRecoilValue } from 'recoil';
+import { secondsAtom } from '../atoms/secondsAtom';
+import { thirdsAtom } from '../atoms/thirdsAtom';
+import l from '../../helpers/consolelog';
+
+// var secondsTitle = " "
+// var thirdsTitle = " "
+// function getTitle() {
+//   secondsTitle = useRecoilValue(secondsAtom);
+//   l("secondsTitle :", secondsTitle);
+// }
 
 // ICONS
 // const iconColor = "gray"
@@ -100,6 +110,7 @@ export const AlertnessNavigator =
  
 export const SecondsNavigator =
 	<Drawer.Screen
+  // name={secondsTitle}
     name="Track II"
     options={secondsIcon}
     component={SecondsScreen}
