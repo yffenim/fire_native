@@ -13,7 +13,8 @@ import {
   AlertnessNavigator,
   SecondsNavigator,
   ThirdsNavigator,
-  ExportNavigator
+  ExportNavigator,
+  FirstNavigator
 } from './src/containers/NavigationScreens'
 import {
   RecoilRoot,
@@ -51,6 +52,7 @@ export default class App extends React.Component {
             {AlertnessNavigator}
             {SecondsNavigator}
             {ThirdsNavigator}
+            {FirstNavigator}
             {/*
             Add Toggle Dark Mode Here?
             Add Export Data Here?

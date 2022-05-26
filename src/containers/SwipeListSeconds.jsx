@@ -22,7 +22,7 @@ import l from '../../helpers/consolelog';
 // TODO: How to make it listen to a swipe and not a click?
 
 
-export default function SwipeListSeconds() {
+export default function SwipeListSeconds({navigation}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
@@ -120,7 +120,7 @@ export default function SwipeListSeconds() {
           <ModelStats avg={avg} count={count}/>
         }
         {!dataExists &&
-          <NoStats />
+          <NoStats navigation={navigation}/>
         }      
       </Box>
 

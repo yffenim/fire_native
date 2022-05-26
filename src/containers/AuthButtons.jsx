@@ -35,34 +35,43 @@ export const RegisterButton = ({email, password}) => {
 
 // SIGN IN USER
 export function SignInButton ({
-	email, password, setHeaders, setUid, navigation}) {
-	
+	email, password, setHeaders, setUid, setUser, navigation}) {
+	const usersURL = "http://localhost:3000/api/users/"
+
 	const api = new API;
 
   const handleSignin = () => {
     const model = "sessions"
-  
     // set login body based on user input
     const body = JSON.stringify({
       email: email,
       password: password  
     })
-
 // Login, save authenticated headers, make a GET request for User Data, store in Atom state
-    api.post( model, body)
+    api.post(model, body)
       .then(headers => {
 				setHeaders(headers);
 				l("Login callback headers: ", headers);
 				let uid = headers["uid"];
 				setUid(uid);
-				navigation.navigate("Add Entry");
+				navigation.navigate("First");
+				// navigation.navigate("Add Entry");
 			})
       .catch(error => {
         console.error(error);
-      });
-    }
-    return (
+		});
 
+		api.get(usersURL)
+			.then(response => {
+				// l(response);
+				setUser(response);
+			})
+			.catch(error => {
+				console.error(error);
+		});
+
+	};
+    return (
       <Button
         onPress={() => {
           handleSignin()
@@ -72,7 +81,7 @@ export function SignInButton ({
           Sign in New
       </Button>
    )
-}
+};
 
 
 // Return to Login component Link (I know it's not a button)

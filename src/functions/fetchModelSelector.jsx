@@ -21,6 +21,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
     try {
         const response = await fetch(momentsURL);
         const data = await response.json();
+        l("alertness fetched: ", data);
         return data;
     } catch(error) {
         throw error;
@@ -35,6 +36,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
     try {
         const response = await fetch(secondsURL);
         const data = await response.json();
+        l("seconds fetched: ", data);
         return data;
     } catch(error) {
         throw error;
@@ -50,6 +52,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
     try {
         const response = await fetch(thirdsURL);
         const data = await response.json();
+        l("thirds fetched: ", data);
         return data;
     } catch(error) {
         throw error;

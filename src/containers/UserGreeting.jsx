@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, Center, Box, Heading, VStack } from 'native-base';
+// import { headersAtom } from '../atoms/headersAtom';
+// import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog'
 
-export const UserGreeting = ({name}) => {
-  return (
-    <Box h="80" pt="1"> 
-      <VStack>
-        <Heading size="md">Hello</Heading>
-        <Heading size="md">there</Heading>
-        <Heading size="md">{name}!</Heading>
-        <Text color="primary.400">How do you feel?</Text>
-      </VStack>
-    </Box>
+// for User Screen
+export default function UserGreeting({name}) {
+  // const headers = useRecoilValue(headersAtom);
+  // l("headers :", headers);
 
+  return (
+    <Box mt="5"> 
+      <Heading>Hello there {name}!</Heading>
+    </Box>
 	);
 }
 

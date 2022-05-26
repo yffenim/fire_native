@@ -7,7 +7,7 @@ import { atom, useSetRecoilState } from "recoil";
 import l from '../../helpers/consolelog';
 
 
-
+// THE DATA ENTRY BUTTONS THEMSEVLES
 export function AnimatedButton({color, value, setFirstValue, setSecondValue, setThirdValue, model}) {
 
 // setting state for pressed value

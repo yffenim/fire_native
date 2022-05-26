@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-// which model to be passed into the fetchModelSelector
+// NOT CURRENTLY IN USE
 export const momentsAtom = atom({
 	key: "momentsAtom",
 	default: {}

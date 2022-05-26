@@ -22,7 +22,7 @@ import l from '../../helpers/consolelog';
 // TODO: How to make it listen to a swipe and not a click?
 
 
-export default function SwipeList() {
+export default function SwipeList({navigation}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
@@ -32,7 +32,7 @@ export default function SwipeList() {
   // selector fetchMomentsData which makes the GET request
   const data = useRecoilValue(fetchMomentsData);
   const listData = data[1];
-  
+
   // recoil hook that refreshes page when changes happen
   const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
@@ -65,18 +65,19 @@ export default function SwipeList() {
     return (
     <Box>
       <Pressable 
-        _dark={{bg: "coolGray.800"}} 
+        _dark={{bg: "darkBlue.900"}} 
         _light={{bg: "white"}}
         onPress={()=>{
           l("id: ", id);
           setId(item.id)
         }}>
-        <Box pl="4" pr="5" py="2">
+        <Box pl="4" pr="5" py="2"
+        >
           <HStack alignItems="center" space={3}>
             <Button
+              colorScheme="pink"
               borderRadius="25"
               m="1" p="3" w="12" h="12"
-              // colorScheme="tertiary"
             ></Button>
             <VStack>
               <Text color="coolGray.800" _dark={{
@@ -124,7 +125,7 @@ export default function SwipeList() {
           <ModelStats avg={avg} count={count}/>
         }
         {!dataExists &&
-          <NoStats />
+          <NoStats navigation={navigation} />
         }
       </Box>
 

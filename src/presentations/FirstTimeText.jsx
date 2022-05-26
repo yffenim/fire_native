@@ -1,19 +1,22 @@
 import React from 'react';
-import { Box, Text, Heading } from 'native-base';
+import { Box, Text, Heading, VStack } from 'native-base';
 
 
 export default function FirstTimeText() {
 	return (
-  	<Box>
-      <Text>
-        Hello! You are being directed here because it's your first time logging on.
+  	<Box mt="10" mb="5">
+      <Text mb="5" color="primary.300">
+       It's your first time signing in!
       </Text>
-      <Text>
-        This app allows you to track your alertness and two other categories. Please create the other two categories now:
+      <Text mb="5">
+        This app allows you to track your alertness and two other categories. <Box bg="primary.300">Please create them now.</Box>
       </Text>
       <Text italic>
-        (You can change this later.)
+        You can change this later.
       </Text>
-		</Box>
+    </Box>
 	)
 };
+
+
+

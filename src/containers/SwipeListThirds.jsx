@@ -17,6 +17,7 @@ import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
+import { thirdsAtom } from '../atoms/thirdsAtom'
 import l from '../../helpers/consolelog';
 
 // TODO: How to make it listen to a swipe and not a click?
@@ -27,12 +28,31 @@ export default function SwipeListThirds({navigation}) {
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
-
+  const model = useRecoilValue(thirdsAtom);
   // recoil hook that subscribes data to 
   // selector fetchMomentsData which makes the GET request
   const data = useRecoilValue(fetchThirdsData);
   const listData = data[1];
+
+  // going to show everything into an atom 
+  // add an colour code to it
+  // what happens during edit
+  // would have to update atom AND server
+
+  // So the plan would be:
+  // fetch request -> goes into atom
+  // use atom data to render the list 
+
+  // Edit:
+  // 1. update server
+  // 2. update the atom state manually
+  // 3. will this automatically update my list?
+
   
+// https://recoiljs.org/docs/guides/asynchronous-data-queries/#query-default-atom-values
+
+
+
   // recoil hook that refreshes page when changes happen
   const refresh = useRecoilRefresher_UNSTABLE(fetchThirdsData);
 
@@ -116,7 +136,9 @@ export default function SwipeListThirds({navigation}) {
 
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
-          <ModelStats avg={avg} count={count}/>
+          <ModelStats model={model} 
+            avg={avg} count={count}
+          />
         }
         {!dataExists &&
           <NoStats navigation={navigation} />

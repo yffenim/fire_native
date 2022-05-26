@@ -14,6 +14,7 @@ function Login({navigation, setForm}) {
   const [password, setPassword] = useState("");
   const [headers, setHeaders] = useRecoilState(headersAtom);
   const [uid, setUid] = useRecoilState(uidAtom);
+  const [user, setUser] = useRecoilState(userAtom)
 
   return (
       <Box>
@@ -26,6 +27,7 @@ function Login({navigation, setForm}) {
           password={password} 
           setHeaders={setHeaders}
           setUid={setUid}
+          setUser={setUser}
           navigation={navigation}
         />
         <NewUserLink setForm={setForm} />

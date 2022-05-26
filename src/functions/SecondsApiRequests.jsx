@@ -3,6 +3,7 @@ import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { devID } from "../../helpers/devID";
 
 
 // const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
@@ -23,7 +24,7 @@ export const postSecondRequest = (level) =>  {
 			body: JSON.stringify({
        second: {
 					level: level,
-					user_id: 6
+					user_id: devID
 					},
 				}),
       })
@@ -60,7 +61,7 @@ export const patchSecondRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 1
+          user_id: devID
         }
       })
     })

@@ -61,7 +61,7 @@ export default class API {
   handleLoginResp(response){
     let tokenHeaders = {}
     if (response.ok) {
-      alert("Login successful!");
+      // alert("Login successful!");
       l("Network response for login is good.");
       // l("resp headers: ", response.headers);
 				let expiry = response.headers["map"]["expiry"];

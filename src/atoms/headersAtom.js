@@ -6,7 +6,7 @@ import { atom } from "recoil";
 // request header
 export const headersAtom = atom({
 	key: "headersAtom",
-	default: {"uid": "default"}
+	default: {"default": "default"}
 });
 
 

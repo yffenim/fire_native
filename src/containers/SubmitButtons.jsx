@@ -48,7 +48,7 @@ export function SubmitFab({firstValue, secondValue, thirdValue}) {
 };
 
 // ADD TITLES FOR MODELS (USER SCREEN)
-export function SubmitTitles({secondsTitle, thirdsTitle, setFirstTime}) {
+export function SubmitTitles({secondsTitle, thirdsTitle, firstTime, setFirstTime}) {
 	const setSecondsAtom = useSetRecoilState(secondsAtom);
 	const setThirdsAtom = useSetRecoilState(thirdsAtom);
 	const testSecond = useRecoilValue(secondsAtom);
@@ -74,14 +74,14 @@ export function SubmitTitles({secondsTitle, thirdsTitle, setFirstTime}) {
   // };
 
 	return (
-		<Box mt="5" w="300">
+		<Box>
 			<Button 
+				variant="outline"
+				colorScheme="indigo"
 				onPress={()=>{
-					setFirstTime(false);
 					handleTitleSubmit()
-					// onSubmit();
 				}}>
-				Save My Data!
+				Save
 			</Button>
 			{atomTest &&
 				<Text>Second Atom: {testSecond} -------
@@ -90,6 +90,23 @@ export function SubmitTitles({secondsTitle, thirdsTitle, setFirstTime}) {
 		</Box>		
 	)
 }
+
+
+// SUBMIT USER EDITS
+export function SubmitUser() {
+	return (
+		<Center>
+			<Button
+				mt="4"
+				variant="outline"
+				colorScheme="indigo"
+			>
+				Save
+			</Button>
+		</Center>
+	)
+}
+
 
 
 // NOT CURRENTLY IN USE

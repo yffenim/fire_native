@@ -10,20 +10,21 @@ import { fetchMomentsData } from '../functions/fetchModelSelector';
 // import { modelsAtom } from '../atoms/modelsAtom';
 import { momentsAtom } from '../atoms/momentsAtom';
 import { loadingText } from "../presentations/loadingFallback";
+import { LoadingSpinner } from '../presentations/LoadingSpinner'
 import l from '../../helpers/consolelog';
 
 
 // Setting all State needed for Alertness components
-
 export default function AlertnessScreen({navigation}) {
   const [mode, setMode] = useState("Basic");
-  
+
   return ( 
     <Center>
       <Box flex="1" safeAreaTop 
-        maxW="400px" w="100%"
+        maxW="400px" w="100%" 
+        // borderRadius="20"
       >
-        <React.Suspense fallback={loadingText} >
+        <React.Suspense fallback={LoadingSpinner}>
           <SwipeList navigation={navigation} />
         </React.Suspense>
       </Box>

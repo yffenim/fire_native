@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Entypo, FontAwesome5, Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome5, Ionicons, Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import LandingScreen from "../screens/LandingScreen";
 import UserScreen from "../screens/UserScreen";
 import AddDataScreen from "../screens/AddDataScreen";
@@ -8,6 +8,7 @@ import AlertnessScreen from "../screens/AlertnessScreen";
 import SecondsScreen from "../screens/SecondsScreen";
 import ThirdsScreen from "../screens/ThirdsScreen";
 import ExportScreen from "../screens/ExportScreen";
+import FirstTimeScreen from "../screens/FirstTimeScreen";
 import { useRecoilValue } from 'recoil';
 import { secondsAtom } from '../atoms/secondsAtom';
 import { thirdsAtom } from '../atoms/thirdsAtom';
@@ -81,6 +82,14 @@ const exportIcon = {
   )
 };
 
+const firstIcon = {
+  drawerIcon: ({ focused, size }) => (
+    <MaterialIcons
+      name="developer-mode"
+      size={24} color={iconColor}
+   />
+  )
+};
 
 // NAVIGATION STACK OBJECTS
 
@@ -137,3 +146,9 @@ export const ExportNavigator =
     component={ExportScreen}
   />;
 
+export const FirstNavigator =
+  <Drawer.Screen
+    name="First"
+    options={firstIcon}
+    component={FirstTimeScreen}
+  />;

@@ -3,13 +3,14 @@ import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { devID } from "../../helpers/devID";
 
 
-// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
+// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 const momentsURL = 'http://localhost:3000/api/alerts/';
 
 
-// GET
+// GETi // NOT CURRENTLY IN USE
 export const getAuthenticatedRequest = (headers) =>  {
   l("Making a GET request for moments with headers: ", headers);
   
@@ -39,7 +40,7 @@ export const postMomentRequest = (level) =>  {
 			body: JSON.stringify({
         alert: {
 					level: level,
-					user_id: 6
+					user_id: devID
 					},
 				}),
       })
@@ -76,7 +77,7 @@ export const patchMomentRequest = (editId, level) => {
       body: JSON.stringify({
         alert: {
           level: level,
-          user_id: 1
+          user_id: devID
         }
       })
     })
