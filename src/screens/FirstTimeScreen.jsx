@@ -18,8 +18,11 @@ export default function FirstTimeScreen({navigation}) {
   const [firstTime, setFirstTime] = useState(true);
   const userData = useRecoilValue(userAtom);
   const userName = userData[0]["name"];
-  // const [userForm, showUserForm] = useState(false)
+  // const alertId = userData[1]["alertId"];
+  // const secondId = userData[1]["secondId"];
+  // const thirdId = userData[1]["thirdId"];
 
+// const [userForm, showUserForm] = useState(false)
   // const [errors, setErrors] = React.useState({});
   // const [formData, setData] = React.useState({});
 
@@ -50,6 +53,7 @@ return (
         setThirdsTitle={setThirdsTitle}
         firstTime={firstTime}
         setFirstTime={setFirstTime}
+        navigation={navigation}
       />
     </Center>
   )

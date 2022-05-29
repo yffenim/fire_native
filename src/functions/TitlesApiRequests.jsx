@@ -3,6 +3,7 @@ import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { devID } from "../../helpers/devID";
 
 
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
@@ -10,11 +11,14 @@ const secondsURL = 'http://localhost:3000/api/seconds/';
 const thirdsURL = 'http://localhost:3000/api/thirds/';
 
 
-// POST
-export const postSecondTitle = (title) =>  {
-    l("Adding a new Moment to server...");
-		fetch(secondsURL, {
-			method: 'POST',
+// PUT TO ADD TITLE
+export const postSecondTitle = (title, oid) =>  {
+  l("Adding a Second Title to server...");
+  // the default object is at this oid
+  let objectURL = secondsURL + oid
+
+    fetch(objectURL, {
+			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
 				"X-Requested-With": "XMLHttpRequest"
@@ -22,18 +26,18 @@ export const postSecondTitle = (title) =>  {
 			body: JSON.stringify({
         second: {
 					title: title,
-					user_id: 6
+					user_id: devID
 					},
 				}),
       })
 		.then((response) => {
-			if (response.ok) {
-        alert("Level Successfully Submitted!");
+      if (response.ok) {
+        l("Second title submitted called ", title);
+        // alert("Title Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }
         // });
-				// updateDisplay();
 				return response.json();
 			}
 				alert("Oops, something went wrong!")
@@ -42,8 +46,10 @@ export const postSecondTitle = (title) =>  {
 		.catch((err) => l(err));
 	};
 
-export const postThirdTitle = (title) =>  {
-    l("Adding a new Moment to server...");
+export const postThirdTitle = (title, oid) =>  {
+    l("Adding a new Thirds Title to server...");
+    let objectURL = thirdsURL + oid
+
 		fetch(thirdsURL, {
 			method: 'POST',
 			headers: {
@@ -53,13 +59,14 @@ export const postThirdTitle = (title) =>  {
 			body: JSON.stringify({
         second: {
 					title: title,
-					user_id: 5
+					user_id: devID
 					},
 				}),
       })
 		.then((response) => {
-			if (response.ok) {
-        alert("Level Successfully Submitted!");
+      if (response.ok) {
+        l("Thirds title submitted called: ", title);
+        // alert("Level Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Heading, Text, Button, Pressable, Fab, Center } from 'native-base';
-import { postMomentRequest } from '../functions/MomentsApiRequests';
-import { postSecondRequest } from '../functions/SecondsApiRequests';
-import { postThirdRequest } from '../functions/ThirdsApiRequests';
+// import { postMomentRequest } from '../functions/MomentsApiRequests';
+// import { postSecondRequest } from '../functions/SecondsApiRequests';
+// import { postThirdRequest } from '../functions/ThirdsApiRequests';
 import { postSecondTitle, postThirdTitle } from '../functions/TitlesApiRequests';
 import l from "../../helpers/consolelog";
 import { secondsAtom } from '../atoms/secondsAtom';
 import { thirdsAtom } from '../atoms/thirdsAtom';
+import { userAtom } from '../atoms/userAtom';
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -24,12 +25,8 @@ export function SubmitFab({firstValue, secondValue, thirdValue}) {
 		postThird();
 	}
 
-	const postAlert = async () => {
-		await postMomentRequest(firstValue)
-	}
-
 	const postSecond = async () => {
-		await postSecondRequest(secondValue)
+		await postSecondsTitle(secondValue)
 	}
 
 	const postThird = async () => {
@@ -47,19 +44,31 @@ export function SubmitFab({firstValue, secondValue, thirdValue}) {
 	)
 };
 
-// ADD TITLES FOR MODELS (USER SCREEN)
-export function SubmitTitles({secondsTitle, thirdsTitle, firstTime, setFirstTime}) {
+// ADD TITLES FOR FIRST TIME SCREEN 
+// TODO: 
+// do I want to set local state with the titles 
+// or do i want the API calls to do it in the relevant pages? 
+
+export function SubmitTitles({secondsTitle, thirdsTitle, firstTime, setFirstTime, navigation}) {
 	const setSecondsAtom = useSetRecoilState(secondsAtom);
 	const setThirdsAtom = useSetRecoilState(thirdsAtom);
 	const testSecond = useRecoilValue(secondsAtom);
-	const testThirds = useRecoilValue(thirdsAtom);
-	// const atomTest = true;
-	const atomTest = false;
+	const testThirds = useRecoilValue(thirdsAtom)
+	;  
+	const userData = useRecoilValue(userAtom);
+  const secondId = userData[1]["secondId"];
+  const thirdId = userData[1]["thirdId"];
 
+// I need to grab the ID of the first obj
+// so lets set it up in the API
+// this means I need to either have it set up for USER atom
+// OR, I need to grab all my model data now
 	const handleTitleSubmit = async () => {
-		// await postSecondRequest(secondsTitle);
-		// await postThirdRequest(thirdsTitle)
+		await postSecondTitle(secondsTitle, secondId);
+		// await postThirdTitle(thirdsTitle, thirdId)
+		// navigation.navigate("Add Data");
 	}
+
 
 	// SETTING ATOMS VERSION
 	// const handleTitleSubmit = () => {
@@ -83,10 +92,6 @@ export function SubmitTitles({secondsTitle, thirdsTitle, firstTime, setFirstTime
 				}}>
 				Save
 			</Button>
-			{atomTest &&
-				<Text>Second Atom: {testSecond} -------
-				Third Atom: {testThirds}</Text>
-			}
 		</Box>		
 	)
 }

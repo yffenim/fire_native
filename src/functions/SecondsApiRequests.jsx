@@ -14,7 +14,7 @@ const secondsURL = 'http://localhost:3000/api/seconds/';
 // have to send  differently for model title + url
 export const postSecondRequest = (level) =>  {
 
-    l("Adding a new Moment to server...");
+    l("Adding a new Second to server...");
 		fetch(secondsURL, {
 			method: 'POST',
 			headers: {
@@ -30,8 +30,8 @@ export const postSecondRequest = (level) =>  {
       })
 		.then((response) => {
       if (response.ok) {
-        l("Second Level Entry Successful");
-        alert("Level Successfully Submitted!");
+        // l("Second Level Entry Successful");
+        alert("Seconds Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }

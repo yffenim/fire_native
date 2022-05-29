@@ -10,6 +10,7 @@ import {
   Button
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
+// TODO: change source url to reflect conversion from selector to atoms
 import { fetchMomentsData } from '../functions/fetchModelSelector';
 import { formatTime } from '../functions/formatTime';
 import API from '../functions/API';
@@ -108,7 +109,7 @@ export default function SwipeList({navigation}) {
   useEffect(()=>{
     if ( data.length > 0 ) {
       setDataExists(true)
-      setAvg(data[0]["average"]);
+      setAvg(data[0]["avg"]);
       setCount(data[0]["count"]); 
     } else {
       l("there is no fetched data")

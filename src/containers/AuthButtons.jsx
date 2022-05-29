@@ -60,7 +60,7 @@ export function SignInButton ({
       .catch(error => {
         console.error(error);
 		});
-
+// store UserData
 		api.get(usersURL)
 			.then(response => {
 				// l(response);

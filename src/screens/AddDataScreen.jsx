@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Center, Button, Text, Fab,  Heading, Box, VStack, HStack } from "native-base";
-// import { ValueButtons, rowValues, SubmitButton } from "./InputButtons";
+import { Center, Button, Text, Fab, Heading, Box, VStack, HStack } from "native-base";
 import { UserGreeting } from "../containers/UserGreeting";
 import { UserSelected } from "../containers/UserSelected";
 import { FirstModelHeading, SecondModelHeading, ThirdModelHeading } from "../containers/ModelHeadings";
@@ -10,7 +9,7 @@ import { userAtom } from '../atoms/userAtom';
 import { ModelButtons } from "../containers/ModelButtons";
 import { SubmitButton, SubmitFab } from "../containers/SubmitButtons";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import l from "../../helpers/consolelog.js";
+import l from "../../helpers/consolelog";
 
 
 

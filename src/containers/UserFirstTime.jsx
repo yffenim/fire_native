@@ -6,7 +6,7 @@ import TrackModelForm from './TrackModelForm';
 import l from "../../helpers/consolelog.js";
 
 
-export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, level, setSecondsTitle, setThirdsTitle, firstTime, setFirstTime}) {
+export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, level, setSecondsTitle, setThirdsTitle, firstTime, setFirstTime, navigation}) {
   const seconds = "seconds"
   const thirds = "thirds"
 
@@ -17,7 +17,7 @@ export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, leve
         alignItems="center"
         bg="darkBlue.900"
         borderRadius="10"
-        p="5"
+        p="5" pt="8" pb="8"
       >
         <TrackModelForm
           setLevel={setLevel} level={level}
@@ -35,6 +35,7 @@ export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, leve
           level={level}
           secondsTitle={secondsTitle}
           thirdsTitle={thirdsTitle}
+          navigation={navigation}
         />
       </VStack>
     </ScrollView>  

@@ -105,7 +105,7 @@ export const LandingNavigator =
 
  export const AddDataNavigator =
 	<Drawer.Screen
-    name="Add Entry"
+    name="Add Data"
     options={addIcon}
     component={AddDataScreen}
   />;

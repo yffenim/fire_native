@@ -4,7 +4,8 @@ That which is not measured, cannot be managed. Get to know your circadian rhythm
 
 Back-end: https://github.com/yffenim/fire_api
 
-## Roadmap
+
+# Roadmap
 
 - [x] Track alertness levels on scale of 1-9 with times rounded to the hour
 - [x] Track up to two other models
@@ -13,9 +14,10 @@ Back-end: https://github.com/yffenim/fire_api
 - [ ] User stats + editing
 - [ ] User authentication
 - [ ] OAUTH integration 
-- [ ] Toggle themes
+- [ ] Toggle themes / Choose icons
 
-## Instructions for Use
+
+# Instructions for Use
 
 Clone the repo: `git clone https://github.com/yffenim/fire_native.git`
 
@@ -41,7 +43,7 @@ or Expo for iOS (App Store Link: https://itunes.apple.com/us/app/expo-client/id9
 
 Scan the QR code from the terminal from your camera. Expo will load project automatically. Shake your phone to reload.
 
-### Using Simulator
+### Using Iphone simulator
 
 `i` for IOS stimulator 
 
@@ -57,7 +59,10 @@ Follow the instructions from your terminal.
 
 Not recommended unless debugging. You will have to turn the Logging back in app entrypoint (`App.jsx`)
 
+
 # General Troubleshooting
+
+### Front-end issues
 
 `r` to reload. 
 
@@ -87,7 +92,12 @@ _(Note that if you do not have `watchman` installed or if your DIR is slightly d
 
 _If you have Expo SDK44 or higher, you will have to resolve many dependencies._
 
-## Development Troubleshooting
+### Backend Issues 
+
+Did you reset the database? If so, `rails db:seed` as a default seed object is required.
+
+
+# Development Troubleshooting
 
 If any navigation stack changes have been made, you must restart the server: `npm start --reset-cache`
 
@@ -96,6 +106,7 @@ If more than 75 requests have been made to the FIRE API, you will have to wait f
 Note that the rendering on native vs browser may be different. It is useful to check browser version if native display is empty without reason. Browser dev tools are also useful for full error message rendering.
 
 **Network issues:** Easiest to use  https://proxyman.io/ on your IOS to capture requests.
+
 
 # Development Docs
 
@@ -137,12 +148,5 @@ src
 
 `styles` -> self-explanatory
 
-## Component hierarchy
-
-Level 1. _`[LandingScreen]`_
-
-Level 2. _`[UserScreen]`,`[AddDataScreen]`,`[SummaryScreen]`,`[ExportScreen]`_
-
-Detailed diagram coming soon.
 
 ### Thank you

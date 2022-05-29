@@ -31,10 +31,10 @@ export function AnimatedButton({color, value, setFirstValue, setSecondValue, set
 // Initial scale value of 1 means no scale applied initially.
     const animatedButtonScale = new Animated.Value(1);
 
-    // When button is pressed in, animate the scale to 5
+    // When button is pressed in, animate the scale to 3
     const onPressIn = () => {
         Animated.spring(animatedButtonScale, {
-            toValue: 5,
+            toValue: 3,
             useNativeDriver: true,
         }).start();
     };

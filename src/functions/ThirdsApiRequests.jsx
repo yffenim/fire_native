@@ -14,7 +14,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
 // have to send  differently for model title + url
 export const postThirdRequest = (level) =>  {
 
-    l("Adding a new Moment to server...");
+    l("Adding a new Third to server...");
 		fetch(thirdsURL, {
 			method: 'POST',
 			headers: {
@@ -30,7 +30,7 @@ export const postThirdRequest = (level) =>  {
       })
 		.then((response) => {
       if (response.ok) {
-        l("Third Level Entry Successful");
+        // l("Third Level Entry Successful");
         alert("Third Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)

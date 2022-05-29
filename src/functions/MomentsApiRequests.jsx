@@ -30,7 +30,7 @@ export const getAuthenticatedRequest = (headers) =>  {
 // have to send  differently for model title + url
 export const postMomentRequest = (level) =>  {
 
-    l("Adding a new Moment to server...");
+    l("Adding a new Moment to server to userid: ", devID);
 		fetch(momentsURL, {
 			method: 'POST',
 			headers: {
@@ -46,8 +46,8 @@ export const postMomentRequest = (level) =>  {
       })
 		.then((response) => {
       if (response.ok) {
-        l("Alert Level Entry Successful")
-        alert("Level Successfully Submitted!");
+        // l("Alert Level Successful")
+        alert("Alert Level Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }
