@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Center, Button, Text, Fab, Heading, Box, VStack, HStack } from "native-base";
-import { UserGreeting } from "../containers/UserGreeting";
-import { UserSelected } from "../containers/UserSelected";
 import { FirstModelHeading, SecondModelHeading, ThirdModelHeading } from "../containers/ModelHeadings";
 import { loadingText } from "../presentations/loadingFallback";
-import API from '../functions/API';
-import { userAtom } from '../atoms/userAtom';
 import { ModelButtons } from "../containers/ModelButtons";
-import { SubmitButton, SubmitFab } from "../containers/SubmitButtons";
+import { SubmitDataFab } from "../containers/SubmitDataFab";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import l from "../../helpers/consolelog";
 
 
-
+// ADD NEW DATA SCREEN
 export default function AddEntry({navigation}) {
   // const [user, setUser] = useRecoilState(userAtom);
   const [firstValue, setFirstValue] = useState(null);
@@ -44,28 +40,39 @@ export default function AddEntry({navigation}) {
 
   return (
     <Center>
-      <HStack bg="darkBlue.700" p="3" m="2" borderRadius="10">
+      <HStack p="3" m="2" 
+        bg="darkBlue.700" 
+        borderRadius="10"
+      >
         <ModelButtons 
           model={alertness}
           setFirstValue={setFirstValue} 
         />
         <FirstModelHeading firstValue={firstValue} />
-      </HStack>      
-      <HStack bg="darkBlue.800" p="3" m="2" borderRadius="10">
+      </HStack>   
+
+      <HStack p="3" m="2" 
+        bg="darkBlue.800" 
+        borderRadius="10"
+      >
         <SecondModelHeading secondValue={secondValue} />
         <ModelButtons 
           model={seconds}
           setSecondValue={setSecondValue}
         />
       </HStack>
-      <HStack bg="darkBlue.700" p="3" m="2" borderRadius="10">
+    
+      <HStack p="3" m="2" 
+        bg="darkBlue.700" 
+        borderRadius="10"
+      >
         <ModelButtons 
           model={thirds}
           setThirdValue={setThirdValue}
         />
         <ThirdModelHeading thirdValue={thirdValue} />
         </HStack>
-        <SubmitFab 
+        <SubmitDataFab 
           firstValue={firstValue}
           secondValue={secondValue}
           thirdValue={thirdValue}

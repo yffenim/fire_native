@@ -8,18 +8,14 @@ import AlertnessScreen from "../screens/AlertnessScreen";
 import SecondsScreen from "../screens/SecondsScreen";
 import ThirdsScreen from "../screens/ThirdsScreen";
 import ExportScreen from "../screens/ExportScreen";
+// import ViewDataScreen from "../screens/ViewDataScreen";
 import FirstTimeScreen from "../screens/FirstTimeScreen";
 import { useRecoilValue } from 'recoil';
 import { secondsAtom } from '../atoms/secondsAtom';
 import { thirdsAtom } from '../atoms/thirdsAtom';
 import l from '../../helpers/consolelog';
 
-// var secondsTitle = " "
-// var thirdsTitle = " "
-// function getTitle() {
-//   secondsTitle = useRecoilValue(secondsAtom);
-//   l("secondsTitle :", secondsTitle);
-// }
+
 
 // ICONS
 // const iconColor = "gray"
@@ -51,7 +47,7 @@ const addIcon = {
 
 const alertnessIcon = {
   drawerIcon: ({ focused, size }) => (
-    <FontAwesome5 name="eye" i
+    <FontAwesome5 name="eye"
       size={24} color={iconColor} 
     />
   )
@@ -91,12 +87,25 @@ const firstIcon = {
   )
 };
 
+// const viewDataIcon = {
+//   drawerIcon: ({ focused, size }) => (
+//     <FontAwesome5 name="eye"
+//       size={24} color={iconColor}
+//    />
+//   )
+// }
+
 // NAVIGATION STACK OBJECTS
 
 const Drawer = createDrawerNavigator();
 // https://reactnavigation.org/docs/drawer-based-navigation
+// const secondsTitle = "test"
 
-export const LandingNavigator = 
+// function getTitles() {
+  // const [secondsTitle, setSecondsTitle] = useRecoilValue(secondsAtom);
+// }
+
+// export const LandingNavigator = 
   <Drawer.Screen
     name="Landing"
     options={landingIcon}
@@ -120,14 +129,14 @@ export const AlertnessNavigator =
 export const SecondsNavigator =
 	<Drawer.Screen
   // name={secondsTitle}
-    name="Track II"
+    name="Data II"
     options={secondsIcon}
     component={SecondsScreen}
   />;
   
 export const ThirdsNavigator =
 	<Drawer.Screen
-    name="Track III"
+    name="Data III"
     options={thirdsIcon}
     component={ThirdsScreen}
   />;
@@ -145,6 +154,13 @@ export const ExportNavigator =
     options={exportIcon}
     component={ExportScreen}
   />;
+
+// export const ViewDataNavigator = 
+//   <Drawer.Screen
+//     name="View Data"
+//     options={viewDataIcon}
+//     component={ViewDataScreen}
+//   />;
 
 export const FirstNavigator =
   <Drawer.Screen

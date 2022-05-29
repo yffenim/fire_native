@@ -3,7 +3,10 @@ import { Button, Link, HStack, Text } from 'native-base';
 import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
 import API from '../functions/API';
 import { headersAtom } from '../atoms/headersAtom';
-import { uidAtom } from '../atoms/uidAtom';
+// import { uidAtom } from '../atoms/uidAtom';
+import { userAtom } from '../atoms/userAtom';
+import { secondsAtom } from '../atoms/secondsAtom';
+import { thirdsAtom } from '../atoms/thirdsAtom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
@@ -34,10 +37,15 @@ export const RegisterButton = ({email, password}) => {
 }
 
 // SIGN IN USER
-export function SignInButton ({
-	email, password, setHeaders, setUid, setUser, navigation}) {
-	const usersURL = "http://localhost:3000/api/users/"
+export function SignInButton ({email, password, navigation}) {
 
+	// setting atom state with hooks
+	const [headers, setHeaders] = useRecoilState(headersAtom);
+  const [user, setUser] = useRecoilState(userAtom)
+	const [secondsTitle, setSecondsTitle] = useRecoilState(secondsAtom);
+	const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsAtom);
+
+	const usersURL = "http://localhost:3000/api/users/"
 	const api = new API;
 
   const handleSignin = () => {
@@ -52,19 +60,21 @@ export function SignInButton ({
       .then(headers => {
 				setHeaders(headers);
 				l("Login callback headers: ", headers);
-				let uid = headers["uid"];
-				setUid(uid);
+				// let uid = headers["uid"];
+				// setUid(uid);
 				navigation.navigate("First");
 				// navigation.navigate("Add Entry");
 			})
       .catch(error => {
         console.error(error);
 		});
-// store UserData
+// store atom state for User and model titles
 		api.get(usersURL)
 			.then(response => {
-				// l(response);
+				l(response);
 				setUser(response);
+				setSecondsTitle(response[1]["secondsTitle"]);
+				setThirdsTitle(response[1]["thirdsTitle"]);
 			})
 			.catch(error => {
 				console.error(error);

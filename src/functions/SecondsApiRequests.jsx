@@ -31,7 +31,7 @@ export const postSecondRequest = (level) =>  {
 		.then((response) => {
       if (response.ok) {
         // l("Second Level Entry Successful");
-        alert("Seconds Successfully Submitted!");
+        alert("Second Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }

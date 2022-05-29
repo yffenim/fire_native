@@ -1,69 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import { FormControl, Link, Box, Input, Button, HStack, VStack, Select } from 'native-base';
 import { Feather } from '@expo/vector-icons';
-// import { secondsAtom } from '../atoms/secondsAtom';
-// import { useStateRecoilState } from 'recoil';
 import l from '../../helpers/consolelog';
 
 // TODO: validations
 
-export default function TrackModelForm({
-  model, 
-  level, 
-  setLevel, 
-  setSecondsTitle, 
-  setThirdsTitle, 
-  navgigation, 
-  // clearInput, 
-  // input
-  }){
+export default class AddTitleForm extends React.Component{
 
-  // const [input, setInput] = useState('');
-
-  // const clearInput = (text) => {
-  //   setInput('');  
-  // }
-
-  // VALIDATIONS
-  // const lengthError = "Name should contain > 3 character and not blank."
-  // const [errors, setErrors] = React.useState({});
-
-  function handleText(title) {
-    l(title)
-    if ( model === "seconds" ) {
-      setSecondsTitle(title);
-      // l("seconds: ", model)
-    } else if ( model === "thirds") {
-      setThirdsTitle(title)
-      // l("thirds: ", model);
-    } else {
-      l("Error in processing which model for setting titles");
+  constructor(props){
+    super(props);
+    this.state = {
+      inputTextValue : '',
     }
-  }
+    // this.searchInput = React.createRef();
+  };
 
-  // function clear() {
-  //   l("cliokc");
-  //   this.SearchInput._root.clear();
-  // };
+  pressHandler = () => {
+    this.setState({ inputTextValue : ''});
+    // this.searchInput.current._root.clear();
+  };
 
+  render(){
+    return(
+      <Box>
 
-  return (
-    <Box w="200" mb="5">
-      <FormControl>
-        <FormControl.Label>
-          Add Category Title:
-        </FormControl.Label>
-        <Input type="title"
-          // value="test"
-          // ref={input => {this.textInput = input}}
-          // getRef={(ref) => this.SearchInput = ref}
-          placeholder="Enter Title"
-          onChangeText={handleText}
+        <Input
+          onChangeText={(text) => 
+            this.setState({ inputText: text })}
+          placeholder="Monday's breakfast"
+          value={this.state.inputTextValue}
         />
-      </FormControl>
-    </Box>
-	)
+        <Button onPress={this.pressHandler}>CLEAR</Button>
+      </Box>
+    )
+  }
 }
 
 

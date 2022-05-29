@@ -26,7 +26,8 @@ export const postSecondTitle = (title, oid) =>  {
 			body: JSON.stringify({
         second: {
 					title: title,
-					user_id: devID
+          user_id: devID,
+          level: 5 // use 5 for all default levels
 					},
 				}),
       })
@@ -49,17 +50,18 @@ export const postSecondTitle = (title, oid) =>  {
 export const postThirdTitle = (title, oid) =>  {
     l("Adding a new Thirds Title to server...");
     let objectURL = thirdsURL + oid
-
-		fetch(thirdsURL, {
-			method: 'POST',
+    l(objectURL);
+		fetch(objectURL, {
+			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
 				"X-Requested-With": "XMLHttpRequest"
 				},
 			body: JSON.stringify({
-        second: {
+        third: {
 					title: title,
-					user_id: devID
+          user_id: devID,
+          level: 5 // always use 5 as default
 					},
 				}),
       })

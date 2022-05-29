@@ -13,12 +13,12 @@ export function FirstModelHeading({firstValue}) {
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.800">
-				<Heading>add new</Heading>
+				<Heading italics>add new</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>
 					<Heading>
-						alertness
+						Alertness
 					</Heading>
 				</Box>
 			</Center>
