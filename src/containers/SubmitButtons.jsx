@@ -17,11 +17,11 @@ const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 
 // ADD TITLES FOR FIRST TIME SCREEN 
-export function SubmitTitlesButton({secondsTitle, thirdsTitle, firstTime, setFirstTime, navigation, clearInput}) {
+export function SubmitTitlesButton({secondsTitle, thirdsTitle, navigation}) {
 	const [secondsHook, setSecondsHook ] = useRecoilState(secondsAtom);
 	const [thirdsHook, setThirdsHook] = useRecoilState(thirdsAtom);
 
-	// get the oids of the default objects per model
+	// get OIDS of the default model objects to change the title of object
 	const userData = useRecoilValue(userAtom);
   const secondId = userData[1]["secondId"];
   const thirdId = userData[1]["thirdId"];

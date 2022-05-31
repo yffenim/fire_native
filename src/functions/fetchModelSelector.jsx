@@ -21,7 +21,8 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
     try {
         const response = await fetch(momentsURL);
         const data = await response.json();
-        l("alertness fetched: ", data);
+        l("alertness successfully fetched");
+        // l("alertness fetched: ", data);
         return data;
     } catch(error) {
         throw error;

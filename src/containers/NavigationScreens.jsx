@@ -105,7 +105,7 @@ const Drawer = createDrawerNavigator();
   // const [secondsTitle, setSecondsTitle] = useRecoilValue(secondsAtom);
 // }
 
-// export const LandingNavigator = 
+export const LandingNavigator = 
   <Drawer.Screen
     name="Landing"
     options={landingIcon}

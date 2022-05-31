@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useRef }  from 'react';
 import { 
   VStack, 
   HStack,
@@ -7,45 +7,77 @@ import {
   Box, 
   Pressable, 
   Avatar,
-  Button
+  Button,
+  AlertDialog
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
 // TODO: change source url to reflect conversion from selector to atoms
 import { fetchMomentsData } from '../functions/fetchModelSelector';
-import { formatTime } from '../functions/formatTime';
 import API from '../functions/API';
 import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
+import { formatTime } from '../functions/formatTime';
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
+import EditDialog from './EditDialog';
 import l from '../../helpers/consolelog';
 
 // TODO: How to make it listen to a swipe and not a click?
 
 
-export default function SwipeList({navigation}) {
+export default function SwipeList({navigation, urlModel}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
+
+  // refactor this so its clearer that this is for EditDialog
+  const [ isOpen, setIsOpen ] = React.useState(false);
+
+  // API call for Edit goes here because
+  // we need it accessible in mutliple child components
+  const [entry, setEntry] = useState({});
+  const [updated, setUpdated] = useState(null);
+	const api = new API;
+	const url = "http://localhost:3000/api/alerts/"
+	const getEntry = (id) => {
+		let urlWithId = url + id
+		l(urlWithId);
+		api.get(urlWithId)
+			.then(response => {
+				l(response);
+        setEntry(response);
+        let updated = response["updated_at"] 
+        let formatted = formatTime(updated)
+        setUpdated(formatted);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	};
 
   // recoil hook that subscribes data to 
   // selector fetchMomentsData which makes the GET request
   const data = useRecoilValue(fetchMomentsData);
   const listData = data[1];
 
-  // recoil hook that refreshes page when changes happen
+  // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
-  // ROW ACTIONS
+
+  ////////// ROW ACTIONS //////////
+  // close row
   const closeRow = (rowMap, rowKey) => {
+    l("Closed oid: ", rowKey);
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
   };
 
+  // set oid for delete/edit actions
   const onRowDidOpen = rowKey => {
-    l("This row opened", rowKey);
+    l("Swiped oid: ", rowKey);
+    setId(rowKey);
   };
 
   // const deleteRow = (rowMap, rowKey) => {
@@ -58,20 +90,14 @@ export default function SwipeList({navigation}) {
   //   setListData(newData);
   // };
 
-  // TODO: MAKE THE ROW LISTEN TO SWIPE NOT CLICK
+  // row objects for the SwipeList (same formatting as FlatList)
   const renderItem = ({item, index}) => {
-    // var updated_str = item["updated_at"];
-    // l("updated str: ", updated_str);
-
     return (
     <Box>
       <Pressable 
         _dark={{bg: "darkBlue.900"}} 
-        _light={{bg: "white"}}
-        onPress={()=>{
-          l("id: ", id);
-          setId(item.id)
-        }}>
+        _light={{bg: "white"}}      
+      >
         <Box pl="4" pr="5" py="2"
         >
           <HStack alignItems="center" space={3}>
@@ -100,12 +126,33 @@ export default function SwipeList({navigation}) {
   // Swipe left shows Edit and Delete options
   const renderHiddenItem = (listData, rowMap) => (
     <HStack flex="1" pl="2">
-      <EditPressable id={id} refresh={refresh} />
-      <DeletePressable id={id} refresh={refresh} />
+      <EditPressable 
+        id={id} 
+        getEntry={getEntry}
+        refresh={refresh} 
+        closeRow={closeRow}  
+        rowMap={rowMap}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+      <DeletePressable 
+        id={id} 
+        refresh={refresh} 
+      />
+      <EditDialog 
+        urlModel={urlModel}
+        entry={entry}
+        updated={updated}
+        id={id}
+        rowMap={rowMap}
+        isOpen={isOpen} 
+        setIsOpen={setIsOpen} 
+        closeRow={closeRow}
+      />
     </HStack>
   );
 
-  // set state for average/count when page refreshes
+  // refresh state for average/count if page refreshes
   useEffect(()=>{
     if ( data.length > 0 ) {
       setDataExists(true)
@@ -119,7 +166,7 @@ export default function SwipeList({navigation}) {
 
   // Returning the components
   return (
-    <Box safeArea flex="1" > 
+    <Box safeArea flex="1" >
 
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
@@ -132,6 +179,7 @@ export default function SwipeList({navigation}) {
 
       <Box bg="coolGray.800"> 
         <SwipeListView 
+          keyExtractor={item => item.id}
           data={listData} 
           renderItem={renderItem} 
           renderHiddenItem={renderHiddenItem} 

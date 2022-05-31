@@ -8,29 +8,9 @@ import l from '../../helpers/consolelog';
 
 // TODO: validations
 
-export default function TrackModelForm({
-  model, 
-  level, 
-  setLevel, 
-  setSecondsTitle, 
-  setThirdsTitle, 
-  navgigation, 
-  // clearInput, 
-  // input
-  }){
-
-  // const [input, setInput] = useState('');
-
-  // const clearInput = (text) => {
-  //   setInput('');  
-  // }
-
-  // VALIDATIONS
-  // const lengthError = "Name should contain > 3 character and not blank."
-  // const [errors, setErrors] = React.useState({});
+export default function TrackModelForm({model, setSecondsTitle, setThirdsTitle, navigation }){
 
   function handleText(title) {
-    l(title)
     if ( model === "seconds" ) {
       setSecondsTitle(title);
       // l("seconds: ", model)
@@ -42,12 +22,6 @@ export default function TrackModelForm({
     }
   }
 
-  // function clear() {
-  //   l("cliokc");
-  //   this.SearchInput._root.clear();
-  // };
-
-
   return (
     <Box w="200" mb="5">
       <FormControl>
@@ -55,9 +29,6 @@ export default function TrackModelForm({
           Add Category Title:
         </FormControl.Label>
         <Input type="title"
-          // value="test"
-          // ref={input => {this.textInput = input}}
-          // getRef={(ref) => this.SearchInput = ref}
           placeholder="Enter Title"
           onChangeText={handleText}
         />
@@ -69,6 +40,9 @@ export default function TrackModelForm({
 
 
 {/* validations experiment:
+  // VALIDATIONS
+  // const lengthError = "Name should contain > 3 character and not blank."
+  // const [errors, setErrors] = React.useState({});
 
       <FormControl isRequired isInvalid={'name' in errors}>
 

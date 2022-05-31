@@ -10,13 +10,17 @@ const momentsURL = 'http://localhost:3000/api/alerts';
 const secondsURL = 'http://localhost:3000/api/seconds';
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
-// default login for dev
+// REQUEST OBJECTS
+// default login for dev for user auth
 const defaultBody = JSON.stringify({
   email: "ada@ardour.com",
 	password: "password",
 })
 
+
+
 // refactor this?
+// default header
 const requestHeader = {
 	"Content-Type": "application/json",
 	"X-Requested-With": "XMLHttpRequest"
@@ -117,7 +121,7 @@ export default class API {
     return fetch(url, {
       method: 'POST',
       headers: this.constructHeaders(),
-      body: defaultBody
+      body: defaultBody // currently set to user authentication
       // body: body
     })
     .then(
@@ -125,13 +129,20 @@ export default class API {
     this.handleLoginResp);
     // this.handleResponse);
   }
-  put(url) {
+
+// EDIT / UPDATE 
+// Must use PATCH and not PUT
+  patch(url, body) {
     return fetch(url, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: this.constructHeaders(),
+      body: body
     })
       .then(this.handleResponse);
   }
+
+
+// DELETE
   delete(url) {
     return fetch(url, {
       method: 'DELETE',

@@ -8,20 +8,30 @@ import l from '../../helpers/consolelog';
 
 
 // THE DATA ENTRY BUTTONS THEMSEVLES
-export function AnimatedButton({color, value, setFirstValue, setSecondValue, setThirdValue, model}) {
+export function AnimatedButton({
+  color, 
+  value, 
+  model,
+  type,
+  setFirstValue, 
+  setSecondValue, 
+  setThirdValue, 
+  setEditLevel}) {
 
 // setting state for pressed value
   function handlePress(value) {
-    
-    if ( model === "alertness" ) {
+    if ( model === "alertness" && !type ) {
       setFirstValue(value);
-      l("alertness: ", model);
+      // l("alertness: ", model);
+    } else if ( model === "alertness" && type === "edit" ) {
+      l("type: ", type);
+      setEditLevel(value);
     } else if ( model === "seconds" ) {
       setSecondValue(value);
-      l("seconds: ", model); 
+      // l("seconds: ", model); 
     } else if ( model === "thirds" ) {
       setThirdValue(value);
-      l("thirds: ", model);
+      // l("thirds: ", model);
     } else {
       l("Error with passing model value to AnimatedButton");
     }

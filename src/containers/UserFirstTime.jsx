@@ -3,13 +3,16 @@ import { VStack, Text, ScrollView } from 'native-base';
 import FirstTimeText from '../presentations/FirstTimeText';
 import { SubmitTitlesButton } from "./SubmitButtons";
 import TrackModelForm from './TrackModelForm';
-import AddTitleForm from './AddTitleForm';
+// import AddTitleForm from './AddTitleForm';
 import l from "../../helpers/consolelog.js";
 
 
-export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, level, setSecondsTitle, setThirdsTitle, firstTime, setFirstTime, navigation}) {
-  
-  const [input, clearInput] = useState('');
+export default function UserFirstTime({navigation}) {
+
+  // setting local state for user input
+  const [secondsTitle, setSecondsTitle] = useState("");
+  const [thirdsTitle, setThirdsTitle] = useState("");
+  // track which model per input
   const seconds = "seconds"
   const thirds = "thirds"
 
@@ -24,22 +27,14 @@ export default function UserFirstTime({secondsTitle, thirdsTitle, setLevel, leve
       >
         {/*<AddTitleForm />*/}
         <TrackModelForm
-          setLevel={setLevel} level={level}
           model={seconds}
-          input={input}
           setSecondsTitle={setSecondsTitle}
         />
         <TrackModelForm
-          setLevel={setLevel} level={level}
           model={thirds}
-          input={input}
           setThirdsTitle={setThirdsTitle}
         />
         <SubmitTitlesButton
-          clearInput={clearInput}
-          firstTime={firstTime}
-          setFirstTime={setFirstTime}
-          level={level}
           secondsTitle={secondsTitle}
           thirdsTitle={thirdsTitle}
           navigation={navigation}
