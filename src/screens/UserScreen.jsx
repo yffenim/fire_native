@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Pressable} from "native-base";
-// import {CSVLink, CSVDownload} from 'react-csv';
-import l from "../../helpers/consolelog.js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions, Animated } from 'react-native';
 import { renderScene } from '../presentations/renderScene' 
 import { modelsAtom } from '../atoms/modelsAtom';
+import { userAtom } from '../atoms/userAtom';
 import { useRecoilState } from 'recoil';
+import API from '../functions/API';
+import l from "../../helpers/consolelog.js";
 
 
 // This Page contains:
@@ -15,6 +15,29 @@ import { useRecoilState } from 'recoil';
 // - renderScene imports each individual tabview screen
 
 export default function UserScreen({ navigation }){
+  const [user, setUser] = useRecoilState(userAtom);
+  // const [name, setUsername] = useState("");
+  const api = new API;
+
+  // get and store UserDataA
+  const getUserData = () => {
+    l("making getUserData request");
+		api.get(userURL)
+			.then(response => {
+				l(response);
+        setUser(response);
+        setUsername(response[0]["name"])
+			})
+			.catch(error => {
+				console.error(error);
+		});
+  };
+
+  useEffect(()=>{
+    getUserData;
+  },[]);
+
+// LAYOUT FOR TABS
   const layout = useWindowDimensions();
 
 // State for choosing the Tab Bar

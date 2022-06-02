@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { VStack, Text, ScrollView } from 'native-base';
+import { VStack, Text, ScrollView, useToast } from 'native-base';
+import { ToastBox } from '../presentations/ToastBox';
 import FirstTimeText from '../presentations/FirstTimeText';
-import { SubmitTitlesButton } from "./SubmitButtons";
-import TrackModelForm from './TrackModelForm';
-// import AddTitleForm from './AddTitleForm';
+import TitlesForm from './TitlesForm';
 import l from "../../helpers/consolelog.js";
 
 
 export default function UserFirstTime({navigation}) {
 
-  // setting local state for user input
-  const [secondsTitle, setSecondsTitle] = useState("");
-  const [thirdsTitle, setThirdsTitle] = useState("");
-  // track which model per input
-  const seconds = "seconds"
-  const thirds = "thirds"
-
-  return (
+return (
     <ScrollView>
       <FirstTimeText />
       <VStack space={3}
@@ -25,21 +17,10 @@ export default function UserFirstTime({navigation}) {
         borderRadius="10"
         p="5" pt="8" pb="8"
       >
-        {/*<AddTitleForm />*/}
-        <TrackModelForm
-          model={seconds}
-          setSecondsTitle={setSecondsTitle}
-        />
-        <TrackModelForm
-          model={thirds}
-          setThirdsTitle={setThirdsTitle}
-        />
-        <SubmitTitlesButton
-          secondsTitle={secondsTitle}
-          thirdsTitle={thirdsTitle}
-          navigation={navigation}
-        />
+        <TitlesForm navigation={navigation}/>
       </VStack>
     </ScrollView>  
   )
 }
+
+

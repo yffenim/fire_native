@@ -116,7 +116,8 @@ export default class API {
         break;
       default:
         l("URL error in API.post");
-    }
+  }
+
   // fetching
     return fetch(url, {
       method: 'POST',

@@ -1,28 +1,43 @@
 import React from "react";
 import l from "../../helpers/consolelog";
-import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { devID } from "../../helpers/devID";
+import { baseURL } from "./APIDevUrl";
+// import { baseURL } from "./APIProdUrl";
 
 
-// const secondsURL = "https://limitless-citadel-71686.herokuapp.com/api/seconds"
-const secondsURL = 'http://localhost:3000/api/seconds/';
+// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+// const momentsURL = 'http://localhost:3000/api/alerts/';
 
 
-// POST
+// GET// NOT CURRENTLY IN USE
+export const getAuthenticatedRequest = (headers) =>  {
+  l("Making a GET request for moments with headers: ", headers);
+  
+  return fetch(momentsURL,{
+    headers: headers
+  })
+  .then((response) => {
+    if (response.ok) {
+      return response.json()
+    }
+     throw new Error("Network response was not ok.")
+    })
+  .catch(err => l("Error from getAuthenticatedRequest: ", err))
+}
+
+// POST TODO!!!!!!!!!!!!!
 // have to send  differently for model title + url
-export const postSecondRequest = (level) =>  {
-
-    l("Adding a new Second to server...");
-		fetch(secondsURL, {
+export const postModelRequest = (level) =>  {
+    l("Adding a new Moment to server to userid: ", devID);
+		fetch(momentsURL, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
 				"X-Requested-With": "XMLHttpRequest"
 				},
 			body: JSON.stringify({
-       second: {
+        alert: {
 					level: level,
 					user_id: devID
 					},
@@ -30,8 +45,8 @@ export const postSecondRequest = (level) =>  {
       })
 		.then((response) => {
       if (response.ok) {
-        // l("Second Level Entry Successful");
-        alert("Second Successfully Submitted!");
+        // l("Alert Level Successful")
+        alert("Alert Level Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }
@@ -47,7 +62,7 @@ export const postSecondRequest = (level) =>  {
 
 
 // PATCH
-export const patchSecondRequest = (editId, level) => {
+export const patchModelRequest = (editId, level) => {
 		l("Sending a PATCH request to server with id: ", editId);
     let editURL = momentsURL + editId;
     l("to URL: ", editURL);
@@ -76,11 +91,10 @@ export const patchSecondRequest = (editId, level) => {
   };
 
 
-export const deleteMomentRequest = (id, toast) => {
-    l("Making Delete Api Request for ", id);
-    let deleteURL = momentsURL + id;
-    // l("deleteURL: ", deleteURL);
-    
+export const deleteModelRequest = (id, urlModel, toast) => {
+    let deleteURL = baseURL + urlModel + id;
+    l(`Sending delete request to ${deleteURL} for oid ${id}`);
+
       fetch(deleteURL, {
         method: "DELETE",
       })
@@ -92,14 +106,14 @@ export const deleteMomentRequest = (id, toast) => {
 						<ToastBox text={"Deleted!"} />
 					)}
 				});
-
         return response;
       }
       alert("Something went wrong with the delete!");
       throw new Error("Network response was not ok from Delete Request.");
 		})
 		.catch((err) => l(err));
-		};
+	};
+
 
 
 

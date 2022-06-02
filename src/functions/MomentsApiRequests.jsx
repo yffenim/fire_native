@@ -1,16 +1,16 @@
 import React from "react";
 import l from "../../helpers/consolelog";
-import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { devID } from "../../helpers/devID";
+import { baseURL } from "./APIDevUrl";
+// import { baseURL } from "./APIProdUrl";
 
 
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 const momentsURL = 'http://localhost:3000/api/alerts/';
 
 
-// GETi // NOT CURRENTLY IN USE
+// GET// NOT CURRENTLY IN USE
 export const getAuthenticatedRequest = (headers) =>  {
   l("Making a GET request for moments with headers: ", headers);
   
@@ -29,7 +29,6 @@ export const getAuthenticatedRequest = (headers) =>  {
 // POST
 // have to send  differently for model title + url
 export const postMomentRequest = (level) =>  {
-
     l("Adding a new Moment to server to userid: ", devID);
 		fetch(momentsURL, {
 			method: 'POST',
@@ -92,17 +91,21 @@ export const patchMomentRequest = (editId, level) => {
   };
 
 
-export const deleteRequest = (id) => {
-    l("Making Delete Api Request for ", id);
-    let deleteURL = momentsURL + id
-    l("deleteURL: ", deleteURL);
-    
+export const deleteMomentRequest = (id, urlModel, toast) => {
+    let deleteURL = baseURL + urlModel + id;
+    l(`Sending delete request to ${deleteURL} for oid ${id}`);
+
       fetch(deleteURL, {
         method: "DELETE",
       })
     .then((response) => {
       if (response.ok) {
         l(`Deleted ${id}? `, response.ok);
+        toast.show({render: () => {
+					return (
+						<ToastBox text={"Deleted!"} />
+					)}
+				});
         return response;
       }
       alert("Something went wrong with the delete!");
@@ -110,21 +113,6 @@ export const deleteRequest = (id) => {
 		})
 		.catch((err) => l(err));
 		};
-
-
-// UNAUTHENTICATED VERSIONS
-
-// GET, no auth
-export const getRequest = () => 
-  fetch(momentsURL)
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw new Error("Network response was not ok.")
-  })
-  .catch(err => l("Error: ", err))
-
 
 
 

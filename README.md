@@ -1,4 +1,4 @@
-# Mobile client for FireAPI, Version 1
+d Mobile client for FireAPI, Version 1
 
 That which is not measured, cannot be managed. Get to know your circadian rhythmn by tracking your alertness levels throughout the day. 
 
@@ -9,7 +9,7 @@ Back-end: https://github.com/yffenim/fire_api
 
 - [x] Track alertness levels on scale of 1-9 with times rounded to the hour
 - [x] Track up to two other models
-- [ ] Create, read, upate, delete for all 3 models
+- [x] Create, read, upate, delete for all 3 models
 - [x] Display CSV table and email to user
 - [ ] User stats + editing
 - [ ] User authentication

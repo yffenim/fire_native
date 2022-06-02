@@ -1,10 +1,11 @@
 import React from "react";
-import l from "../../helpers/consolelog";
 import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { devID } from "../../helpers/devID";
-
+import { devID, devSecondID, devThirdID } from "../../helpers/devID";
+import { secondStatusAtom, thirdStatusAtom } from '../atoms/statusCodeAtoms';
+import { useRecoilState } from 'recoil';
+import API from '../functions/API';
+import l from "../../helpers/consolelog";
 
 // const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
 const secondsURL = 'http://localhost:3000/api/seconds/';
@@ -12,11 +13,15 @@ const thirdsURL = 'http://localhost:3000/api/thirds/';
 
 
 // PUT TO ADD TITLE
-export const postSecondTitle = (title, oid) =>  {
-  l("Adding a Second Title to server...");
-  // the default object is at this oid
-  let objectURL = secondsURL + oid
+export const postSecondTitle = (title, oid, setSecondStatus) =>  {
+  // const [status, setStatus] = useRecoilState(secondStatusAtom);
+	// const api = new API;
 
+  // the default object is at this oid
+  // let objectURL = secondsURL + oid
+    const objectURL = secondsURL + devSecondID // default
+    l("PATCH seconds title to ", objectURL);
+    
     fetch(objectURL, {
 			method: 'PUT',
 			headers: {
@@ -34,24 +39,29 @@ export const postSecondTitle = (title, oid) =>  {
 		.then((response) => {
       if (response.ok) {
         l("Second title submitted called ", title);
+        // setStatus(response.status);
         // alert("Title Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }
         // });
+  
 				return response.json();
 			}
 				alert("Oops, something went wrong!")
 			throw new Error("Network response was not ok.");
 		})
 		.catch((err) => l(err));
-	};
+  };
+
+
 
 export const postThirdTitle = (title, oid) =>  {
-    l("Adding a new Thirds Title to server...");
-    let objectURL = thirdsURL + oid
-    l(objectURL);
-		fetch(objectURL, {
+  // const [status, setStatus] = useRecoilState(thirdStatusAtom);
+    // let objectURL = thirdsURL + oid
+    let objectURL = thirdsURL + devThirdID // default
+    l("POST thirds title to ", objectURL);
+    fetch(objectURL, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
@@ -68,6 +78,7 @@ export const postThirdTitle = (title, oid) =>  {
 		.then((response) => {
       if (response.ok) {
         l("Thirds title submitted called: ", title);
+        // setStatus(response.status);
         // alert("Level Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
@@ -189,3 +200,23 @@ export const getRequest = () =>
 //       .catch(err => { l(err) }
 //     );
 // }
+//
+//
+// patch using API class
+//  const body = JSON.stringify({
+        // second: {
+        //   title: title,
+        //   user_id: devID
+        // }
+    // });
+    // // const model = "seconds";
+
+    // api.patch(objectURL, body)
+      // .then(response => {
+        // l("postSecondTitle status: ", response.status)
+
+			// })
+      // .catch(error => {
+        // console.error(error);
+		  // });
+

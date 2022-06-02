@@ -7,18 +7,10 @@ const api = new API;
 
 
 
-
-export function editApiCall(level, urlModel, id) {
-
-	const url = baseURL + urlModel + "/" + id
-	l("Edit URL: ", url);
-
-	const body = JSON.stringify({
-  	alert: {
-	  	level: level,
-			user_id: devID
-			},
-		});
+// EDIT API CALLS FOR ALL MODELS
+export function editApiCall(level, urlModel, id, body) {
+	const url = baseURL + urlModel + id;
+	l(`Sending edit body ${body} to ${url} for oid ${id}`);
 
 	api.patch(url, body)
 		.then(response => {

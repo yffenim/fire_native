@@ -1,26 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useRecoilRefresher_UNSTABLE } from 'recoil';
 import { Pressable, Text, useToast, Box, VStack } from 'native-base';
-import { ToastBox } from '../presentations/ToastBox';
-import { momentsAtom } from '../atoms/momentsAtom';
-import { deleteRequest } from '../functions/MomentsApiRequests.jsx';
+import { deleteModelRequest } from '../functions/ModelApiRequests';
 import l from '../../helpers/consolelog';
 
-// TODO: move toast to success condition
 
-export default function DeletePressable({id, refresh}) {
+export default function DeletePressable({id, refresh, urlModel}) {
+	const toast = useToast();
+	const deleteMsg = "Deleted!";
 	
-
-// handler for DELETE request
 	const deleteApiCall = async () => {
-		l("delete id: ", id);
-		await deleteRequest(id);
+		await deleteModelRequest(id, urlModel, toast);
 		refresh();
-	}
-
-// component for nicer user alerts 
-  const toast = useToast();
-	const deleteMsg = "Moment Deleted"
+	};
 
 	return (
   	<Pressable
@@ -30,11 +22,6 @@ export default function DeletePressable({id, refresh}) {
         opacity: 0.5}}
 			onPress={()=>{
 				deleteApiCall();
-				toast.show({render: () => { 
-					return (
-						<ToastBox text={deleteMsg} />
-					)}
-				});					
 			}}
 		>
 			<VStack alignItems="center" space={2}>

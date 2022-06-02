@@ -16,9 +16,9 @@ export default function AddEntry({navigation}) {
   const [thirdValue, setThirdValue] = useState(null);
 
   // for tracking which model data is being collected
-  const alertness = "alertness"
-  const seconds = "seconds"
-  const thirds = "thirds"
+  const alerts = "alerts/"
+  const seconds = "seconds/"
+  const thirds = "thirds/"
 
 // GET USER NAME - NOT IN USE
 //   const api = new API;

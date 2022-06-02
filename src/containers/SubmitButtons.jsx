@@ -1,70 +1,69 @@
-import React from 'react';
-import { Box, Heading, Text, Button, Pressable, Fab, Center } from 'native-base';
-import { postMomentRequest } from '../functions/MomentsApiRequests';
-import { postSecondRequest } from '../functions/SecondsApiRequests';
-import { postThirdRequest } from '../functions/ThirdsApiRequests';
+import React, { useState } from 'react';
+import { Box, Text, Button, Center } from 'native-base';
 import { postSecondTitle, postThirdTitle } from '../functions/TitlesApiRequests';
 import l from "../../helpers/consolelog";
 import { secondsAtom } from '../atoms/secondsAtom';
 import { thirdsAtom } from '../atoms/thirdsAtom';
-import { userAtom } from '../atoms/userAtom';
-import { useRecoilState } from 'recoil';
-import { useRecoilValue } from 'recoil';
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-
-const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
+// import { userAtom } from '../atoms/userAtom';
+import { secondStatusAtom, thirdStatusAtom } from '../atoms/statusCodeAtoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { AntDesign, Entypo } from '@expo/vector-icons';
+import { devSecondID, devThirdID } from '../../helpers/devID';
 
 
-// ADD TITLES FOR FIRST TIME SCREEN 
-export function SubmitTitlesButton({secondsTitle, thirdsTitle, navigation}) {
+// TODO: 
+// move this to the page load for FirstTimeScreen
+	// get OIDS of the default model objects to change the title of object 
+	// const userData = useRecoilValue(userAtom);
+  // const secondId = userData[1]["secondId"];
+// const thirdId = userData[1]["thirdId"];
+// add logic for 
+
+// Button + Action to Save Titles for FirstTimeScreen
+export function SubmitTitlesButton({secondsTitle, thirdsTitle, navigation, validate}) {
 	const [secondsHook, setSecondsHook ] = useRecoilState(secondsAtom);
 	const [thirdsHook, setThirdsHook] = useRecoilState(thirdsAtom);
+	
+	// button press handler
+	const onSavePress = () => {
+		l("clicked");
+		validate() ? 
+			submitTitles() : 
+			l('Titles are not valid');
+	}
 
-	// get OIDS of the default model objects to change the title of object
-	const userData = useRecoilValue(userAtom);
-  const secondId = userData[1]["secondId"];
-  const thirdId = userData[1]["thirdId"];
-
-	const handleTitleSubmit = async () => {
+	// api calls handler
+	const submitTitles = async () => {
 		putSecond();
 		putThird();
 		setSecondsHook(secondsTitle);
 		setThirdsHook(thirdsTitle);
-		navigation.navigate("Add Data");
+		navigation.navigate("Add Data"); 
 	};
 
+	// POST seconds title
 	const putSecond = async () => {
+		let secondId = devSecondID;	
 		await postSecondTitle(secondsTitle, secondId);
 	};
 
+	// POST thirds title
 	const putThird = async () => {
-		await postThirdTitle(thirdsTitle, thirdId)
+		let thirdId = devThirdID;
+		await postThirdTitle(thirdsTitle, thirdId);
 	};
 
-	// SETTING ATOMS VERSION
-	// const handleTitleSubmit = () => {
-	// 	setSecondsAtom(secondsTitle);
-	// 	setThirdsAtom(thirdsTitle);
-	// }
-
-	// VALIDATIONS
-	// const onSubmit = () => {
-    // validate() ? l('Title Form Submitted') :
-    // l('Validation Failed');
-  // };
-
 	return (
-		<Box>
-			<Button 
+		<Center	bg="darkBlue.900">
+			<Button w="100"
 				variant="outline"
 				colorScheme="indigo"
 				onPress={()=>{
-					handleTitleSubmit()
+					onSavePress();
 				}}>
 				Save
 			</Button>
-		</Box>		
+		</Center>		
 	)
 }
 

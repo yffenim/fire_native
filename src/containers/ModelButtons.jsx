@@ -12,10 +12,6 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export function ModelButtons({setFirstValue, setSecondValue, setThirdValue, setEditLevel, model, type}) {
 
-  // function handleValueButton(val){
-  //   setLevel(val);
-  // }
-
   const colors = ["indigo", "blue", "cyan", "teal", "green", "lime", "yellow", "amber", "orange"]
 
   return (

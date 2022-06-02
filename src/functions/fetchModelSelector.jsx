@@ -2,19 +2,16 @@ import React from 'react';
 import { selector, atom } from 'recoil';
 import l from '../../helpers/consolelog';
 import DataFlatList from '../containers/DataFlatList';
-// import { modelsAtom } from '../atoms/modelsAtom';
 
-// Functions depending on which API endpoint we're calling
+// GET REQUESTS FOR MODELS VIA RECOIL SELECTORS EXPERIMENT
 
-
-
-// API endpoints for data
+// endpoints
 const momentsURL = 'http://localhost:3000/api/alerts';
 const secondsURL = 'http://localhost:3000/api/seconds';
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
 
-// GET request for Alertness as SELECTOR
+// GET for alertness
  export const fetchMomentsData = selector({
     key: `MomentsDataSelector`,
     get: async ({ get }) => {
@@ -22,7 +19,6 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
         const response = await fetch(momentsURL);
         const data = await response.json();
         l("alertness successfully fetched");
-        // l("alertness fetched: ", data);
         return data;
     } catch(error) {
         throw error;

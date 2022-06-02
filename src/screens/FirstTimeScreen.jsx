@@ -9,10 +9,7 @@ export default function FirstTimeScreen({navigation}) {
 
   return (
     <Center>
-      <React.Suspense fallback={LoadingSpinner}>
-        <UserGreeting />
         <UserFirstTime navigation={navigation} /> 
-      </React.Suspense>
     </Center>
   )
 };

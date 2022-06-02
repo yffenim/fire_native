@@ -12,15 +12,16 @@ export default function EditDialog({
   id, 
   entry, 
   updated,
-  urlModel
+  urlModel,
+  refresh
 }) {
 
-	const [editLevel, setEditLevel] = useState(null);
+  const [editLevel, setEditLevel] = useState(null);
+  // do not move entry even if you forget what this means
   const title = entry["title"];
   const current_level = entry["level"];
-  const cancelRef = React.useRef(null);
-
-  const model = "default" 
+  // close dialog 
+  const cancelRef = React.useRef(null); // 
 
   const onClose = () => {
     setIsOpen(false); // close dialog 
@@ -41,12 +42,17 @@ export default function EditDialog({
               current_level={current_level}
               updated={updated} 
               title={title} 
+              urlModel={urlModel}
             />
           </AlertDialog.Body>
           <AlertDialog.Footer>
             <Button.Group space={2}>
-              <EditCancelButton onClose={onClose} cancelRef={cancelRef} />
+              <EditCancelButton 
+                onClose={onClose} 
+                cancelRef={cancelRef} 
+              />
               <EditSubmitButton 
+                refresh={refresh}
                 onClose={onClose} 
                 level={editLevel}
                 id={id} urlModel={urlModel}
@@ -58,3 +64,8 @@ export default function EditDialog({
     </Box>
   )
 };
+
+
+// RIGHT NOW YOU ARE WORKING ON
+// EDIT ISSUE WITH PASSING TO ANIMATED BUTTON
+// SEE LOGS

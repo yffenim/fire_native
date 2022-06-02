@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { VStack, HStack, Text, Button, Box, Heading, Input } from 'native-base';
 import { formatTime } from '../functions/formatTime';
-import l from '../../helpers/consolelog';
-import { AnimatedButton } from './InputButtons';
-import { ModelButtons } from './ModelButtons';
+import { EditInputButtons } from './EditEntryButtons';
 import { loadingText } from "../presentations/loadingFallback";
+import l from '../../helpers/consolelog';
 
 // TODO: Make the input the same buttons as the OG
 
 // if entry is not empty, update it
 
-export default function EditEntry({current_level,updated, title, setEditLevel, editLevel}) {
+export default function EditEntry({current_level, updated, title, setEditLevel, urlModel, editLevel}) {
 	const type = "edit"
 
 	return (
@@ -37,13 +36,13 @@ export default function EditEntry({current_level,updated, title, setEditLevel, e
 				</Heading>
 			</HStack>
 		</VStack>
-		<Box bg="dark.100" mt="2" p="2" borderRadius="10">
-			<Heading size="sm" pb="2">
-				Please select a new level: {editLevel}
-			</Heading>
-			<ModelButtons type={type} model={title} setEditLevel={setEditLevel} />
-		</Box>	
+		
+		<EditInputButtons 
+			setEditLevel={setEditLevel}
+			urlModel={urlModel} 
+			type={type} 
+		/>
 	</Box>
 
 	)
-}
+};

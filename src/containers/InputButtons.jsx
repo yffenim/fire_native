@@ -18,24 +18,32 @@ export function AnimatedButton({
   setThirdValue, 
   setEditLevel}) {
 
-// setting state for pressed value
+// setting state for pressed value by which model/action-type
   function handlePress(value) {
-    if ( model === "alertness" && !type ) {
+    if ( model === "alerts/" && !type ) {
       setFirstValue(value);
-      // l("alertness: ", model);
-    } else if ( model === "alertness" && type === "edit" ) {
+    } 
+    else if ( model === "alerts/" && type === "edit" ) {
       l("type: ", type);
       setEditLevel(value);
-    } else if ( model === "seconds" ) {
-      setSecondValue(value);
-      // l("seconds: ", model); 
-    } else if ( model === "thirds" ) {
-      setThirdValue(value);
-      // l("thirds: ", model);
-    } else {
-      l("Error with passing model value to AnimatedButton");
     }
-  }
+    else if ( model === "seconds/" && !type ) {
+      setSecondValue(value);
+    } 
+    else if ( model === "seconds/" && type === "edit" ) {
+      l("type: ", type);
+      setEditLevel(value);
+    } 
+    else if ( model === "thirds/" && !type ) {
+      setThirdValue(value);
+    } 
+    else if ( model === "thirds/" && type === "edit" ) {
+      setEditLevel(value);
+    }
+    else {
+      l("Error passing model value to AnimatedButton in InputButtons");
+    };
+  };
 
 // Animation 
 // Initial scale value of 1 means no scale applied initially.

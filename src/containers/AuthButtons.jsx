@@ -17,7 +17,6 @@ import l from '../../helpers/consolelog';
 // - Forgot Password? Link << TODO
 
 
-
 // REGISTER NEW USER
 export const RegisterButton = ({email, password}) => {
 
@@ -41,11 +40,11 @@ export function SignInButton ({email, password, navigation}) {
 
 	// setting atom state with hooks
 	const [headers, setHeaders] = useRecoilState(headersAtom);
-  const [user, setUser] = useRecoilState(userAtom)
+  const [user, setUser] = useRecoilState(userAtom);
 	const [secondsTitle, setSecondsTitle] = useRecoilState(secondsAtom);
 	const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsAtom);
 
-	const usersURL = "http://localhost:3000/api/users/"
+	const usersURL = "http://localhost:3000/api/users/";
 	const api = new API;
 
   const handleSignin = () => {
@@ -68,6 +67,7 @@ export function SignInButton ({email, password, navigation}) {
       .catch(error => {
         console.error(error);
 		});
+
 // store atom state for User and model titles
 		api.get(usersURL)
 			.then(response => {

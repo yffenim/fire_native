@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useRef }  from 'react';
-import { 
-  VStack, 
+import {
+  VStack,
   HStack,
-  Center, 
   Text, 
   Box, 
   Pressable, 
   Avatar,
   Button,
-  AlertDialog
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-// TODO: change source url to reflect conversion from selector to atoms
-import { fetchMomentsData } from '../functions/fetchModelSelector';
+import { fetchMomentsData, fetchSecondsData } from '../functions/fetchModelSelector';
 import API from '../functions/API';
+import { baseURL } from '../functions/APIDevUrl';
+// import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { formatTime } from '../functions/formatTime';
 import { ModelStats, NoStats } from './ModelStats';
@@ -22,19 +21,20 @@ import DeletePressable from './DeletePressable';
 import EditDialog from './EditDialog';
 import l from '../../helpers/consolelog';
 
-// TODO: How to make it listen to a swipe and not a click?
 
-
-export default function SwipeList({navigation, urlModel}) {
+export default function SwipeList({navigation}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
+  const urlModel = "alerts/";
+ 
+  // var data, listData = null;
+  const avatarColor = "violet";
 
   // refactor this so its clearer that this is for EditDialog
-  const [ isOpen, setIsOpen ] = React.useState(false);
-
-  // API call for Edit goes here because
+  const [isOpen, setIsOpen] = React.useState(false);
+  // API call for EDIT Object ID goes here because
   // we need it accessible in mutliple child components
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
@@ -56,11 +56,13 @@ export default function SwipeList({navigation, urlModel}) {
 			});
 	};
 
+
+  // API call for GET display
   // recoil hook that subscribes data to 
   // selector fetchMomentsData which makes the GET request
   const data = useRecoilValue(fetchMomentsData);
   const listData = data[1];
-
+  
   // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
@@ -80,15 +82,6 @@ export default function SwipeList({navigation, urlModel}) {
     setId(rowKey);
   };
 
-  // const deleteRow = (rowMap, rowKey) => {
-  //   closeRow(rowMap, rowKey);
-  //   const newData = [...listData];
-  //   const prevIndex = listData.findIndex(
-  //     item => item.key === rowKey
-  //   );
-  //   newData.splice(prevIndex, 1);
-  //   setListData(newData);
-  // };
 
   // row objects for the SwipeList (same formatting as FlatList)
   const renderItem = ({item, index}) => {
@@ -102,7 +95,7 @@ export default function SwipeList({navigation, urlModel}) {
         >
           <HStack alignItems="center" space={3}>
             <Button
-              colorScheme="pink"
+              colorScheme={avatarColor}
               borderRadius="25"
               m="1" p="3" w="12" h="12"
             ></Button>
@@ -136,14 +129,14 @@ export default function SwipeList({navigation, urlModel}) {
         setIsOpen={setIsOpen}
       />
       <DeletePressable 
-        id={id} 
+        id={id} urlModel={urlModel}
         refresh={refresh} 
       />
       <EditDialog 
-        urlModel={urlModel}
+        id={id} urlModel={urlModel}
+        refresh={refresh}
         entry={entry}
         updated={updated}
-        id={id}
         rowMap={rowMap}
         isOpen={isOpen} 
         setIsOpen={setIsOpen} 
@@ -196,4 +189,34 @@ export default function SwipeList({navigation, urlModel}) {
 
 {/*       
 <Avatar size="48px" source={{ }} />
+
+  // const deleteRow = (rowMap, rowKey) => {
+  //   closeRow(rowMap, rowKey);
+  //   const newData = [...listData];
+  //   const prevIndex = listData.findIndex(
+  //     item => item.key === rowKey
+  //   );
+  //   newData.splice(prevIndex, 1);
+  //   setListData(newData);
+  // };
+
+// issue with not being able to hook recoil inside func vs component
+    switch (model) {
+      case 'sessions':
+        url = loginURL;
+        break;
+      case 'moments':
+        url = momentsURL;
+        break;
+      case 'seconds':
+        url = secondsURL;
+        break;
+      case 'thirds':
+        url = thirdsURL;
+        break;
+      default:
+        l("URL error in API.post");
+  }
+
+
 */}
