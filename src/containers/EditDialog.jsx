@@ -15,8 +15,10 @@ export default function EditDialog({
   urlModel,
   refresh
 }) {
-
+  
+  // used to show currently selected level 
   const [editLevel, setEditLevel] = useState(null);
+
   // do not move entry even if you forget what this means
   const title = entry["title"];
   const current_level = entry["level"];
@@ -28,13 +30,14 @@ export default function EditDialog({
     closeRow(rowMap, id); // close row
   };
 
-
   return  (
     <Box>
       <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
         <AlertDialog.Content>
           <AlertDialog.CloseButton />
-          <AlertDialog.Header>Edit Entry</AlertDialog.Header>
+          <AlertDialog.Header>
+            Edit Entry
+          </AlertDialog.Header>
           <AlertDialog.Body>
             <EditEntry
               editLevel={editLevel}

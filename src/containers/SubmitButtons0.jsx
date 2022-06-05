@@ -3,7 +3,6 @@ import { Box, Text, Button, Center } from 'native-base';
 import { postSecondTitle, postThirdTitle } from '../functions/TitlesApiRequests';
 import { secondStatusAtom, thirdStatusAtom } from '../atoms/statusCodeAtoms';
 import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
-import API from '../functions/API';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import { devSecondID, devThirdID } from '../../helpers/devID';
@@ -11,64 +10,42 @@ import l from "../../helpers/consolelog";
 
 
 // Button + Action to Save Titles for FirstTimeScreen
-export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSignedIn, first}) {
-	const api = new API;
+export function SubmitTitlesButton({secondsTitle, thirdsTitle, navigation, validate, setSignedIn}) {
+
 	// update atom state
 	const [secondsTitleHook, setSecondsTitleHook] = useRecoilState(secondsTitleAtom);
 	const [thirdsTitleHook, setThirdsTitleHook] = useRecoilState(thirdsTitleAtom);
-	const [secondSuccess, setSecondSuccess] = useState(null);
-	const [thirdSuccess, setThirdSuccess] = useState(null);
+
 
 	// button press handler
 	const onSavePress = () => {
 		validate() ? 
-			putSecond() : 
+			submitTitles() : 
 			l('Titles are not valid');
 	}
 
-	// first api call to Second Model	
-	const putSecond = () => {
-		let url = "http://localhost:3000/api/seconds/2"
-		let body = JSON.stringify({
-    	second: {
-				title: secondsTitle,
-        user_id: 1,
-        level: 5
-			}
-		});
-		api.patch(url, body)
-			.then(response => {
-				putThird();
-			})
-			.catch(error => {
-				console.error(error);
-		});
+	// api calls handler
+	// TODO: add success check for the hooks and signed in 
+	const submitTitles = async () => {
+		putSecond();
+		setSecondsTitleHook(secondsTitle); 		
+		putThird();
+		setThirdsTitleHook(thirdsTitle);
+		setSignedIn(true); // add logic for only if true
 	};
 
-	// if the input is coming from first
-// then set Signed in
-
-	// second api call to third model
- 	const putThird = () => {
-		let url = "http://localhost:3000/api/thirds/3"
-		let body = JSON.stringify({
-    	third: {
-				title: thirdsTitle,
-        user_id: 1,
-        level: 5
-			}
-		});
-		api.patch(url, body)
-			.then(response => {
-			setSecondsTitleHook(secondsTitle);
-			setThirdsTitleHook(thirdsTitle);
-			if (first === "first") {setSignedIn(true)};
-			})
-			.catch(error => {
-				console.error(error);
-		});
+	// POST seconds title
+	const putSecond = async () => {
+		let secondId = devSecondID;	
+		let test = await postSecondTitle(secondsTitle, secondId);
+		l("return status: ", test);
 	};
 
+	// POST thirds title
+	const putThird = async () => {
+		let thirdId = devThirdID;
+		await postThirdTitle(thirdsTitle, thirdId);
+	};
 
 	return (
 		<Center	bg="darkBlue.900">

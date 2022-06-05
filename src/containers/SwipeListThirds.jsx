@@ -14,6 +14,7 @@ import API from '../functions/API';
 import { baseURL } from '../functions/APIDevUrl';
 // import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
+import { thirdsTitleAtom } from '../atoms/titlesAtoms';
 import { formatTime } from '../functions/formatTime';
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
@@ -28,7 +29,9 @@ export default function SwipeListThirds({navigation}) {
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
   const avatarColor = "emerald";
+  const color = "emerald.400";
   const urlModel = "thirds/";
+  const model = useRecoilState(thirdsTitleAtom);
 
   // refactor this so its clearer that this is for EditDialog
   const [ isOpen, setIsOpen ] = React.useState(false);
@@ -60,6 +63,7 @@ export default function SwipeListThirds({navigation}) {
   // recoil hook that subscribes data to selector 
   const data = useRecoilValue(fetchThirdsData);
   const listData = data[1];
+  // const model = data[0]["first_obj"]["title"];
   
   // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchThirdsData);
@@ -131,10 +135,10 @@ export default function SwipeListThirds({navigation}) {
         refresh={refresh} 
       />
       <EditDialog 
-        urlModel={urlModel}
+        id={id} urlModel={urlModel}
+        refresh={refresh}
         entry={entry}
         updated={updated}
-        id={id}
         rowMap={rowMap}
         isOpen={isOpen} 
         setIsOpen={setIsOpen} 
@@ -161,7 +165,9 @@ export default function SwipeListThirds({navigation}) {
 
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
-          <ModelStats avg={avg} count={count}/>
+          <ModelStats 
+            model={model} color={color}
+            avg={avg} count={count}/>
         }
         {!dataExists &&
           <NoStats navigation={navigation} />

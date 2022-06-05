@@ -5,7 +5,7 @@ import { SubmitUser } from './SubmitButtons'
 import l from '../../helpers/consolelog';
 
 
-export default function UserEdit() {
+export default function UserEditForm() {
 
 
   function handleText(text) {

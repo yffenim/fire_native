@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput } from "react-native";
 import { SubmitTitlesButton } from "./SubmitButtons";
+import { secondsTitleAtom, thirdsTitleAtom } from "../atoms/titlesAtoms";
 import { FormControl, Link, Box, Input, Button, HStack, VStack, Select, useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
 import { Feather } from '@expo/vector-icons';
+import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
 
-export default function TitlesForm({navigation}) {
+export default function TitlesForm({setSignedIn, first}) {
 
   // form validations
   const [formData, setFormData] = React.useState({});
@@ -16,6 +18,10 @@ export default function TitlesForm({navigation}) {
   // local state for submit 
   const [secondsTitle, setSecondsTitle] = useState("");
   const [thirdsTitle, setThirdsTitle] = useState("");
+
+  // setting placeholder values for form
+  const secondsPlaceholder = useRecoilValue(secondsTitleAtom);
+  const thirdsPlaceholder = useRecoilValue(thirdsTitleAtom);
 
   // alert toast + messages
   const toast = useToast();
@@ -50,13 +56,13 @@ export default function TitlesForm({navigation}) {
 
   return (
     <Box w="200" mb="5">
-      <FormControl isRequired isInvalid={'title' in errors}>
-        
+      <FormControl 
+        isRequired isInvalid={'title' in errors}>  
         <FormControl.Label _text={{ bold: true }}>
-          Add Category Title:
+          Category Title:
         </FormControl.Label>
         <Input mb="8"
-          placeholder="Add Title"
+          placeholder={secondsPlaceholder}
           onChangeText={value => {
             setFormData({ ...formData, title: value});
             handleSecondsText(value)
@@ -64,10 +70,10 @@ export default function TitlesForm({navigation}) {
         />
       
         <FormControl.Label _text={{ bold: true }} >
-          Add Category Title:
+          Category Title:
         </FormControl.Label>
         <Input mb="6"
-          placeholder="New Title"
+          placeholder={thirdsPlaceholder}
           onChangeText={value => {
             setFormData({ ...formData, title: value})
             handleThirdsText(value)
@@ -75,10 +81,11 @@ export default function TitlesForm({navigation}) {
         />              
       </FormControl>
       <SubmitTitlesButton
+        first={first}
         validate={validate}
         secondsTitle={secondsTitle}
         thirdsTitle={thirdsTitle}
-        navigation={navigation}
+        setSignedIn={setSignedIn}
       />
     </Box>
   )

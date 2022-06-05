@@ -3,16 +3,14 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Entypo, FontAwesome5, Ionicons, Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import LandingScreen from "../screens/LandingScreen";
 import UserScreen from "../screens/UserScreen";
-import AddDataScreen from "../screens/AddDataScreen";
+// import AddDataScreen from "../screens/AddDataScreen";
+import HomeScreen from "../screens/HomeScreen";
 import AlertnessScreen from "../screens/AlertnessScreen";
 import SecondsScreen from "../screens/SecondsScreen";
 import ThirdsScreen from "../screens/ThirdsScreen";
 import ExportScreen from "../screens/ExportScreen";
-// import ViewDataScreen from "../screens/ViewDataScreen";
-import FirstTimeScreen from "../screens/FirstTimeScreen";
-import { useRecoilValue } from 'recoil';
-import { secondsAtom } from '../atoms/secondsAtom';
-import { thirdsAtom } from '../atoms/thirdsAtom';
+// import FirstTimeScreen from "../screens/FirstTimeScreen";
+// import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
 
@@ -112,12 +110,12 @@ export const LandingNavigator =
     component={LandingScreen}
 	/>;
 
- export const AddDataNavigator =
-	<Drawer.Screen
-    name="Add Data"
-    options={addIcon}
-    component={AddDataScreen}
-  />;
+ // export const AddDataNavigator =
+	// <Drawer.Screen
+ //    name="Add Data"
+ //    options={addIcon}
+ //    component={AddDataScreen}
+ //  />;
  
 export const AlertnessNavigator =
 	<Drawer.Screen
@@ -162,9 +160,9 @@ export const ExportNavigator =
 //     component={ViewDataScreen}
 //   />;
 
-export const FirstNavigator =
+export const HomeNavigator =
   <Drawer.Screen
-    name="First"
-    options={firstIcon}
-    component={FirstTimeScreen}
+    name="Add Data"
+    options={addIcon}
+    component={HomeScreen}
   />;

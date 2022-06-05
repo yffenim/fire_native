@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Box, Button } from "native-base";
 import Communications from 'react-native-communications';
 import l from "../../helpers/consolelog.js";
-import { uidAtom } from '../atoms/uidAtom';
+import { userAtom } from '../atoms/userAtom';
 import { useRecoilValue } from 'recoil';
 
 
@@ -26,7 +26,8 @@ export const DownloadButton = () => {
 export const EmailButton = () => {
 
 // reading from uidAtom 
-  const email = useRecoilValue(uidAtom);
+  const user = useRecoilValue(userAtom);
+  const email = user[0]["email"];
   l("email is: ", email);
 
   return (

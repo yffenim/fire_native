@@ -61,7 +61,7 @@ export const postModelRequest = (level) =>  {
 	};
 
 
-// PATCH
+// PATCH // NOT IN USE //
 export const patchModelRequest = (editId, level) => {
 		l("Sending a PATCH request to server with id: ", editId);
     let editURL = momentsURL + editId;
@@ -91,6 +91,7 @@ export const patchModelRequest = (editId, level) => {
   };
 
 
+// DELETE // IN USE //
 export const deleteModelRequest = (id, urlModel, toast) => {
     let deleteURL = baseURL + urlModel + id;
     l(`Sending delete request to ${deleteURL} for oid ${id}`);

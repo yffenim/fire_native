@@ -9,12 +9,13 @@ import { navStyles } from "./src/styles/styles";
 import { 
   LandingNavigator, 
   UserNavigator, 
-  AddDataNavigator,
+  HomeNavigator,
+  // AddDataNavigator,
   AlertnessNavigator,
   SecondsNavigator,
   ThirdsNavigator,
   ExportNavigator,
-  FirstNavigator
+  // FirstNavigator
 } from './src/containers/NavigationScreens'
 import {
   RecoilRoot,
@@ -46,13 +47,12 @@ export default class App extends React.Component {
             screenOptions={navStyles}>
           {/* Screens are imported as constants because the Navigator can only contain preset components as its direct children */}
             {LandingNavigator}
-            {AddDataNavigator}
+            {HomeNavigator}
             {UserNavigator}
             {ExportNavigator}
             {AlertnessNavigator}
             {SecondsNavigator}
             {ThirdsNavigator}
-            {FirstNavigator}
             {/*
             Add Toggle Dark Mode Here?
             */}

@@ -1,4 +1,4 @@
-d Mobile client for FireAPI, Version 1
+# Mobile client for FireAPI, Version 1
 
 That which is not measured, cannot be managed. Get to know your circadian rhythmn by tracking your alertness levels throughout the day. 
 
@@ -25,7 +25,7 @@ Navigate to the project directory.
 
 **When you run the install command, you may see a lot of warnings. Please do not run `npm audit` as suggested even if the vulnerabilities are "high"**
 
-`npm install` from within project directory
+`npm install` 
 
 `npm start`
 

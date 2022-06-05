@@ -14,9 +14,7 @@ export default function AlertnessScreen({navigation}) {
 
   return ( 
     <Center>
-      <Box flex="1" safeAreaTop 
-        maxW="400px" w="100%" 
-      >
+      <Box flex="1" safeAreaTop maxW="400px" w="100%">
         <React.Suspense fallback={LoadingSpinner} >
           <SwipeList navigation={navigation} />
         </React.Suspense>

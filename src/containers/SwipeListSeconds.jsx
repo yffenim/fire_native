@@ -9,9 +9,11 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { fetchSecondsData } from '../functions/fetchModelSelector';
+import { fetchSecondsData, fetchUserData } from '../functions/fetchModelSelector';
+import { secondsTitleAtom } from '../atoms/titlesAtoms';
 import API from '../functions/API';
 import { baseURL } from '../functions/APIDevUrl';
+import { userAtom } from '../atoms/userAtom';
 // import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { formatTime } from '../functions/formatTime';
@@ -28,8 +30,9 @@ export default function SwipeListSeconds({navigation}) {
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
   const avatarColor = "pink";
+  const color = "pink.400";
   const urlModel = "seconds/";
-
+  const model = useRecoilState(secondsTitleAtom);
   // refactor this so its clearer that this is for EditDialog
   const [ isOpen, setIsOpen ] = React.useState(false);
 
@@ -54,13 +57,24 @@ export default function SwipeListSeconds({navigation}) {
 			});
 	};
 
-
+  // refresh state for average/count if page refreshes
+  useEffect(()=>{
+    if ( data.length > 0 ) {
+      setDataExists(true)
+      setAvg(data[0]["avg"]);
+      setCount(data[0]["count"]);
+    } else {
+      l("there is no fetched data")
+    }
+  }
+  ,[])
 
   // API call for GET display
   // recoil hook that subscribes data to selector 
   const data = useRecoilValue(fetchSecondsData);
   const listData = data[1];
-  
+  // const model = data[0]["first_obj"]["title"];
+
   // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchSecondsData);
 
@@ -131,7 +145,8 @@ export default function SwipeListSeconds({navigation}) {
         refresh={refresh} 
       />
       <EditDialog 
-        id={id} urlModel={urlModel}
+        id={id} urlModel={urlModel}A
+        refresh={refresh}
         entry={entry}
         updated={updated}
         rowMap={rowMap}
@@ -142,17 +157,6 @@ export default function SwipeListSeconds({navigation}) {
     </HStack>
   );
 
-  // refresh state for average/count if page refreshes
-  useEffect(()=>{
-    if ( data.length > 0 ) {
-      setDataExists(true)
-      setAvg(data[0]["avg"]);
-      setCount(data[0]["count"]); 
-    } else {
-      l("there is no fetched data")
-    }
-  }
-  ,[])
 
   // Returning the components
   return (
@@ -160,7 +164,9 @@ export default function SwipeListSeconds({navigation}) {
 
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
-          <ModelStats avg={avg} count={count}/>
+          <ModelStats 
+            model={model} color={color}
+            avg={avg} count={count}/>
         }
         {!dataExists &&
           <NoStats navigation={navigation} />

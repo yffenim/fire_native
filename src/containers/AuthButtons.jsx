@@ -3,10 +3,6 @@ import { Button, Link, HStack, Text } from 'native-base';
 import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
 import API from '../functions/API';
 import { headersAtom } from '../atoms/headersAtom';
-// import { uidAtom } from '../atoms/uidAtom';
-import { userAtom } from '../atoms/userAtom';
-import { secondsAtom } from '../atoms/secondsAtom';
-import { thirdsAtom } from '../atoms/thirdsAtom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
@@ -38,11 +34,8 @@ export const RegisterButton = ({email, password}) => {
 // SIGN IN USER
 export function SignInButton ({email, password, navigation}) {
 
-	// setting atom state with hooks
+	// setting header atom state with hooks
 	const [headers, setHeaders] = useRecoilState(headersAtom);
-  const [user, setUser] = useRecoilState(userAtom);
-	const [secondsTitle, setSecondsTitle] = useRecoilState(secondsAtom);
-	const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsAtom);
 
 	const usersURL = "http://localhost:3000/api/users/";
 	const api = new API;
@@ -61,8 +54,8 @@ export function SignInButton ({email, password, navigation}) {
 				l("Login callback headers: ", headers);
 				// let uid = headers["uid"];
 				// setUid(uid);
-				navigation.navigate("First");
-				// navigation.navigate("Add Entry");
+				// navigation.navigate("First");
+				navigation.navigate("Add Data");
 			})
       .catch(error => {
         console.error(error);
@@ -71,8 +64,7 @@ export function SignInButton ({email, password, navigation}) {
 // store atom state for User and model titles
 		api.get(usersURL)
 			.then(response => {
-				l(response);
-				setUser(response);
+				// setUser(response);
 				setSecondsTitle(response[1]["secondsTitle"]);
 				setThirdsTitle(response[1]["thirdsTitle"]);
 			})

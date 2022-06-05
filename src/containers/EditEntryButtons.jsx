@@ -5,6 +5,28 @@ import { devID } from '../../helpers/devID';
 import { ModelButtons } from './ModelButtons';
 import l from '../../helpers/consolelog';
 
+
+// RIGHT NOW: WHY IS EDIT LEVEL NOT SHOWING UP?
+
+// Edit Input Buttons (the animated buttons)
+export function EditInputButtons({editLevel, setEditLevel, type, urlModel}){
+	// urlModel is renamed model here
+	// l("editLevel in EditInputButtons: ", editLevel);	
+	return (
+		<Box bg="dark.100" mt="2" p="2" borderRadius="10">
+			<Heading size="sm" pb="2">
+				Please select a new level: {editLevel}
+			</Heading>
+			<ModelButtons 
+				type={type} 
+				model={urlModel} 
+				setEditLevel={setEditLevel} 
+			/>
+		</Box>	
+	)
+};
+
+
 // Submit New Level Edit
 export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 	var body = null;
@@ -40,17 +62,19 @@ export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 		}
 	};
 
-	const handleSubmit = () => {
+	const handleSavePress = () => {
 		whichRequestBody();
-		l("made request body: ", body);
-		editApiCall(level, urlModel, id, body);	
+		handleEditApiCall();
+	};
+
+	const handleEditApiCall = async () => {
+		await editApiCall(level, urlModel, id, body);	
 		onClose();
 		refresh();
 	};
 
-
 	return (
-		<Button onPress={()=>handleSubmit()}>
+		<Button onPress={()=>handleSavePress()}>
 			Save
 		</Button>
 	)
@@ -73,20 +97,3 @@ export function EditCancelButton({onClose, cancelRef}) {
 }
 
 
-// Edit Input Buttons (the animated buttons)
-export function EditInputButtons({editLevel, setEditLevel, type, urlModel}){
-	// urlModel is renamed model here
-	
-	return (
-		<Box bg="dark.100" mt="2" p="2" borderRadius="10">
-			<Heading size="sm" pb="2">
-				Please select a new level: {editLevel}
-			</Heading>
-			<ModelButtons 
-				type={type} 
-				model={urlModel} 
-				setEditLevel={setEditLevel} 
-			/>
-		</Box>	
-	)
-}

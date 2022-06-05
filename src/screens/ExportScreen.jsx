@@ -15,9 +15,12 @@ import {
 } from '../presentations/GradientStyles';
 import l from "../../helpers/consolelog.js";
 
+// Dev notes:
+//
+
+
 
 // Layout Page for Export Screen
-
 export default function ExportScreen({ navigation }){
   const [gradientContainer, setGradientContainer] = 
     useState(defaultStyle);

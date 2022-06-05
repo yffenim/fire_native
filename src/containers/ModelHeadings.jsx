@@ -1,11 +1,9 @@
 import React from 'react';
 import { Heading, Text, HStack, VStack, Box, Center } from 'native-base';
 import { useRecoilValue } from 'recoil';
-import { secondsAtom } from '../atoms/secondsAtom';
-import { thirdsAtom } from '../atoms/thirdsAtom';
 import l from '../../helpers/consolelog';
 
-
+// for ADD DATA functionality
 export function FirstModelHeading({firstValue}) {
 	return (
 		<VStack p="1" ml="1"
@@ -13,7 +11,7 @@ export function FirstModelHeading({firstValue}) {
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.800">
-				<Heading italics>add new</Heading>
+				<Heading italics>Add New</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>
@@ -31,15 +29,14 @@ export function FirstModelHeading({firstValue}) {
 	)
 };
 
-export function SecondModelHeading({secondValue}) {
-	const secondsTitle = useRecoilValue(secondsAtom)
+export function SecondModelHeading({secondValue, secondsTitle}) {
 	return (
 		<VStack p="1" mr="1"
 			bg="darkBlue.700" 
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.700">
-				<Heading>add new</Heading>
+				<Heading>Add New</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>
@@ -57,15 +54,14 @@ export function SecondModelHeading({secondValue}) {
 	)
 };
 
-export function ThirdModelHeading({thirdValue}) {
-	const thirdsTitle = useRecoilValue(thirdsAtom)
+export function ThirdModelHeading({thirdValue, thirdsTitle}) {
 	return (
 		<VStack p="1" ml="1"
 			bg="darkBlue.800" 
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.800">
-				<Heading>add new</Heading>
+				<Heading>Add New</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>

@@ -28,10 +28,29 @@ export default function SwipeList({navigation}) {
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
   const urlModel = "alerts/";
- 
-  // var data, listData = null;
+  const model = "alertness";
   const avatarColor = "violet";
+  const color = "violet.400"
 
+  
+  ////////// FOR SWIPELIST DATA //////////
+  // recoil hook that subscribes data to 
+  // selector fetchMomentsData which makes the GET request
+  const data = useRecoilValue(fetchMomentsData);
+  const listData = data[1];
+  
+  // recoil hook that refreshes page on change
+  const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
+
+  // reload everytime this screen is visited 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+    refresh();
+    });
+  },[navigation]);
+
+
+  ////////// FOR EDIT DIALOG //////////
   // refactor this so its clearer that this is for EditDialog
   const [isOpen, setIsOpen] = React.useState(false);
   // API call for EDIT Object ID goes here because
@@ -55,16 +74,6 @@ export default function SwipeList({navigation}) {
 				console.error(error);
 			});
 	};
-
-
-  // API call for GET display
-  // recoil hook that subscribes data to 
-  // selector fetchMomentsData which makes the GET request
-  const data = useRecoilValue(fetchMomentsData);
-  const listData = data[1];
-  
-  // recoil hook that refreshes page on change
-  const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
 
 
   ////////// ROW ACTIONS //////////
@@ -163,7 +172,10 @@ export default function SwipeList({navigation}) {
 
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
-          <ModelStats avg={avg} count={count}/>
+          <ModelStats 
+            model={model} color={color}
+            avg={avg} count={count}
+          />
         }
         {!dataExists &&
           <NoStats navigation={navigation} />

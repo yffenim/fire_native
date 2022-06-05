@@ -3,6 +3,7 @@ import { Box, Fab } from 'native-base';
 import { postMomentRequest } from '../functions/MomentsApiRequests';
 import { postSecondRequest } from '../functions/SecondsApiRequests';
 import { postThirdRequest } from '../functions/ThirdsApiRequests';
+import { useRecoilValue } from 'recoil';
 import { Entypo } from '@expo/vector-icons';
 import l from "../../helpers/consolelog";
 
@@ -11,12 +12,18 @@ const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 // Submit FAB (ADD ENTRY SCREEN)
 export function SubmitDataFab({firstValue, secondValue, thirdValue}) {
+	var submitFirstTitle = "alertness"
 
 	const handleFab = () => {
-		l("fab clicked");
-		postAlert();
-		postSecond();
-		postThird();
+		if (firstValue !== null) {
+			postAlert();
+		};
+		if (secondValue !== null) {
+			postSecond();
+		};
+		if (thirdValue !== null) {
+			postThird();
+		};
 	};
 
 	const postAlert = async () => {

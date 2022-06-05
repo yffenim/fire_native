@@ -24,20 +24,21 @@ export function AnimatedButton({
       setFirstValue(value);
     } 
     else if ( model === "alerts/" && type === "edit" ) {
-      l("type: ", type);
+      l("input type: ", type);
       setEditLevel(value);
     }
     else if ( model === "seconds/" && !type ) {
       setSecondValue(value);
     } 
     else if ( model === "seconds/" && type === "edit" ) {
-      l("type: ", type);
+      l("input type: ", type);
       setEditLevel(value);
     } 
     else if ( model === "thirds/" && !type ) {
       setThirdValue(value);
     } 
     else if ( model === "thirds/" && type === "edit" ) {
+      l("input type: ", type);
       setEditLevel(value);
     }
     else {

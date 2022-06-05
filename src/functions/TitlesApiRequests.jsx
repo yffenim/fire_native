@@ -38,17 +38,18 @@ export const postSecondTitle = (title, oid, setSecondStatus) =>  {
       })
 		.then((response) => {
       if (response.ok) {
-        l("Second title submitted called ", title);
+        l("Headers :", response.headers);
         // setStatus(response.status);
         // alert("Title Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)
          //  }
         // });
-  
-				return response.json();
-			}
-				alert("Oops, something went wrong!")
+        let status = response.status
+        return status;
+				// return response.json();
+      }
+			alert("Oops, something went wrong!")
 			throw new Error("Network response was not ok.");
 		})
 		.catch((err) => l(err));

@@ -14,7 +14,7 @@ export function editApiCall(level, urlModel, id, body) {
 
 	api.patch(url, body)
 		.then(response => {
-			l(response);
+			l("Edit response: ", response.status);
 		})
 		.catch(error => {
 			console.error(error);

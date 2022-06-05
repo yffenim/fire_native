@@ -9,7 +9,7 @@ import l from '../../helpers/consolelog';
 
 // if entry is not empty, update it
 
-export default function EditEntry({current_level, updated, title, setEditLevel, urlModel, editLevel}) {
+export default function EditEntry({current_level, updated, title, urlModel, editLevel, setEditLevel}) {
 	const type = "edit"
 
 	return (
@@ -38,6 +38,7 @@ export default function EditEntry({current_level, updated, title, setEditLevel, 
 		</VStack>
 		
 		<EditInputButtons 
+			editLevel={editLevel}
 			setEditLevel={setEditLevel}
 			urlModel={urlModel} 
 			type={type} 

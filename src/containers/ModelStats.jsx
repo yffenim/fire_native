@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { useRecoilValue } from 'recoil';
 import { Box, Text, Heading, VStack, HStack, Center, Pressable} from 'native-base';
 // import { momentsAtom } from '../atoms/momentsAtom';
@@ -6,17 +6,40 @@ import l from '../../helpers/consolelog';
 
 
 // Display Model Stats Heading
-export function ModelStats({avg, count, model}) {
+export function ModelStats({color, avg, count, model}) {
+
+
+	// const color = () => {
+	// 	l("urlModel: ", urlModel);
+	// 	if (urlModel === "alerts/") {
+	// 		l("inside alernts");
+	// 		modelColor = "violet.400";
+	// 	};
+	// };
+
+	// useEffect(()=>{
+	// 	setColor();
+	// }, []);
+
+
 	return (
 		<Box p="4" borderRadius="2"
 			bg="darkBlue.900"
 		>
 			<VStack space={1}>
 				<Heading size="md" color="darkBlue.50">
-					total {model} entries: {count}
+					total { }
+					<Text color={color} >
+						{model}
+					</Text> 
+					{ } entries: {count}
 				</Heading>
 				<Heading size="md" color="darkBlue.50">
-					your average: {avg}
+					your { }
+					<Text color={color}>
+						{model} 
+					</Text>
+					{ } average: {avg}
 				</Heading>
 			</VStack>
 		</Box>
