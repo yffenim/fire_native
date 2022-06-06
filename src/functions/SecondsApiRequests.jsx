@@ -11,26 +11,22 @@ const secondsURL = 'http://localhost:3000/api/seconds/';
 
 
 // POST
-// have to send  differently for model title + url
-export const postSecondRequest = (level) =>  {
+export const postSecondRequest = (level, headers, uid, title) =>  {
 
-    l("Adding a new Second to server...");
+    l("Adding a new Second to server with headers: ", headers);
 		fetch(secondsURL, {
 			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-				"X-Requested-With": "XMLHttpRequest"
-				},
+      headers: headers,
 			body: JSON.stringify({
        second: {
 					level: level,
-					user_id: devID
+          user_id: uid,
+          title: title,
 					},
 				}),
       })
 		.then((response) => {
       if (response.ok) {
-        // l("Second Level Entry Successful");
         alert("Second Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)

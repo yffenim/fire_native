@@ -7,7 +7,7 @@ import l from "../../helpers/consolelog.js";
 
 
 export default function UserFirstTime({setSignedIn}) {
-  const first = "first";
+  const firstTime = true;
 
 return (
     <ScrollView>
@@ -20,7 +20,7 @@ return (
         p="5" pt="8" pb="8"
       >
         <TitlesForm 
-          first={first}
+          firstTime={firstTime}
           setSignedIn={setSignedIn} 
         />
       </VStack>

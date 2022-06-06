@@ -133,10 +133,10 @@ export default class API {
 
 // EDIT / UPDATE 
 // Must use PATCH and not PUT
-  patch(url, body) {
+  patch(url, body, headers) {
     return fetch(url, {
       method: 'PATCH',
-      headers: this.constructHeaders(),
+      headers: headers,
       body: body
     })
       .then(this.handleResponse);

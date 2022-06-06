@@ -9,6 +9,7 @@ import l from '../../helpers/consolelog';
 // This Page contains all the Buttons for the Login/Registration/Landing Page
 // Including:
 // - Sign Up and Sign in Button
+// - store headers from auth
 // - links to toggle between the two forms
 // - Forgot Password? Link << TODO
 
@@ -50,11 +51,22 @@ export function SignInButton ({email, password, navigation}) {
 // Login, save authenticated headers, make a GET request for User Data, store in Atom state
     api.post(model, body)
       .then(headers => {
-				setHeaders(headers);
 				l("Login callback headers: ", headers);
-				// let uid = headers["uid"];
-				// setUid(uid);
-				// navigation.navigate("First");
+				let expiry = headers["expiry"];
+				let client = headers["client"];
+				let token = headers["access-token"];
+				let tokenType = headers["token-type"];
+				let uid = headers["uid"];
+				let makeHeaders = {
+					"Content-Type": "application/json",
+					"X-Requested-With": "XMLHttpRequest",
+					"client": client,
+					"expiry": expiry,
+					"access-token": token,
+					"token-type": tokenType,
+					"uid": uid
+				};
+				setHeaders(makeHeaders);
 				navigation.navigate("Add Data");
 			})
       .catch(error => {
@@ -62,15 +74,15 @@ export function SignInButton ({email, password, navigation}) {
 		});
 
 // store atom state for User and model titles
-		api.get(usersURL)
-			.then(response => {
-				// setUser(response);
-				setSecondsTitle(response[1]["secondsTitle"]);
-				setThirdsTitle(response[1]["thirdsTitle"]);
-			})
-			.catch(error => {
-				console.error(error);
-		});
+		// api.get(usersURL)
+		// 	.then(response => {
+		// 		// setUser(response);
+		// 		setSecondsTitle(response[1]["secondsTitle"]);
+		// 		setThirdsTitle(response[1]["thirdsTitle"]);
+		// 	})
+		// 	.catch(error => {
+		// 		console.error(error);
+		// });
 
 	};
     return (

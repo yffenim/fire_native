@@ -1,6 +1,6 @@
-// user id for system user
+// user id for system user ADA
 export const devID = 1;
 
-// object id for system objects
-export const devSecondID = 2;
-export const devThirdID = 3;
+// user id for system user HAL
+export const halID = 2;
+

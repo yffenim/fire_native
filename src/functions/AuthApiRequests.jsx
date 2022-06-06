@@ -35,6 +35,8 @@ const loginRequestHeader = {
 // create header object for authenticated requests
 export const setTokenHeaders = (client, expiry, token, tokenType, uid) => {
 	return ({ 
+		"Content-Type": "application/json",
+		"X-Requested-With": "XMLHttpRequest",
 		"client": client,
 		"expiry": expiry,
 		"access-token": token,

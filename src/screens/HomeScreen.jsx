@@ -10,14 +10,21 @@ import { useRecoilState } from 'recoil';
 import API from "../functions/API";
 import l from "../../helpers/consolelog.js";
 
+
 // FIRST SCREEN AFTER SIGNING IN
+// If first time, show add titles
+// If not, show add data
+
+// grab the auth headers
+// and send with the save everytime
 export default function HomeScreen({navigation}) {
-  // only show UserFirstTime component if user hasn't signed in yet and this their first time doing so
-  const [signedIn, setSignedIn] = useState(false);
-  // const [signedIn, setSignedIn] = useState(true);
+  // const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
   const [user, setUser] = useRecoilState(userAtom);
 	const [secondsTitle, setSecondsTitle ] = useRecoilState(secondsTitleAtom);
-	const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
+  const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
+  // what happens if user has no objects
+  // then we need to CREATE the initial objects
 
   // get and set user atom and title atoms
   const api = new API;
