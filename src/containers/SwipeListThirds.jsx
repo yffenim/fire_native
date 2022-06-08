@@ -9,13 +9,13 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { fetchThirdsData } from '../functions/fetchModelSelector';
 import API from '../functions/API';
 import { baseURL } from '../functions/APIDevUrl';
 // import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { thirdsTitleAtom } from '../atoms/titlesAtoms';
 import { formatTime } from '../functions/formatTime';
+import { levelColour } from '../functions/levelColour';
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
@@ -23,14 +23,11 @@ import EditDialog from './EditDialog';
 import l from '../../helpers/consolelog';
 
 
-export default function SwipeListThirds({navigation}) {
+export default function SwipeListThirds({navigation, urlModel, fetchThirdsData}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
-  const avatarColor = "emerald";
-  const color = "emerald.400";
-  const urlModel = "thirds/";
   const model = useRecoilState(thirdsTitleAtom);
 
   // refactor this so its clearer that this is for EditDialog
@@ -96,11 +93,7 @@ export default function SwipeListThirds({navigation}) {
         <Box pl="4" pr="5" py="2"
         >
           <HStack alignItems="center" space={3}>
-            <Button
-              colorScheme={avatarColor}
-              borderRadius="25"
-              m="1" p="3" w="12" h="12"
-            ></Button>
+            <Avatar bg={levelColour(item.level)}></Avatar>
             <VStack>
               <Text color="coolGray.800" _dark={{
                 color: "warmGray.50" }} bold>
@@ -166,7 +159,7 @@ export default function SwipeListThirds({navigation}) {
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
           <ModelStats 
-            model={model} color={color}
+            model={model} 
             avg={avg} count={count}/>
         }
         {!dataExists &&

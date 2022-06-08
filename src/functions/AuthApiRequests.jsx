@@ -121,9 +121,8 @@ export const postSignInRequest = () =>  {
 	};
 
 // POST REQUEST FOR REGISTERING NEW USER
-export const postSignUpRequest = (email, password) =>  {
-
-		l(`Authenticating ${email} and ${password}`);
+export const postSignUpRequest = (email, password, {setForm}) => {
+	l(`Signing up a new user for ${email}`);
 		fetch(signupURL, {
 			method: 'POST',
 			headers: {
@@ -138,10 +137,13 @@ export const postSignUpRequest = (email, password) =>  {
 		})
 		.then((response) => {
 			if (response.ok) {
-				alert("Login Successful!");
+				alert("Account created. Please login!");
+				setForm("login");
+				// navigation.navigate("Landing");
 				return response.json();
 			}
 				alert("Oops, could not login.")
+				// navigation.navigate("Add Data");
 			throw new Error("Network response was not oki from Registration request..");
 		})
 		.then((response) => {

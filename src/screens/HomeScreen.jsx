@@ -5,9 +5,12 @@ import UserGreeting from '../containers/UserGreeting';
 import AddDataScreen from './AddDataScreen';
 import { LoadingSpinner } from '../presentations/LoadingSpinner'
 import { userAtom } from "../atoms/userAtom";
+import { headersAtom } from "../atoms/headersAtom";
 import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
-import { useRecoilState } from 'recoil';
-import API from "../functions/API";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { baseURL, userURL } from '../functions/APIDevUrl';
+// import { baseURL, userURL } from '../functions/APIProdUrl';
+import API from "../functions/APIuser";
 import l from "../../helpers/consolelog.js";
 
 
@@ -23,14 +26,14 @@ export default function HomeScreen({navigation}) {
   const [user, setUser] = useRecoilState(userAtom);
 	const [secondsTitle, setSecondsTitle ] = useRecoilState(secondsTitleAtom);
   const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
+  const api = new API;
+  const headers = useRecoilValue(headersAtom);
   // what happens if user has no objects
   // then we need to CREATE the initial objects
 
   // get and set user atom and title atoms
-  const api = new API;
-  const url = "http://localhost:3000/api/users/"
   function fetchUser() {
-    api.get(url)
+    api.get(userURL, headers)
       .then(response => {
         setUser(response);
         l("response from fetchUser is:" , response);

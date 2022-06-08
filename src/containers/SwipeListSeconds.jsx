@@ -9,7 +9,6 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { fetchSecondsData, fetchUserData } from '../functions/fetchModelSelector';
 import { secondsTitleAtom } from '../atoms/titlesAtoms';
 import API from '../functions/API';
 import { baseURL } from '../functions/APIDevUrl';
@@ -17,6 +16,7 @@ import { userAtom } from '../atoms/userAtom';
 // import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { formatTime } from '../functions/formatTime';
+import { levelColour } from '../functions/levelColour';
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
@@ -24,14 +24,11 @@ import EditDialog from './EditDialog';
 import l from '../../helpers/consolelog';
 
 
-export default function SwipeListSeconds({navigation}) {
+export default function SwipeListSeconds({navigation, urlModel, fetchSecondsData}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
-  const avatarColor = "pink";
-  const color = "pink.400";
-  const urlModel = "seconds/";
   const model = useRecoilState(secondsTitleAtom);
   // refactor this so its clearer that this is for EditDialog
   const [ isOpen, setIsOpen ] = React.useState(false);
@@ -73,7 +70,6 @@ export default function SwipeListSeconds({navigation}) {
   // recoil hook that subscribes data to selector 
   const data = useRecoilValue(fetchSecondsData);
   const listData = data[1];
-  // const model = data[0]["first_obj"]["title"];
 
   // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchSecondsData);
@@ -106,11 +102,7 @@ export default function SwipeListSeconds({navigation}) {
         <Box pl="4" pr="5" py="2"
         >
           <HStack alignItems="center" space={3}>
-            <Button
-              colorScheme={avatarColor}
-              borderRadius="25"
-              m="1" p="3" w="12" h="12"
-            ></Button>
+            <Avatar bg={levelColour(item.level)}></Avatar>
             <VStack>
               <Text color="coolGray.800" _dark={{
                 color: "warmGray.50" }} bold>
@@ -165,7 +157,7 @@ export default function SwipeListSeconds({navigation}) {
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
           <ModelStats 
-            model={model} color={color}
+            model={model}
             avg={avg} count={count}/>
         }
         {!dataExists &&

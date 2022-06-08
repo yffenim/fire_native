@@ -3,40 +3,93 @@ import { Box, Fab } from 'native-base';
 import { postMomentRequest } from '../functions/MomentsApiRequests';
 import { postSecondRequest } from '../functions/SecondsApiRequests';
 import { postThirdRequest } from '../functions/ThirdsApiRequests';
-import { useRecoilValue } from 'recoil';
+import { headersAtom } from '../atoms/headersAtom';
+import { userAtom } from '../atoms/userAtom';
 import { Entypo } from '@expo/vector-icons';
+import { useRecoilValue } from 'recoil';
+import API from '../functions/APImodels';
 import l from "../../helpers/consolelog";
 
-const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
 
 
 // Submit FAB (ADD ENTRY SCREEN)
-export function SubmitDataFab({firstValue, secondValue, thirdValue}) {
-	var submitFirstTitle = "alertness"
+export function SubmitDataFab({firstValue, secondValue, thirdValue, secondsTitle, thirdsTitle}) {
+	const api = new API;
+	const headers = useRecoilValue(headersAtom);
+	const userData = useRecoilValue(userAtom);
 
 	const handleFab = () => {
 		if (firstValue !== null) {
-			postAlert();
+			constructAlertRequest();
 		};
 		if (secondValue !== null) {
-			postSecond();
+			constructSecondRequest();
 		};
 		if (thirdValue !== null) {
-			postThird();
+			constructThirdRequest();
 		};
 	};
 
-	const postAlert = async () => {
-		await postMomentRequest(firstValue);
-	}
 
-	const postSecond = async () => {
-		await postSecondRequest(secondValue)
-	}
 
-	const postThird = async () => {
-		await postThirdRequest(thirdValue)
-	}
+	// url endpoint, header, body has model name, title, alert level, uid
+	// 
+	const constructAlertRequest = () => {
+		let model = "alerts";
+		let uid = userData[0]["id"];
+		let body = JSON.stringify({
+      alert: {
+				level: firstValue,
+				user_id: uid,
+				title: "alertness"
+			},
+		});
+		api.post(model, body, headers)
+			.then(response => {
+				alert("Alert successfully submitted!");
+			})
+			.catch(error => {
+				console.error(error);
+		});
+	};
+
+	const constructSecondRequest = () => {
+		let model = "seconds";
+		let uid = userData[0]["id"];
+		let body = JSON.stringify({
+      second: {
+				level: secondValue,
+				user_id: uid,
+				title: secondsTitle
+			},
+		});
+		api.post(model, body, headers)
+			.then(response => {
+				alert(`${secondsTitle} successfully submitted!`);
+			})
+			.catch(error => {
+				console.error(error);
+		});
+	};
+
+	const constructThirdRequest = () => {
+		let model = "thirds";
+		let uid = userData[0]["id"];
+		let body = JSON.stringify({
+      third: {
+				level: thirdValue,
+				user_id: uid,
+				title: thirdsTitle
+			},
+		});
+		api.post(model, body, headers)
+			.then(response => {
+				alert(`${thirdsTitle} successfully submitted!`);
+			})
+			.catch(error => {
+				console.error(error);
+		});
+	};
 
 	return (
 		<Fab renderInPortal={false} variant="outline"

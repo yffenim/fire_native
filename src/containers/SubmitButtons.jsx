@@ -114,7 +114,7 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 				onPress={()=>{
 					onSavePress();
 				}}>
-				Save
+				Save Titles
 			</Button>
 		</Center>		
 	)
@@ -122,17 +122,17 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 
 
 // SUBMIT USER EDITS
-export function SubmitUser() {
-	return (
-		<Center>
-			<Button
-				mt="4"
-				variant="outline"
-				colorScheme="indigo"
-			>
-				Save
-			</Button>
-		</Center>
-	)
-}
+// export function SubmitUser() {
+// 	return (
+// 		<Center>
+// 			<Button
+// 				mt="4"
+// 				variant="outline"
+// 				colorScheme="indigo"
+// 			>
+// 				Save
+// 			</Button>
+// 		</Center>
+	// )
+// }
 

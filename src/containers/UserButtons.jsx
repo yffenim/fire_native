@@ -1,43 +1,86 @@
-import React from "react";
-import { Button, Link, HStack, Text } from 'native-base';
-import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
+import React, { useState } from "react";
+import { Modal, Button, Box, Text } from 'native-base';
+import DeleteUserModal from './DeleteUserModal';
+import { headersAtom } from '../atoms/headersAtom';
+import API from '../functions/APIuser';
+import { baseURL } from '../functions/APIDevUrl';
+// import { baseURL } from '../functions/APIProdUrl';
+import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
 
+// Update User
+export function SubmitEditButton({userData, uid, email, name, password, confirmPW}) {
+  const api = new API;
+  const headers = useRecoilValue(headersAtom);
+  // need new name, new email, new password
+  // logic to see what we need to sent depending on input
+  // let's just make it change email first
+  // then name
+  // then password
 
-export const SubmitButton = () => {
+  const handlePress = () => {
+    editApiCall();
+  };
+  // what do i not know?
+  // if i sent just name, will it update? 
 
-  const handleUpdate = () => {
-    l("clicked");
+  const editApiCall = () => {
+    let url = baseURL + uid  
+    let body = JSON.stringify({
+      // email: email,
+      name: name,
+      password: password,
+    });
+
+    api.patch(url, body, headers)
+      .then(response =>{
+        alert("User Data Deleted! Goodbye!");
+        l(response);
+      })
+      .catch(error => {
+        console.error(error);
+      })
   };
 
+
   return (
-    <Button  
-      m="10" variant="outline"
-      colorScheme="indigo" 
-      onPress={()=>{handleUpdate()}}
+    <Button 
+      variant="outline"
+      colorScheme="indigo"
+      onPress={()=>{handlePress()}}
     >
-      Submit Changes
-    </Button>
+      Save User Changes!
+    </Button> 
   )
 }
 
-export const DeleteButton = () => {
 
-  const handleDelete = () => {
-    l("clicked");
+// Delete User
+export function DeleteUserButton({userData}) {
+	const [showModal, setShowModal] = useState(false);
+
+  const showModalHook = () => {
+    setShowModal(true);
   };
 
   return (
-    <Button  
-      m="10" variant="outline"
-      colorScheme="red" 
-      onPress={()=>{handleDelete()}}
-    >
-      Delete User
-    </Button>
+    <Box>
+      <Button 
+        variant="ghost" colorScheme="danger"
+        onPress={()=>{showModalHook()}}
+      >
+        Delete User
+      </Button>
+      <DeleteUserModal 
+        userData={userData}
+        showModal={showModal} 
+        setShowModal={setShowModal} 
+      />
+  </Box>  
   )
-}
+};
+
 
 
 

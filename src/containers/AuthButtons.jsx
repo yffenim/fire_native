@@ -6,27 +6,31 @@ import { headersAtom } from '../atoms/headersAtom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
-// This Page contains all the Buttons for the Login/Registration/Landing Page
-// Including:
-// - Sign Up and Sign in Button
-// - store headers from auth
-// - links to toggle between the two forms
-// - Forgot Password? Link << TODO
-
 
 // REGISTER NEW USER
-export const RegisterButton = ({email, password}) => {
+export const RegisterButton = ({email, password, passwordConfirm, setForm}) => {
+	
+	const handlePress = () => {
+		if (passwordConfirm === password) {
+			handleSignUp();
+    } 
+    else {
+      alert("Passwords do not match!");
+    };
+	};
 
-  const handleSignUp = () => {
-    postSignUpRequest(email, password);   
+	const handleSignUp = () => {
+		l("Sending a sign-up request to server...");
+    postSignUpRequest(email, password, {setForm});   
   };
 
   return (
     <Button  
       m="10" 
       colorScheme="indigo" 
-      onPress={()=>{handleSignUp()}}
-    >
+			onPress={()=>{		
+				handlePress();
+		}}>
       Sign up
     </Button>
   )

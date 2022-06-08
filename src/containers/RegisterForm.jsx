@@ -4,10 +4,11 @@ import { RegisterButton } from './AuthButtons';
 import l from '../../helpers/consolelog';
 
 
-export default function RegisterForm() {
+export default function RegisterForm({setForm}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const handleEmail = (input) => {
     setEmail(input);
   };
@@ -17,8 +18,8 @@ export default function RegisterForm() {
   };
 
   const handleConfirm = (input) => {
-    // confirm that both pw are same 
-  }
+    setPasswordConfirm(input);
+  };
 
 return (
     <Box>
@@ -34,7 +35,12 @@ return (
       	<FormControl.Label>Confirm Password</FormControl.Label>
           <Input type="password" onChangeText={handleConfirm} />
         </FormControl>
-        <RegisterButton email={email} password={password} />
+        <RegisterButton
+          email={email} 
+          password={password} 
+          passwordConfirm={passwordConfirm}
+          setForm={setForm}
+        />
     </Box>
 	)
 }

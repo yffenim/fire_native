@@ -20,7 +20,7 @@ export default function LandingScreen({ navigation }) {
       {form === 'login' ?
         <Login setForm={setForm} navigation={navigation}/> :
       form === 'register' ?
-        <Register setForm={setForm} /> :
+        <Register setForm={setForm} navigation={navigation} /> :
       null}
     </Center>
   );

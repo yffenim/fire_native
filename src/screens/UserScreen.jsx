@@ -3,11 +3,14 @@ import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Press
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions, Animated } from 'react-native';
 import { renderScene } from '../presentations/renderScene' 
-import { modelsAtom } from '../atoms/modelsAtom';
+import { headersAtom } from '../atoms/headersAtom';
 import { userAtom } from '../atoms/userAtom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import API from '../functions/API';
 import l from "../../helpers/consolelog.js";
+
+// RIGHT NOW YOU ARE MOVING THE USER API CALL
+// FROM THE GENERAL API PAGE TO A USER SPECIFIC PAGE
 
 
 // This Page contains:
@@ -15,35 +18,16 @@ import l from "../../helpers/consolelog.js";
 // - renderScene imports each individual tabview screen
 
 export default function UserScreen({ navigation }){
-  const [user, setUser] = useRecoilState(userAtom);
-  // const [name, setUsername] = useState("");
-  const api = new API;
+  const userData = useRecoilValue(userAtom);
+  const headers = useRecoilValue(headersAtom);
 
-  // get and store UserDataA
-  const getUserData = () => {
-    l("making getUserData request");
-		api.get(userURL)
-			.then(response => {
-				l(response);
-        setUser(response);
-        setUsername(response[0]["name"])
-			})
-			.catch(error => {
-				console.error(error);
-		});
-  };
-
-  useEffect(()=>{
-    getUserData;
-  },[]);
-
-// LAYOUT FOR TABS
+  // LAYOUT FOR TABS
   const layout = useWindowDimensions();
 
-// State for choosing the Tab Bar
+  // State for choosing the Tab Bar
   const [index, setIndex] = React.useState(0);
 
-// Routes for the Tab bar
+  // Routes for the Tab bar
   const [routes] = React.useState([{
     key: "first",
     title: "Account"
@@ -52,7 +36,7 @@ export default function UserScreen({ navigation }){
     title: "About"
   }]);
 
-// Rendering the Tab Bar + Styling
+  // Rendering the Tab Bar + Styling
   const renderTabBar = props => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
     return (
