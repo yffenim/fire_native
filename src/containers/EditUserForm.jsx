@@ -1,94 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TextInput } from "react-native";
-import { SubmitTitlesButton } from "./SubmitButtons";
-import { secondsTitleAtom, thirdsTitleAtom } from "../atoms/titlesAtoms";
 import { FormControl, Link, Box, Input, Button, HStack, VStack, Select, useToast } from 'native-base';
+import { SubmitEditButton } from './UserButtons';
 import { ToastBox } from '../presentations/ToastBox';
-import { Feather } from '@expo/vector-icons';
 import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
-
-export default function TitlesForm({setSignedIn, firstTime, userData}) {
-
-  // form validations
-  const [formData, setFormData] = React.useState({});
-  const [errors, setErrors] = React.useState({});
-
-  // local state for submit 
-  const [secondsTitle, setSecondsTitle] = useState("");
-  const [thirdsTitle, setThirdsTitle] = useState("");
-
-  // setting placeholder values for form
-  const secondsPlaceholder = useRecoilValue(secondsTitleAtom);
-  const thirdsPlaceholder = useRecoilValue(thirdsTitleAtom);
-
-  // alert toast + messages
-  const toast = useToast();
-  const titleRequired = "Title is required";
-  const titleTooLong = "Title is too long";
-
-  // input validations
-  const validate = () => {
-    if (formData.title.length < 1) {
-      toast.show({render: () => 
-        {return (<ToastBox text={titleRequired} />)}
-      });
-      return false;
-    }
-    if (formData.title.length > 9) {
-      toast.show({render: () => 
-        {return (<ToastBox text={titleTooLong} />)}
-      });
-      return false;
-      }
-    return true;
-  };
-
-  // handle input state 
-  const handleSecondsText = (value) => {
-    setSecondsTitle(value);
-  };
-  
-  const handleThirdsText = (value) => {
-    setThirdsTitle(value);
-  }
+// UPDATE USER on SETTINGS/ACCOUNT
+export default function EditUserForm({setSignedIn, firstTime, userData}) {
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);;
+  // set placeholder values
+  const [namePH, setNamePH] = useState(userData[0]["name"]);
+  const [emailPH, setEmailPH] = useState(userData[0]['email']);
+  // set user input as local state
+  const [password, setPassword] = useState(null);
+  const [confirmPW, setConfirmPW] = useState(null);
+  // needed for submit
+  const uid = userData[0]["id"];
+  // handle input  
+  const handleName = (value) => { setName(value) };
+  const handleEmail = (value) => { setEmail(value) };
+  const handlePassword = (value) => { setPassword(value) };
+  const handleConfirmPW = (value) => { setConfirmPW(value) };
 
   return (
     <Box w="200" mb="5">
-      <FormControl 
-        isRequired isInvalid={'title' in errors}>  
+      <FormControl>  
         <FormControl.Label _text={{ bold: true }}>
-          Category Title:
+          Name:
         </FormControl.Label>
         <Input mb="8"
-          autoCapitalize="none"
-          placeholder={secondsPlaceholder}
+          placeholder={namePH}
           onChangeText={value => {
-            setFormData({ ...formData, title: value});
-            handleSecondsText(value)
+            handleName();
           }} 
         />
       
         <FormControl.Label _text={{ bold: true }} >
-          Category Title:
+          Email:
         </FormControl.Label>
         <Input mb="6"
-          autoCapitalize="none"
-          placeholder={thirdsPlaceholder}
+          placeholder={emailPH}
           onChangeText={value => {
-            setFormData({ ...formData, title: value})
-            handleThirdsText(value)
+            handleEmail();
           }}
-        />              
+        /> 
+        <FormControl.Label _text={{ bold: true }} >
+          Password:
+        </FormControl.Label>
+        <Input mb="6"
+          placeholder="***********"
+          onChangeText={value => {
+            handlePassword();
+          }}
+        />
+        <FormControl.Label _text={{ bold: true }} >
+          Confirm Password
+        </FormControl.Label>
+        <Input mb="6"
+          placeholder="***********"
+          onChangeText={value => {
+            handleConfirmPW();
+          }}
+        />
       </FormControl>
-      <SubmitTitlesButton
-        userData={userData}
-        firstTime={firstTime}
-        validate={validate}
-        secondsTitle={secondsTitle}
-        thirdsTitle={thirdsTitle}
-        setSignedIn={setSignedIn}
+      <SubmitEditButton
+        uid={uid} userData={userData} 
+        email={email}
+        name={name}
+        password={password}
+        confirmPW={confirmPW}
       />
     </Box>
   )

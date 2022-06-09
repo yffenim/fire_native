@@ -5,44 +5,53 @@ import UserGreeting from '../containers/UserGreeting';
 import AddDataScreen from './AddDataScreen';
 import { LoadingSpinner } from '../presentations/LoadingSpinner'
 import { userAtom } from "../atoms/userAtom";
+import { headersAtom } from "../atoms/headersAtom";
 import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
-import { useRecoilState } from 'recoil';
-import API from "../functions/API";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { baseURL, userURL } from '../functions/APIDevUrl';
+import API from "../functions/APIuser";
 import l from "../../helpers/consolelog.js";
 
+
 // FIRST SCREEN AFTER SIGNING IN
+// If first time, show add titles
+// If not, show add data
+
+// grab the auth headers
+// and send with the save everytime
 export default function HomeScreen({navigation}) {
-  // only show UserFirstTime component if user hasn't signed in yet and this their first time doing so
   const [signedIn, setSignedIn] = useState(false);
   // const [signedIn, setSignedIn] = useState(true);
   const [user, setUser] = useRecoilState(userAtom);
 	const [secondsTitle, setSecondsTitle ] = useRecoilState(secondsTitleAtom);
-	const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
-
-  // get and set user atom and title atoms
+  const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
   const api = new API;
-  const url = "http://localhost:3000/api/users/"
+  const headers = useRecoilValue(headersAtom);
+  
+  // get and set user atom and title atoms
   function fetchUser() {
-    api.get(url)
+    api.get(userURL, headers)
       .then(response => {
+        l("setting userAtom with: " , response);
         setUser(response);
-        l("response from fetchUser is:" , response);
         setSecondsTitle(response[1]["secondsTitle"]);
         setThirdsTitle(response[1]["thirdsTitle"]);
-        // setSignedIn(response[1]["has_signed_in"]);
+        setSignedIn(response[1]["has_signed_in"]);
       })
       .catch(error => {console.error(error)
     })
-  }
+  };
 
+  // refresh user atom state upon page load
   useEffect(()=>{
     fetchUser();
-  },[])
+  },[navigation]);
 
   return (
     <Center>
       {!signedIn &&
         <UserFirstTime 
+          userData={user}
           setSignedIn={setSignedIn} 
         /> 
       }

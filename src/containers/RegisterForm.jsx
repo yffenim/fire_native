@@ -4,37 +4,60 @@ import { RegisterButton } from './AuthButtons';
 import l from '../../helpers/consolelog';
 
 
-export default function RegisterForm() {
+export default function RegisterForm({setForm}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const handleEmail = (input) => {
     setEmail(input);
   };
 
   const handlePassword = (input) => {
+    l(input);
     setPassword(input);
   };
 
   const handleConfirm = (input) => {
-    // confirm that both pw are same 
-  }
+    l(input);
+    setPasswordConfirm(input);
+  };
 
-return (
+  return (
     <Box>
     	<FormControl>
-      	<FormControl.Label>Email</FormControl.Label>
-        	<Input type="email" onChangeText={handleEmail} />
+        <FormControl.Label>
+          Email
+        </FormControl.Label>
+        <Input type="email" mb="2"
+          autoCapitalize="none"
+          onChangeText={handleEmail}
+        />
         </FormControl>
       <FormControl>
-        <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" onChangeText={handlePassword} />
+        <FormControl.Label>
+          Password
+        </FormControl.Label>
+        <Input type="password" mb="2"
+          autoCapitalize="none"
+          onChangeText={handlePassword} 
+        />
         </FormControl>
       <FormControl>
-      	<FormControl.Label>Confirm Password</FormControl.Label>
-          <Input type="password" onChangeText={handleConfirm} />
+        <FormControl.Label>
+          Confirm Password
+        </FormControl.Label>
+         <Input type="password" 
+          autoCapitalize="none"
+          onChangeText={handleConfirm} 
+        />
         </FormControl>
-        <RegisterButton email={email} password={password} />
+        <RegisterButton
+          email={email} 
+          password={password} 
+          passwordConfirm={passwordConfirm}
+          setForm={setForm}
+        />
     </Box>
 	)
 }

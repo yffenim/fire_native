@@ -1,22 +1,29 @@
-import { devID } from '../../helpers/devID';
+// API ENDPOINTS
 
-// DEV API LOCAL URLS
+const local = true;
+// const local = false;
 
-// base url 
-export const baseURL = "http://localhost:3000/api/"
-
-// users
-export const userURL = "http://localhost:3000/api/users"
-
-
-
-
-// authentication
+var base = "";
+var user = "";
+var login = "";
+var logout = "";
+var register = "";
 
 
-// alertness
+// switch between local or cloud
+if ( local ) { 
+	base = "http://localhost:3000/api/";
+	user = "http://localhost:3000/api/users/";
+	register = "http://localhost:3000/auth/";
+	login = "http://localhost:3000/auth/sign_in";
+	logout = "http://localhost:3000/auth/sign_out";
+} else {
+// add 
+};
 
-// seconds 
 
-
-// thirds
+export const baseURL = base;
+export const userURL = user;
+export const loginURL = login;
+export const logoutURL = logout;
+export const registerURL = register;

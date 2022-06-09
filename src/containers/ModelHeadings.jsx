@@ -11,12 +11,12 @@ export function FirstModelHeading({firstValue}) {
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.800">
-				<Heading italics>Add New</Heading>
+				<Heading italics>add new</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>
 					<Heading>
-						Alertness
+						alertness
 					</Heading>
 				</Box>
 			</Center>
@@ -36,7 +36,7 @@ export function SecondModelHeading({secondValue, secondsTitle}) {
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.700">
-				<Heading>Add New</Heading>
+				<Heading>add new</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>
@@ -61,7 +61,7 @@ export function ThirdModelHeading({thirdValue, thirdsTitle}) {
 			borderRadius="10"
 		>
 			<Center p="0" bg="darkBlue.800">
-				<Heading>Add New</Heading>
+				<Heading>add new</Heading>
 				<Box bg="darkBlue.900" w="120"
 					borderRadius="5" alignItems="center"
 				>

@@ -1,30 +1,9 @@
 import React, { useState }  from 'react';
-import { 
-  VStack, 
-  HStack,
-  Center, 
-  Text, 
-  Box, 
-  Button, 
-  Dimensions, 
-  Pressable, 
-  Input,
-  Heading,
-  ScrollView,
-} from "native-base";
+import { Center, Text } from "native-base";
 import { TouchableOpacity } from 'react-native';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { SceneMap } from 'react-native-tab-view';
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 import Communications from 'react-native-communications';
 import l from '../../helpers/consolelog';
 
-
-// - [ ]  About Fire
-//     - [ ]  Github Link to API/Browser/Native
-// - [ ]  Customize
-//     - [ ]  Colour Themes
-//     - [ ]  Logging (toggle Dev Mode)
 
 export default function SettingsAbout() {
   const email = "effymmin@protonmail.com"

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
   // Generate a random value 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -30,6 +29,8 @@ import React from 'react';
     }
 }
 
+
+{/* NOT CURRENT IN CASE? */}
 function GradientSelector0() {
   return (
     <LinearGradient

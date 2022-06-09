@@ -9,28 +9,22 @@ import { devID } from "../../helpers/devID";
 // const thirdsURL = "https://limitless-citadel-71686.herokuapp.com/api/thirds"
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
-
 // POST
-// have to send  differently for model title + url
-export const postThirdRequest = (level) =>  {
-
-    l("Adding a new Third to server...");
+export const postThirdRequest = (level, headers, uid, title) =>  {
+    l("Adding a new Third to server with headers: ", headers);
 		fetch(thirdsURL, {
 			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-				"X-Requested-With": "XMLHttpRequest"
-				},
+      headers: headers,
 			body: JSON.stringify({
-        third: {
+       third: {
 					level: level,
-					user_id: devID
+          user_id: uid,
+          title: title,
 					},
 				}),
       })
 		.then((response) => {
       if (response.ok) {
-        // l("Third Level Entry Successful");
         alert("Third Successfully Submitted!");
          // toast.show({render: () => {
          //    return (<ToastBox text="Moment Submitted!" />)

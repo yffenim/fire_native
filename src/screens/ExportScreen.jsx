@@ -15,9 +15,6 @@ import {
 } from '../presentations/GradientStyles';
 import l from "../../helpers/consolelog.js";
 
-// Dev notes:
-//
-
 
 
 // Layout Page for Export Screen
@@ -26,12 +23,12 @@ export default function ExportScreen({ navigation }){
     useState(defaultStyle);
 
   // initialize var for storing which gradient use
-  var num = null
+  var num = null;
   // Select a random value upon click and update state
   function onPageClick() {
     num = Math.floor(Math.random() * 9);
     selectGradient(num)
-  }
+  };
 
   // Set gradient state based on num
   function selectGradient(n){

@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-// import { useRecoilValue } from 'recoil';
 import { Box, Text, Heading, VStack, HStack, Center, Pressable} from 'native-base';
-// import { momentsAtom } from '../atoms/momentsAtom';
+import { levelColour } from '../functions/levelColour';
 import l from '../../helpers/consolelog';
 
 
 // Display Model Stats Heading
-export function ModelStats({color, avg, count, model}) {
-
+export function ModelStats({avg, count, model}) {
 
 	// const color = () => {
 	// 	l("urlModel: ", urlModel);
@@ -29,14 +27,14 @@ export function ModelStats({color, avg, count, model}) {
 			<VStack space={1}>
 				<Heading size="md" color="darkBlue.50">
 					total { }
-					<Text color={color} >
+					<Text color={levelColour(avg)} >
 						{model}
 					</Text> 
 					{ } entries: {count}
 				</Heading>
 				<Heading size="md" color="darkBlue.50">
 					your { }
-					<Text color={color}>
+					<Text color={levelColour(avg)} >
 						{model} 
 					</Text>
 					{ } average: {avg}

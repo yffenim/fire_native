@@ -3,9 +3,9 @@ import { VStack, Center, Text, Box, Button, Dimensions, useColorModeValue, Press
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { View, useWindowDimensions, Animated } from 'react-native';
 import { renderScene } from '../presentations/renderScene' 
-import { modelsAtom } from '../atoms/modelsAtom';
+import { headersAtom } from '../atoms/headersAtom';
 import { userAtom } from '../atoms/userAtom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import API from '../functions/API';
 import l from "../../helpers/consolelog.js";
 
@@ -15,35 +15,22 @@ import l from "../../helpers/consolelog.js";
 // - renderScene imports each individual tabview screen
 
 export default function UserScreen({ navigation }){
-  const [user, setUser] = useRecoilState(userAtom);
-  // const [name, setUsername] = useState("");
-  const api = new API;
+  const userData = useRecoilValue(userAtom);
+  const headers = useRecoilValue(headersAtom);
 
-  // get and store UserDataA
-  const getUserData = () => {
-    l("making getUserData request");
-		api.get(userURL)
-			.then(response => {
-				l(response);
-        setUser(response);
-        setUsername(response[0]["name"])
-			})
-			.catch(error => {
-				console.error(error);
-		});
-  };
+  // CLEAR INPUT ON PAGE LOAD
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      // alert("visited!");
+    });
+  },[navigation]);
 
-  useEffect(()=>{
-    getUserData;
-  },[]);
 
-// LAYOUT FOR TABS
+  // LAYOUT FOR TABS
   const layout = useWindowDimensions();
-
-// State for choosing the Tab Bar
   const [index, setIndex] = React.useState(0);
 
-// Routes for the Tab bar
+  // ROUTES FOR TABS
   const [routes] = React.useState([{
     key: "first",
     title: "Account"
@@ -52,7 +39,7 @@ export default function UserScreen({ navigation }){
     title: "About"
   }]);
 
-// Rendering the Tab Bar + Styling
+  // RENDERING FOR TABS
   const renderTabBar = props => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
     return (
@@ -64,7 +51,7 @@ export default function UserScreen({ navigation }){
             outputRange: inputRange.map(inputIndex => inputIndex === i ? 1 : 0.5)
            });
 
-        // styling for selected / unselecte & color modes
+        // styling for selected / unselected & color modes
           const color = index === i ? 
             // useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
             // useColorModeValue("#E94560", "#E94560");
@@ -105,15 +92,14 @@ export default function UserScreen({ navigation }){
   )
 };
 
-	return (
-    <TabView 
-      navigationState={{index,routes}} 
-      renderScene={renderScene} 
-      renderTabBar={renderTabBar} 
-      onIndexChange={setIndex} 
-      initialLayout={{width: layout.width}}
-      // setModel={setModel}
-      // style={{marginTop: StatusBar.currentHeight}} 
-    />
+  return (
+      <TabView 
+        navigationState={{index,routes}} 
+        renderScene={renderScene} 
+        renderTabBar={renderTabBar} 
+        onIndexChange={setIndex} 
+        initialLayout={{width: layout.width}}
+        // style={{marginTop: StatusBar.currentHeight}} 
+      />
   );
 }

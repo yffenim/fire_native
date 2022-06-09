@@ -1,22 +1,17 @@
 import React from "react";
 import { useToast } from 'native-base';
 import { ToastBox } from '../presentations/ToastBox';
-import { devID, devSecondID, devThirdID } from "../../helpers/devID";
-import { secondStatusAtom, thirdStatusAtom } from '../atoms/statusCodeAtoms';
+import { devID, halID } from "../../helpers/devID";
+// import { baseURL, userURL } from "./APIDevURL";
+// import { baseURL, userURL } from "./APIProdURL';
+// import { secondStatusAtom, thirdStatusAtom } from '../atoms/statusCodeAtoms';
 import { useRecoilState } from 'recoil';
 import API from '../functions/API';
 import l from "../../helpers/consolelog";
 
-// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
-const secondsURL = 'http://localhost:3000/api/seconds/';
-const thirdsURL = 'http://localhost:3000/api/thirds/';
-
 
 // PUT TO ADD TITLE
-export const postSecondTitle = (title, oid, setSecondStatus) =>  {
-  // const [status, setStatus] = useRecoilState(secondStatusAtom);
-	// const api = new API;
-
+export const postSecondTitle = (title, oid) =>  {
   // the default object is at this oid
   // let objectURL = secondsURL + oid
     const objectURL = secondsURL + devSecondID // default

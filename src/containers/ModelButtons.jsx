@@ -1,13 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { TouchableHighlight } from 'react-native';
-import { Button, useToast, Box, Text, Heading, VStack, HStack } from 'native-base';   
-import l from '../../helpers/consolelog';
-import { postMomentRequest } from '../functions/MomentsApiRequests.jsx';
-import { postSecondRequest } from '../functions/SecondsApiRequests.jsx';
-import { postThirdRequest } from '../functions/ThirdsApiRequests.jsx';
+import React from 'react';
+import { Box, HStack } from 'native-base';   
 import { AnimatedButton } from './InputButtons';
-import { Animated, Image, StyleSheet } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import l from '../../helpers/consolelog';
 
 
 export function ModelButtons({setFirstValue, setSecondValue, setThirdValue, setEditLevel, model, type}) {

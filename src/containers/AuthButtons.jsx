@@ -1,86 +1,87 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
-import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
+import { postSignUpRequest } from '../functions/AuthApiRequests.jsx'
 import API from '../functions/API';
+import { loginURL } from '../functions/APIDevUrl';
 import { headersAtom } from '../atoms/headersAtom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
-// This Page contains all the Buttons for the Login/Registration/Landing Page
-// Including:
-// - Sign Up and Sign in Button
-// - links to toggle between the two forms
-// - Forgot Password? Link << TODO
+// API calls
+// register is using old style
+// login is using API class
 
 
 // REGISTER NEW USER
-export const RegisterButton = ({email, password}) => {
+export const RegisterButton = ({email, password, passwordConfirm, setForm}) => {
+	
+	const handlePress = () => {
+		if (passwordConfirm === password) {
+			handleSignUp();
+    } 
+    else {
+      alert("Passwords do not match!");
+    };
+	};
 
-  const handleSignUp = () => {
-    postSignUpRequest(email, password);   
+	const handleSignUp = () => {
+    postSignUpRequest(email, password, {setForm});   
   };
 
   return (
     <Button  
       m="10" 
       colorScheme="indigo" 
-      onPress={()=>{handleSignUp()}}
-    >
+			onPress={()=>{		
+				handlePress();
+		}}>
       Sign up
     </Button>
   )
-}
+};
+
 
 // SIGN IN USER
 export function SignInButton ({email, password, navigation}) {
-
 	// setting header atom state with hooks
 	const [headers, setHeaders] = useRecoilState(headersAtom);
-
-	const usersURL = "http://localhost:3000/api/users/";
 	const api = new API;
 
   const handleSignin = () => {
-    const model = "sessions"
-    // set login body based on user input
     const body = JSON.stringify({
       email: email,
       password: password  
-    })
-// Login, save authenticated headers, make a GET request for User Data, store in Atom state
-    api.post(model, body)
+    });
+    api.post(loginURL, body)
       .then(headers => {
-				setHeaders(headers);
 				l("Login callback headers: ", headers);
-				// let uid = headers["uid"];
-				// setUid(uid);
-				// navigation.navigate("First");
+				let expiry = headers["expiry"];
+				let client = headers["client"];
+				let token = headers["access-token"];
+				let tokenType = headers["token-type"];
+				let uid = headers["uid"];
+				let makeHeaders = {
+					"Content-Type": "application/json",
+					"X-Requested-With": "XMLHttpRequest",
+					"client": client,
+					"expiry": expiry,
+					"access-token": token,
+					"token-type": tokenType,
+					"uid": uid
+				};
+				setHeaders(makeHeaders);
 				navigation.navigate("Add Data");
 			})
       .catch(error => {
         console.error(error);
 		});
-
-// store atom state for User and model titles
-		api.get(usersURL)
-			.then(response => {
-				// setUser(response);
-				setSecondsTitle(response[1]["secondsTitle"]);
-				setThirdsTitle(response[1]["thirdsTitle"]);
-			})
-			.catch(error => {
-				console.error(error);
-		});
-
-	};
-    return (
+  };
+   return (
       <Button
-        onPress={() => {
-          handleSignin()
-         }
-        }
-        mt="2" colorScheme="indigo">
-          Sign in New
+        mt="4" colorScheme="indigo"
+        onPress={()=>{handleSignin()}}
+      >
+          Sign in
       </Button>
    )
 };
@@ -150,14 +151,15 @@ export const NewUserLink = ({setForm}) => {
       </Link>
     </HStack>
   )
-}
+};
 
 
 export const ForgotPasswordLink = ({}) => {
   
   const handleLink = () => {
-    // email password to user
-  }
+    Communications.email(
+      [email],null,null,'Account Password Reset','Please reset the password for meeee')
+  };
 
   return (
       <Link

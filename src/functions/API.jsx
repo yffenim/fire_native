@@ -1,23 +1,16 @@
 import l from '../../helpers/consolelog';
 
-// API class for all requests
-// TODO: get all the heroku urls
+// API class for AUTHENTICATION
 
 
 // ALL THE URLS
 const loginURL = 'http://localhost:3000/auth/sign_in';
-const momentsURL = 'http://localhost:3000/api/alerts';
-const secondsURL = 'http://localhost:3000/api/seconds';
-const thirdsURL = 'http://localhost:3000/api/thirds';
 
-// REQUEST OBJECTS
-// default login for dev for user auth
-const defaultBody = JSON.stringify({
+// default login for dev
+const adaLogin = JSON.stringify({
   email: "ada@ardour.com",
 	password: "password",
-})
-
-
+});
 
 // refactor this?
 // default header
@@ -80,7 +73,7 @@ export default class API {
         return tokenHeaders 
         // return response.json();
     } else {
-      alert("Oops, could not login");
+      alert("Oops, could not login...");
         return Promise.reject({
         status: response.status,
         statusText: "Network response for login is not good."
@@ -98,45 +91,24 @@ export default class API {
   }
 
 // POST
-  post(model, body) {
-  // which URL? 
-    let url = ""
-    switch (model) {
-      case 'sessions':
-        url = loginURL;
-        break;
-      case 'moments':
-        url = momentsURL;
-        break;
-      case 'seconds':
-        url = secondsURL;
-        break;
-      case 'thirds':
-        url = thirdsURL;
-        break;
-      default:
-        l("URL error in API.post");
-  }
-
+  post(url, body) {
   // fetching
     return fetch(url, {
       method: 'POST',
       headers: this.constructHeaders(),
-      body: defaultBody // currently set to user authentication
-      // body: body
+      // body: adaLogin // currently set to user authentication
+      body: body
     })
     .then(
-    // logic to different handlers depending on model
-    this.handleLoginResp);
-    // this.handleResponse);
+      this.handleLoginResp);
   }
 
 // EDIT / UPDATE 
 // Must use PATCH and not PUT
-  patch(url, body) {
+  patch(url, body, headers) {
     return fetch(url, {
       method: 'PATCH',
-      headers: this.constructHeaders(),
+      headers: headers,
       body: body
     })
       .then(this.handleResponse);

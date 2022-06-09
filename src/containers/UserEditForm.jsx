@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, Input, Center, Box, Text, VStack, HStack, Heading, FormControl } from 'native-base';
 import EditUserText from '../presentations/EditUserText'
-import { SubmitUser } from './SubmitButtons'
+import { EditUserButton } from './UserButtons'
 import l from '../../helpers/consolelog';
 
-
+// NOT IN USE
 export default function UserEditForm() {
-
 
   function handleText(text) {
     l(text);
@@ -53,7 +52,7 @@ export default function UserEditForm() {
 				    onChangeText={handleText}
           />
         </FormControl>
-        <SubmitUser />  
+        <EditUserButton />  
       </Box>
     </ScrollView>
 	)

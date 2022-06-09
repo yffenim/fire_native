@@ -7,7 +7,7 @@ export default function Register({setForm}) {
   return (
     <VStack space={3} mt="5">
       <Heading>Sign up to continue!</Heading>
-      <RegisterForm />
+      <RegisterForm setForm={setForm} />
       <BackToLoginLink setForm={setForm} />
     </VStack>
   );

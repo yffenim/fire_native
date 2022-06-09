@@ -11,8 +11,8 @@ Back-end: https://github.com/yffenim/fire_api
 - [x] Track up to two other models
 - [x] Create, read, upate, delete for all 3 models
 - [x] Display CSV table and email to user
-- [ ] User stats + editing
-- [ ] User authentication
+- [x] User stats + editing
+- [x] User authentication
 - [ ] OAUTH integration 
 - [ ] Toggle themes / Choose icons
 
@@ -134,9 +134,9 @@ src
 
 ```
 
-`atoms` -> global source of truth from [Recoil state management]('https://github.com/facebookexperimental/Recoil')
+`atoms` -> global state as hooks [Recoil state management]('https://github.com/facebookexperimental/Recoil')
 
-`assets` -> static assets
+`assets` -> self-explanatory 
 
 `containers` -> how things work; stateful components; provides data and behaviour; minimal styling but will have wrapping elements or JSX will be unhappy
 

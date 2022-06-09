@@ -9,12 +9,13 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { fetchMomentsData, fetchSecondsData } from '../functions/fetchModelSelector';
-import API from '../functions/API';
+import API from '../functions/APImodels';
+import { headersAtom } from '../atoms/headersAtom';
 import { baseURL } from '../functions/APIDevUrl';
 // import { baseURL } from '../functions/APIProdUrl';
-import { useRecoilValue, useRecoilState,  useSetRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
+import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE, selector } from 'recoil';
 import { formatTime } from '../functions/formatTime';
+import { levelColour } from '../functions/levelColour';
 import { ModelStats, NoStats } from './ModelStats';
 import EditPressable from './EditPressable';
 import DeletePressable from './DeletePressable';
@@ -22,25 +23,33 @@ import EditDialog from './EditDialog';
 import l from '../../helpers/consolelog';
 
 
-export default function SwipeList({navigation}) {
+export default function SwipeList({navigation, fetchMomentsData, urlModel}) {
   const [id, setId] = useState(null);
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
-  const urlModel = "alerts/";
+  const headers = useRecoilValue(headersAtom);
   const model = "alertness";
-  const avatarColor = "violet";
-  const color = "violet.400"
 
-  
   ////////// FOR SWIPELIST DATA //////////
   // recoil hook that subscribes data to 
-  // selector fetchMomentsData which makes the GET request
   const data = useRecoilValue(fetchMomentsData);
   const listData = data[1];
   
   // recoil hook that refreshes page on change
   const refresh = useRecoilRefresher_UNSTABLE(fetchMomentsData);
+
+  // set state for average/count on page load
+  useEffect(()=>{
+    if ( data.length > 0 ) {
+      setDataExists(true)
+      setAvg(data[0]["avg"]);
+      setCount(data[0]["count"]); 
+    } else {
+      l("there is no fetched data")
+    }
+  }
+  ,[])
 
   // reload everytime this screen is visited 
   useEffect(() => {
@@ -53,18 +62,18 @@ export default function SwipeList({navigation}) {
   ////////// FOR EDIT DIALOG //////////
   // refactor this so its clearer that this is for EditDialog
   const [isOpen, setIsOpen] = React.useState(false);
-  // API call for EDIT Object ID goes here because
+
+  // API call for getting OID for edit req  goes here because
   // we need it accessible in mutliple child components
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
 	const api = new API;
 	const url = "http://localhost:3000/api/alerts/"
 	const getEntry = (id) => {
-		let urlWithId = url + id
-		l(urlWithId);
-		api.get(urlWithId)
+	let urlWithId = url + id
+		api.get(urlWithId, headers)
 			.then(response => {
-				l(response);
+				// l("response for geting edit OID: ", response);
         setEntry(response);
         let updated = response["updated_at"] 
         let formatted = formatTime(updated)
@@ -103,11 +112,7 @@ export default function SwipeList({navigation}) {
         <Box pl="4" pr="5" py="2"
         >
           <HStack alignItems="center" space={3}>
-            <Button
-              colorScheme={avatarColor}
-              borderRadius="25"
-              m="1" p="3" w="12" h="12"
-            ></Button>
+            <Avatar bg={levelColour(item.level)}></Avatar>
             <VStack>
               <Text color="coolGray.800" _dark={{
                 color: "warmGray.50" }} bold>
@@ -154,17 +159,6 @@ export default function SwipeList({navigation}) {
     </HStack>
   );
 
-  // refresh state for average/count if page refreshes
-  useEffect(()=>{
-    if ( data.length > 0 ) {
-      setDataExists(true)
-      setAvg(data[0]["avg"]);
-      setCount(data[0]["count"]); 
-    } else {
-      l("there is no fetched data")
-    }
-  }
-  ,[])
 
   // Returning the components
   return (
@@ -173,7 +167,7 @@ export default function SwipeList({navigation}) {
       <Box bg="coolGray.800" mb="3">
         {dataExists &&
           <ModelStats 
-            model={model} color={color}
+            model={model}
             avg={avg} count={count}
           />
         }

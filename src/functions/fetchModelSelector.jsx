@@ -1,9 +1,11 @@
 import React from 'react';
-import { selector, atom } from 'recoil';
-import l from '../../helpers/consolelog';
 import DataFlatList from '../containers/DataFlatList';
+import { Box } from 'native-base';
 import { userURL, baseURL } from './APIDevUrl';
 // import { userURL, baseURL } from './APIProdUrl';
+import { selector, atom, useRecoilValue } from 'recoil';
+import { headersAtom } from '../atoms/headersAtom';
+import l from '../../helpers/consolelog';
 
 
 // GET REQUESTS FOR MODELS and USER DATA VIA RECOIL SELECTORS EXPERIMENT
@@ -13,20 +15,8 @@ const momentsURL = 'http://localhost:3000/api/alerts';
 const secondsURL = 'http://localhost:3000/api/seconds';
 const thirdsURL = 'http://localhost:3000/api/thirds';
 
-// GET for user data
- export const fetchUserData = selector({
-    key: `UserDataSelector`,
-    get: async ({ get }) => {
-    try {
-        const response = await fetch(userURL);
-        const data = await response.json();
-        l("user data successfully fetched or refreshed");
-        return data;
-    } catch(error) {
-        throw error;
-        }
-    }
-});
+
+
 
 // GET for alertness
  export const fetchMomentsData = selector({
@@ -35,7 +25,7 @@ const thirdsURL = 'http://localhost:3000/api/thirds';
     try {
         const response = await fetch(momentsURL);
         const data = await response.json();
-        l("alertness successfully fetched or refreshed");
+        l("alertness successfully fetched or refreshed: ", data);;
         return data;
     } catch(error) {
         throw error;
