@@ -68,12 +68,12 @@ export default function SwipeList({navigation, fetchMomentsData, urlModel}) {
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
 	const api = new API;
-	const url = "http://localhost:3000/api/alerts/"
-	const getEntry = (id) => {
-	let urlWithId = url + id
+
+  const getEntry = (id) => {
+    let urlWithId = baseURL + urlModel + id;
 		api.get(urlWithId, headers)
 			.then(response => {
-				// l("response for geting edit OID: ", response);
+				l("response for geting edit OID: ", response);
         setEntry(response);
         let updated = response["updated_at"] 
         let formatted = formatTime(updated)
@@ -145,6 +145,7 @@ export default function SwipeList({navigation, fetchMomentsData, urlModel}) {
       <DeletePressable 
         id={id} urlModel={urlModel}
         refresh={refresh} 
+        closeRow={closeRow}
       />
       <EditDialog 
         id={id} urlModel={urlModel}

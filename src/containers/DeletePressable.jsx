@@ -5,24 +5,24 @@ import { headersAtom } from '../atoms/headersAtom';
 import API from '../functions/APImodels';
 import { useRecoilValue } from 'recoil';
 import { baseURL } from '../functions/APIDevUrl';
+import { timeout } from '../../helpers/delay';
 import l from '../../helpers/consolelog';
 
 
-export default function DeletePressable({id, refresh, urlModel}) {
+export default function DeletePressable({id, refresh, urlModel, closeRow}) {
 	const toast = useToast();
 	const deleteMsg = "Deleted!";
 	const api = new API;
 	const headers = useRecoilValue(headersAtom);
-	// l("baseURL is:", baseURL);
 
 	const deleteApiCall = () => {
 		let model = "alerts";
 		let url = baseURL + urlModel + id;
 		l("headers sent: ", headers);
-		l("delete url; ", url);
+		l("delete url: ", url);
 		api.delete(url, headers)
 			.then(response => {
-				alert("Alert deleted!");
+				// alert("Alert deleted!");
 			})
 			.catch(error => {
 				console.error(error);
@@ -31,6 +31,7 @@ export default function DeletePressable({id, refresh, urlModel}) {
 
 	const deletePress = () => {
 		deleteApiCall();
+		timeout(1000);
 		refresh();
 	};
 

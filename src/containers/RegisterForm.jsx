@@ -14,12 +14,10 @@ export default function RegisterForm({setForm}) {
   };
 
   const handlePassword = (input) => {
-    l(input);
     setPassword(input);
   };
 
   const handleConfirm = (input) => {
-    l(input);
     setPasswordConfirm(input);
   };
 

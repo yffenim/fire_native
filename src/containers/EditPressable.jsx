@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import { Text, Pressable, AlertDialog, Box, VStack } from 'native-base';
-import EditDialog from './EditDialog';
-import API from '../functions/API';
-// import EditModal from './EditModal'; 
-// import { patchRequest } from '../api/ApiRequests';
+import React from 'react';
+import { Text, Pressable, AlertDialog, VStack } from 'native-base';
 import l from '../../helpers/consolelog'
 
 

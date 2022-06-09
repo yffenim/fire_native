@@ -38,7 +38,8 @@ export default function SwipeListThirds({navigation, urlModel, fetchThirdsData})
   // we need it accessible in mutliple child components
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
-	const api = new API;
+  const api = new API;
+
 	const getEntry = (id) => {
 		let urlWithId = baseURL + urlModel + id
 		l(urlWithId);

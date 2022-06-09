@@ -4,8 +4,6 @@ import { devID } from '../../helpers/devID';
 import l from '../../helpers/consolelog';
 
 
-
-
 // EDIT API CALLS FOR ALL MODELS
 export function editApiCall(level, urlModel, id, body, headers) {
 	const api = new API;

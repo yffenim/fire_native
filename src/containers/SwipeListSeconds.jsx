@@ -38,7 +38,8 @@ export default function SwipeListSeconds({navigation, urlModel, fetchSecondsData
   // we need it accessible in mutliple child components
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
-	const api = new API;
+  const api = new API;
+
   const getEntry = (id) => {
 		let urlWithId = baseURL + urlModel + id;
 		l("headers:", headers);

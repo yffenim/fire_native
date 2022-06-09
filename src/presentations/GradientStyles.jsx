@@ -1,17 +1,14 @@
 import React from 'react';
 import { VStack, Center, Text, Box, Heading, useColorModeValue, Pressable, Button} from "native-base";
-// import { modelsAtom } from '../atoms/modelsAtom';
-// import { useRecoilState } from 'recoil';
 import Communications from 'react-native-communications';
 import { DownloadButton, EmailButton } from '../containers/ExportButtons'
-import { EasterEggText } from '../presentations//EasterEggText';
+import { EasterEggText, EasterEggFound } from '../presentations//EasterEggText';
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet }  from "react-native";
 import l from "../../helpers/consolelog.js";
 
+
 // This page contains all gradient styles
-
-
 export function defaultStyle() {
   return (
     <LinearGradient
@@ -21,10 +18,9 @@ export function defaultStyle() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
-        </VStack>
-      </LinearGradient>
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -37,10 +33,9 @@ export function GradientSelector1() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -53,10 +48,9 @@ export function GradientSelector2() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -69,10 +63,9 @@ export function GradientSelector3() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -85,10 +78,9 @@ export function GradientSelector4() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -101,10 +93,9 @@ export function GradientSelector5() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -117,10 +108,9 @@ export function GradientSelector6() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -133,10 +123,9 @@ export function GradientSelector7() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -149,10 +138,9 @@ export function GradientSelector8() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
@@ -165,10 +153,9 @@ export function GradientSelector9() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
-        <EasterEggText />
-        </VStack>
-      </LinearGradient>
+        <EasterEggFound />
+      </VStack>
+    </LinearGradient>
   )
 };
 
