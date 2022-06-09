@@ -55,7 +55,24 @@ export default function SwipeListThirds({navigation, urlModel, fetchThirdsData})
 			});
 	};
 
+  // refresh state for average/count if page refreshes
+  useEffect(()=>{
+    if ( data.length > 0 ) {
+      setDataExists(true)
+      setAvg(data[0]["avg"]);
+      setCount(data[0]["count"]); 
+    } else {
+      l("there is no fetched data")
+    }
+  }
+  ,[]);
 
+  // reload everytime this screen is visited 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+    refresh();
+    });
+  },[navigation]);
 
   // API call for GET display
   // recoil hook that subscribes data to selector 
@@ -141,17 +158,6 @@ export default function SwipeListThirds({navigation, urlModel, fetchThirdsData})
     </HStack>
   );
 
-  // refresh state for average/count if page refreshes
-  useEffect(()=>{
-    if ( data.length > 0 ) {
-      setDataExists(true)
-      setAvg(data[0]["avg"]);
-      setCount(data[0]["count"]); 
-    } else {
-      l("there is no fetched data")
-    }
-  }
-  ,[])
 
   // Returning the components
   return (

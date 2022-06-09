@@ -10,8 +10,6 @@ import { useRecoilValue } from 'recoil';
 import { LoadingSpinner } from '../presentations/LoadingSpinner';
 import UserGreeting from '../containers/UserGreeting';
 
-// RIGHT NOW YOU ARE FIXING THE ROUTE MATCH
-// SEE HIGHLIGHTED ON LOGS
 
 export default function UserSettings() {
   const userData = useRecoilValue(userAtom);
@@ -69,7 +67,7 @@ return (
 					</Button>
 				}
 				{showEditTitle &&
-					<TitlesForm />
+					<TitlesForm userData={userData} />
 				}
 				{showEditUser &&
 					<Button mb="5" 

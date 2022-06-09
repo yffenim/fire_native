@@ -23,22 +23,22 @@ export default function RegisterForm({setForm}) {
     setPasswordConfirm(input);
   };
 
-return (
+  return (
     <Box>
     	<FormControl>
         <FormControl.Label>
           Email
         </FormControl.Label>
-        <Input type="email" 
+        <Input type="email" mb="2"
           autoCapitalize="none"
-          onChangeText={handleEmail} 
+          onChangeText={handleEmail}
         />
         </FormControl>
       <FormControl>
         <FormControl.Label>
           Password
         </FormControl.Label>
-        <Input type="password" 
+        <Input type="password" mb="2"
           autoCapitalize="none"
           onChangeText={handlePassword} 
         />

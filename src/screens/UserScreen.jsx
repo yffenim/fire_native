@@ -9,9 +9,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import API from '../functions/API';
 import l from "../../helpers/consolelog.js";
 
-// RIGHT NOW YOU ARE MOVING THE USER API CALL
-// FROM THE GENERAL API PAGE TO A USER SPECIFIC PAGE
-
 
 // This Page contains:
 // - Layout/Styling for Tabs 
@@ -21,13 +18,19 @@ export default function UserScreen({ navigation }){
   const userData = useRecoilValue(userAtom);
   const headers = useRecoilValue(headersAtom);
 
+  // CLEAR INPUT ON PAGE LOAD
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      // alert("visited!");
+    });
+  },[navigation]);
+
+
   // LAYOUT FOR TABS
   const layout = useWindowDimensions();
-
-  // State for choosing the Tab Bar
   const [index, setIndex] = React.useState(0);
 
-  // Routes for the Tab bar
+  // ROUTES FOR TABS
   const [routes] = React.useState([{
     key: "first",
     title: "Account"
@@ -36,7 +39,7 @@ export default function UserScreen({ navigation }){
     title: "About"
   }]);
 
-  // Rendering the Tab Bar + Styling
+  // RENDERING FOR TABS
   const renderTabBar = props => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
     return (
@@ -48,7 +51,7 @@ export default function UserScreen({ navigation }){
             outputRange: inputRange.map(inputIndex => inputIndex === i ? 1 : 0.5)
            });
 
-        // styling for selected / unselecte & color modes
+        // styling for selected / unselected & color modes
           const color = index === i ? 
             // useColorModeValue("#1A1A2E", "#1A1A2E") :  // don't show title when selected
             // useColorModeValue("#E94560", "#E94560");
@@ -89,15 +92,14 @@ export default function UserScreen({ navigation }){
   )
 };
 
-	return (
-    <TabView 
-      navigationState={{index,routes}} 
-      renderScene={renderScene} 
-      renderTabBar={renderTabBar} 
-      onIndexChange={setIndex} 
-      initialLayout={{width: layout.width}}
-      // setModel={setModel}
-      // style={{marginTop: StatusBar.currentHeight}} 
-    />
+  return (
+      <TabView 
+        navigationState={{index,routes}} 
+        renderScene={renderScene} 
+        renderTabBar={renderTabBar} 
+        onIndexChange={setIndex} 
+        initialLayout={{width: layout.width}}
+        // style={{marginTop: StatusBar.currentHeight}} 
+      />
   );
 }

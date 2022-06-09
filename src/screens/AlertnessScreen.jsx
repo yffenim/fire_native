@@ -4,9 +4,14 @@ import SwipeList from '../containers/SwipeList';
 import { headersAtom } from '../atoms/headersAtom';
 import { useRecoilValue, useRecoilRefresher_UNSTABLE, selector } from 'recoil';
 import { baseURL } from '../functions/APIDevUrl';
-// import { baseURL } from '../functions/APIProdUrl';
 import { LoadingSpinner } from '../presentations/LoadingSpinner'
 import l from '../../helpers/consolelog';
+
+
+// RIGHT NOW YOU ARE DEBUGGIN THE API PART 
+// OF POST REQUEST FOR ADDING DATA
+// IT DID NOT ADD FOR USER 
+
 
 // TOP LEVEL SCREEN FOR EDITING ALERT DATA
 export default function AlertnessScreen({navigation}) {
@@ -24,7 +29,7 @@ export default function AlertnessScreen({navigation}) {
             headers: headers
         });
         const data = await response.json();
-        l("alertness successfully fetched or refreshed: ", data);;
+        l("alertness successfully fetched or refreshed: ", data);
         return data;
     } catch(error) {
         throw error;

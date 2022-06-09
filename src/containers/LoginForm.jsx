@@ -10,11 +10,11 @@ export default function LoginForm({setEmail, setPassword}) {
 
   const handleEmail = (email) => {
     setEmail(email);
-  }
+  };
 
   const handlePassword = (password) => {
     setPassword(password);
-  }
+  };
 
 	return (
   <Box w="200">
@@ -22,7 +22,7 @@ export default function LoginForm({setEmail, setPassword}) {
       <FormControl.Label>
         Email:
       </FormControl.Label>
-      <Input type="email"
+      <Input type="email" mb="2"
         autoCapitalize="none"
 				onChangeText={handleEmail}
       />
@@ -31,7 +31,8 @@ export default function LoginForm({setEmail, setPassword}) {
       <FormControl.Label>
         Password:
       </FormControl.Label>
-      <Input type="password" 
+      <Input type="password"
+        autoCapitalize="none"
         onChangeText={handlePassword}
       />
       <ForgotPasswordLink />

@@ -78,11 +78,9 @@ export function SignInButton ({email, password, navigation}) {
   };
    return (
       <Button
-        onPress={() => {
-          handleSignin()
-         }
-        }
-        mt="2" colorScheme="indigo">
+        mt="4" colorScheme="indigo"
+        onPress={()=>{handleSignin()}}
+      >
           Sign in
       </Button>
    )

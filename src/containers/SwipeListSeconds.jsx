@@ -67,6 +67,13 @@ export default function SwipeListSeconds({navigation, urlModel, fetchSecondsData
   }
   ,[])
 
+  // reload everytime this screen is visited 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+    refresh();
+    });
+  },[navigation]);
+
   // API call for GET display
   // recoil hook that subscribes data to selector 
   const data = useRecoilValue(fetchSecondsData);

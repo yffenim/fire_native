@@ -62,6 +62,7 @@ export default function TitlesForm({setSignedIn, firstTime, userData}) {
           Category Title:
         </FormControl.Label>
         <Input mb="8"
+          autoCapitalize="none"
           placeholder={secondsPlaceholder}
           onChangeText={value => {
             setFormData({ ...formData, title: value});
@@ -73,6 +74,7 @@ export default function TitlesForm({setSignedIn, firstTime, userData}) {
           Category Title:
         </FormControl.Label>
         <Input mb="6"
+          autoCapitalize="none"
           placeholder={thirdsPlaceholder}
           onChangeText={value => {
             setFormData({ ...formData, title: value})

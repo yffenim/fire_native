@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Button, Heading, Text } from 'native-base';
 import { editApiCall } from '../functions/EditApiCalls';
 import { headersAtom } from '../atoms/headersAtom';
-import { devID } from '../../helpers/devID';
 import { ModelButtons } from './ModelButtons';
 import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
@@ -38,7 +37,6 @@ export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 			body = JSON.stringify({
   			alert: {
 	  		level: level,
-				user_id: devID
 				},
 			});
 		}
@@ -46,7 +44,6 @@ export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 			body = JSON.stringify({
   			second: {
 	  		level: level,
-				user_id: devID
 				},
 			});
 		}
@@ -54,7 +51,6 @@ export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 			body = JSON.stringify({
   			third: {
 	  		level: level,
-				user_id: devID
 				},
 			});
 		}

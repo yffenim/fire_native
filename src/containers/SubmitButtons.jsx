@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, Center } from 'native-base';
+import { Button, Center, useToast } from 'native-base';
 import { postSecondTitle, postThirdTitle } from '../functions/TitlesApiRequests';
 import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
 import { headersAtom } from '../atoms/headersAtom';
 import { userAtom } from '../atoms/userAtom';
-import { devID, halID } from "../../helpers/devID";
-import { baseURL } from "../functions/APIDevUrl";
+import { baseURL, userURL } from "../functions/APIDevUrl";
 import API from '../functions/APImodels';
+import { ToastBox } from '../presentations/ToastBox';
+import { timeout } from '../../helpers/delay';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { AntDesign, Entypo } from '@expo/vector-icons';
 import l from "../../helpers/consolelog";
 
+// POST / PUT actions for tracking titles vis default system object 
+// TODO: get rid of titleAtoms and just pull from userAtom?
 
-// RIGHT NOW YOU ARE TESTING THE NEW USER FLOW AGAIN
-// HAVE TO MAKE SURE THE titlesAtom IS GOOD
-
-// Button + Action to Save Titles for FirstTimeScreen
 export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSignedIn, firstTime, userData}) {
+	const toast = useToast();
+	const toastColor = "teal.600";
+	const toastError = "Error. Please try again!";
+	const toastErrorColor = "secondary.600";
 	const api = new API;
+	const headers = useRecoilValue(headersAtom);
+
 	// update atom state for titles
 	const [secondsTitleHook, setSecondsTitleHook] = useRecoilState(secondsTitleAtom);
 	const [thirdsTitleHook, setThirdsTitleHook] = useRecoilState(thirdsTitleAtom);
-	// get data required for requests
-	const headers = useRecoilValue(headersAtom);
-	l("userData in SubitTitlesButton: ", userData);
-	// const uid = userData[1]["id"];
-	// const secondsId = userData[1]["secondsId"];
-	// const thirdsId = userData[1]["thirdsId"];
-	// l(`seconds and thirds id: ${secondsId} and ${thirdsId}`);
+	const [user, setUser] = useRecoilState(userAtom);
+	// get and set user atom and title atoms
+  function updateUserAtom() {
+    api.get(userURL, headers)
+      .then(response => {
+        setUser(response);
+      })
+      .catch(error => {console.error(error)
+    })
+  };
 
 	// check if this is a first time request 
 	const onSavePress = () => {
@@ -40,14 +47,16 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 	};
 
 	// Edit model titles if not the first time
-	// logic flow: validate, patch req, update titles atoms, navigate
+	// logic flow: patch req, update titles atoms, navigate 
+	// note: not updating userAtom after PUT
 	const putRequests = () => {
 		l("putRequests");
-		validate() ? putSecond() : l('Titles are not valid for put');
+		if ( secondsTitle ) { putSecond() };
+		if ( thirdsTitle ) { putThird() };
 	};
 
 	// Create system default objects for models if yes first time
-	// logid flow: validate, post req, update titles atom, set first_time, navigate
+	// logid flow: validate, post req, update titles atom, update userAtom, set first_time, navigate
 	const postRequests = () => {
 		l("postRequests");
 		validate() ? postSecond() : l('Titles are not valid for post');
@@ -68,7 +77,7 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 		});
 		api.post(model, body, headers)
 			.then(response => {
-				alert(`${secondsTitle} successfully submitted!`);
+				// alert(`${secondsTitle} successfully submitted!`);
 				postThird();
 			})
 			.catch(error => {
@@ -80,8 +89,10 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 	// Create system default object for Third model
 	const postThird = () => {
 		let level = 5;
-		let model = "seconds";
+		let model = "thirds";
 		let uid = userData[0]["id"];
+		let toastText = "titles submitted!";
+
 		let body = JSON.stringify({
       third: {
 				level: level,
@@ -91,9 +102,15 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 		});
 		api.post(model, body, headers)
 			.then(response => {
-				alert(`${thirdsTitle} successfully submitted!`);
+				// alert(`${thirdsTitle} successfully submitted!`);
+				toast.show({
+					render: () => {
+						return <ToastBox text={toastText} bg={toastColor} />
+					}
+				});
 				setSecondsTitleHook(secondsTitle);
 				setThirdsTitleHook(thirdsTitle);
+				updateUserAtom();
 				if (firstTime) {setSignedIn(true)};
 			})
 			.catch(error => {
@@ -104,7 +121,11 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 
 	///// PUT REQUESTS /////
 	const putSecond = () => {
-		let url = baseURL + "seconds/" + secondsId
+		let secondsId = userData[1]["secondsId"];
+		let uid = userData[0]["id"];
+		let url = baseURL + "seconds/" + secondsId;
+		let toastText = `${secondsTitle} updated!`;
+
 		let body = JSON.stringify({
     	second: {
 				title: secondsTitle,
@@ -112,18 +133,33 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
         level: 5
 			}
 		});
+
 		api.patch(url, body, headers)
 			.then(response => {
-				putThird();
+				setSecondsTitleHook(secondsTitle);
+				toast.show({
+					render: () => {
+						return <ToastBox text={toastText} bg={toastColor} />
+					}
+				});
 			})
 			.catch(error => {
+				toast.show({
+					render: () => {
+						return <ToastBox text={toastError} bg={toastErrorColor} />
+					}
+				});
 				console.error(error);
 		});
 	};
 
 	// second api call to third model
 	const putThird = () => {
-		let url = baseURL + "thirds/" + thirdsId
+		let thirdsId = userData[1]["thirdsId"]
+		let uid = userData[0]["id"];
+		let url = baseURL + "thirds/" + thirdsId;
+		let toastText = `${thirdsTitle} updated!`;
+
 		let body = JSON.stringify({
     	third: {
 				title: thirdsTitle,
@@ -131,14 +167,25 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
         level: 5
 			}
 		});
+
 		api.patch(url, body, headers)
 			.then(response => {
-			setSecondsTitleHook(secondsTitle);
-			setThirdsTitleHook(thirdsTitle);
+				setThirdsTitleHook(thirdsTitle);
+				toast.show({
+					render: () => {
+						return <ToastBox text={toastText} bg={toastColor} />
+					}
+				});
 			})
 			.catch(error => {
+				toast.show({
+					render: () => {
+						return <ToastBox text={toastError} bg={toastErrorColor} />
+					}
+				});
 				console.error(error);
 		});
+
 	};
 
 
@@ -154,21 +201,7 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 			</Button>
 		</Center>		
 	)
-}
+};
 
 
-// SUBMIT USER EDITS
-// export function SubmitUser() {
-// 	return (
-// 		<Center>
-// 			<Button
-// 				mt="4"
-// 				variant="outline"
-// 				colorScheme="indigo"
-// 			>
-// 				Save
-// 			</Button>
-// 		</Center>
-	// )
-// }
 

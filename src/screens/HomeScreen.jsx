@@ -32,8 +32,8 @@ export default function HomeScreen({navigation}) {
   function fetchUser() {
     api.get(userURL, headers)
       .then(response => {
+        l("setting userAtom with: " , response);
         setUser(response);
-        l("response from fetchUser is:" , response);
         setSecondsTitle(response[1]["secondsTitle"]);
         setThirdsTitle(response[1]["thirdsTitle"]);
         setSignedIn(response[1]["has_signed_in"]);

@@ -11,12 +11,6 @@ import l from "../../helpers/consolelog.js";
 
 // This page contains all gradient styles
 
-// I am aware this is very unDRY, however, the
-// <LinearGradient> component does not allow 
-// passing in variables into the color prop
-
-
-
 
 export function defaultStyle() {
   return (

@@ -1,13 +1,14 @@
 import l from '../../helpers/consolelog';
 import { baseURL } from './APIDevUrl';
-// import { baseURL } from './APIProdUrl';
-// import { useRecoilValue } from 'recoil'
-// import { headersAtom } from '../atoms/headersAtom';
 
+// default headers w/o access token
+const requestHeaders = {
+	"Content-Type": "application/json",
+	"X-Requested-With": "XMLHttpRequest"
+};
 
 // API class for all MODEL REQUESTS
 export default class API {
-
 
 // responses handlers 
   handleResponse(response) {
@@ -20,8 +21,7 @@ export default class API {
         statusText: response.statusText
       });
     }
-  }
-
+  };
 
 // API REQUESTS BY METHOD
 // Get
@@ -54,11 +54,11 @@ export default class API {
   }
 
 
-// DELETE
+// DELETE USER (not sessions)
   delete(url) {
     return fetch(url, {
       method: 'DELETE',
-      headers: this.constructHeaders(),
+      headers: requestHeaders,
     })
       .then(this.handleResponse);
   }

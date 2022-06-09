@@ -1,55 +1,39 @@
 import React, { useState } from 'react';
-import { Modal, Box, FormControl, Button, Input } from 'native-base';
+import { Modal, FormControl, Button, Text, Center } from 'native-base';
+import { ToastBox } from '../presentations/ToastBox';
 import l from '../../helpers/consolelog';
 
-export default function DeleteUserModal({showModal, setShowModal, userData}) {
-	const name = userData[0]["name"];
-	const count = 5
-	const questionText = "Are you sure you want to delete your account and lose all your data?";
-	const [deleteBool, setDeleteBool] = useState(false);
+// jester@fester.com
 
-	// delay delete to allow cancel
-	function delayDelete() {
-		setTimeout(function () {
-			setDeleteBool(true);
-			deleteUser();
-			setShowModal(false);
-		}, 3000);
-	};
-	
-	// delete once delay ends
-	function deleteUser() {
-		l(`deleting ${name}'s data... goodbye!`);
-	};
+// right now you are making a DELETED SCREEN / GOOD BYE SCREEN
+// which you will load w/ boolean
+
+export default function DeleteUserModal({showModal, setShowModal, counter, setDeleteBool}) {
+	const questionText = "Are you sure you want to delete your account and lose all your data?";
+
+
 
 	return (
 		<Modal 
 			isOpen={showModal} 
 			onClose={() => setShowModal(false)}
 		>
-        <Modal.Content maxWidth="400px">
+        <Modal.Content maxWidth="130px">
 					<Modal.Body>
-						{questionText}
-						Deleting in...{count}
+						<Text>
+							Deleting in {counter === 0 ? "now!" : counter}
+						</Text>
 					</Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
-							<Button 
-								variant="ghost" 
-								colorScheme="blueGray" 
+					<Modal.Footer>
+							<Button mr="4"
+								variant="outline"
+								colorScheme="rose"
 								onPress={() => {
 									setDeleteBool(false);
 									setShowModal();
             		}}>
                 Cancel
 							</Button>
-
-              <Button onPress={() => {
-								delayDelete();
-            	}}>
-                Delete
-              </Button>
-            </Button.Group>
           </Modal.Footer>
         </Modal.Content>
       </Modal>

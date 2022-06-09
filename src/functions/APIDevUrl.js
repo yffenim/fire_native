@@ -13,8 +13,8 @@ var register = "";
 // switch between local or cloud
 if ( local ) { 
 	base = "http://localhost:3000/api/";
-	user = "http://localhost:3000/api/users";
-	register = "http://localhost:3000/auth";
+	user = "http://localhost:3000/api/users/";
+	register = "http://localhost:3000/auth/";
 	login = "http://localhost:3000/auth/sign_in";
 	logout = "http://localhost:3000/auth/sign_out";
 } else {
