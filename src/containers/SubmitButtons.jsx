@@ -103,11 +103,11 @@ export function SubmitTitlesButton({secondsTitle, thirdsTitle,  validate, setSig
 		api.post(model, body, headers)
 			.then(response => {
 				// alert(`${thirdsTitle} successfully submitted!`);
-				toast.show({
-					render: () => {
-						return <ToastBox text={toastText} bg={toastColor} />
-					}
-				});
+				// toast.show({
+				// 	render: () => {
+				// 		return <ToastBox text={toastText} bg={toastColor} />
+				// 	}
+				// });
 				setSecondsTitleHook(secondsTitle);
 				setThirdsTitleHook(thirdsTitle);
 				updateUserAtom();

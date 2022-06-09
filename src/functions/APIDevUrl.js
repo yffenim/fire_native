@@ -1,7 +1,7 @@
 // API ENDPOINTS
 
-const local = true;
-// const local = false;
+// const local = true;
+const local = false;
 
 var base = "";
 var user = "";
@@ -18,7 +18,11 @@ if ( local ) {
 	login = "http://localhost:3000/auth/sign_in";
 	logout = "http://localhost:3000/auth/sign_out";
 } else {
-// add 
+	base = "https://limitless-citadel-71686.herokuapp.com/api/";	
+	user = "https://limitless-citadel-71686.herokuapp.com/api/users/";
+	register = "https://limitless-citadel-71686.herokuapp.com/auth/";
+	login = "https://limitless-citadel-71686.herokuapp.com/auth/sign_in";
+	logout = "https://limitless-citadel-71686.herokuapp.com/auth/sign_out";
 };
 
 

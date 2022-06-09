@@ -16,7 +16,7 @@ import {
 import l from "../../helpers/consolelog.js";
 
 
-
+// actions can be found on buttons
 // Layout Page for Export Screen
 export default function ExportScreen({ navigation }){
   const [gradientContainer, setGradientContainer] = 

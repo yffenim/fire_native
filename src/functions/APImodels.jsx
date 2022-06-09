@@ -9,8 +9,7 @@ export default class API {
 // responses handlers 
   handleResponse(response) {
     if (response.ok) {
-      l("Network response for GET is good!");
-      l(response.status);
+      l("Network response is good with code: ", response.status);
       return response.json();
     } else {
       return Promise.reject({

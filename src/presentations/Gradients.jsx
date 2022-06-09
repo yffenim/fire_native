@@ -22,10 +22,10 @@ export const defaultStyle = <LinearGradient
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>;
+
 
 export function GradientSelector0() {
   return (
@@ -36,7 +36,6 @@ export function GradientSelector0() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -52,7 +51,6 @@ export function GradientSelector1() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -68,7 +66,6 @@ export function GradientSelector2() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -84,7 +81,6 @@ export function GradientSelector3() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -100,7 +96,6 @@ export function GradientSelector4() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -116,7 +111,6 @@ export function GradientSelector5() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -132,7 +126,6 @@ export function GradientSelector6() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -148,7 +141,6 @@ export function GradientSelector7() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -164,7 +156,6 @@ export function GradientSelector8() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>
@@ -180,7 +171,6 @@ export function GradientSelector9() {
     >
       <VStack space={5}>
         <DownloadButton />
-        <EmailButton />
         <EasterEggText />
       </VStack>
     </LinearGradient>

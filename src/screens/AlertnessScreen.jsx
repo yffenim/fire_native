@@ -8,11 +8,6 @@ import { LoadingSpinner } from '../presentations/LoadingSpinner'
 import l from '../../helpers/consolelog';
 
 
-// RIGHT NOW YOU ARE DEBUGGIN THE API PART 
-// OF POST REQUEST FOR ADDING DATA
-// IT DID NOT ADD FOR USER 
-
-
 // TOP LEVEL SCREEN FOR EDITING ALERT DATA
 export default function AlertnessScreen({navigation}) {
   const [mode, setMode] = useState("Basic");

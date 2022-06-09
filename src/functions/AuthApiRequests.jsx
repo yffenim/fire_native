@@ -28,7 +28,7 @@ export const postSignUpRequest = (email, password, {setForm}) => {
 				return response.json();
 			}
 				alert("Oops, could not sign up.")
-			throw new Error("Network response was not oki from Registration request..");
+			throw new Error("Network response was not okay from Registration request..");
 		})
 		.then((response) => {
 			l(response);
