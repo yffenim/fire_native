@@ -10,10 +10,9 @@ import {
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { secondsTitleAtom } from '../atoms/titlesAtoms';
-import API from '../functions/API';
+import API from '../functions/APImodels';
 import { baseURL } from '../functions/APIDevUrl';
-import { userAtom } from '../atoms/userAtom';
-// import { baseURL } from '../functions/APIProdUrl';
+import { headersAtom } from '../atoms/headersAtom';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { formatTime } from '../functions/formatTime';
 import { levelColour } from '../functions/levelColour';
@@ -30,6 +29,8 @@ export default function SwipeListSeconds({navigation, urlModel, fetchSecondsData
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
   const model = useRecoilState(secondsTitleAtom);
+  const headers = useRecoilValue(headersAtom);
+
   // refactor this so its clearer that this is for EditDialog
   const [ isOpen, setIsOpen ] = React.useState(false);
 
@@ -40,10 +41,10 @@ export default function SwipeListSeconds({navigation, urlModel, fetchSecondsData
 	const api = new API;
   const getEntry = (id) => {
 		let urlWithId = baseURL + urlModel + id;
-		l(urlWithId);
-		api.get(urlWithId)
+		l("headers:", headers);
+		api.get(urlWithId, headers)
 			.then(response => {
-				l(response);
+				// l(response);
         setEntry(response);
         let updated = response["updated_at"] 
         let formatted = formatTime(updated)

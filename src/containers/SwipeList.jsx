@@ -9,7 +9,7 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import API from '../functions/API';
+import API from '../functions/APImodels';
 import { headersAtom } from '../atoms/headersAtom';
 import { baseURL } from '../functions/APIDevUrl';
 // import { baseURL } from '../functions/APIProdUrl';
@@ -28,6 +28,7 @@ export default function SwipeList({navigation, fetchMomentsData, urlModel}) {
   const [avg, setAvg] = useState(null);
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
+  const headers = useRecoilValue(headersAtom);
   const model = "alertness";
 
   ////////// FOR SWIPELIST DATA //////////
@@ -62,18 +63,17 @@ export default function SwipeList({navigation, fetchMomentsData, urlModel}) {
   // refactor this so its clearer that this is for EditDialog
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // API call for EDIT Object ID goes here because
+  // API call for getting OID for edit req  goes here because
   // we need it accessible in mutliple child components
   const [entry, setEntry] = useState({});
   const [updated, setUpdated] = useState(null);
 	const api = new API;
 	const url = "http://localhost:3000/api/alerts/"
 	const getEntry = (id) => {
-		let urlWithId = url + id
-		l(urlWithId);
-		api.get(urlWithId)
+	let urlWithId = url + id
+		api.get(urlWithId, headers)
 			.then(response => {
-				l(response);
+				// l("response for geting edit OID: ", response);
         setEntry(response);
         let updated = response["updated_at"] 
         let formatted = formatTime(updated)

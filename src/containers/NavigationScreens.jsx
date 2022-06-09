@@ -1,22 +1,18 @@
 import * as React from "react";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Entypo, FontAwesome5, Ionicons, Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome5, Ionicons, Foundation, MaterialCommunityIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import LandingScreen from "../screens/LandingScreen";
 import UserScreen from "../screens/UserScreen";
-// import AddDataScreen from "../screens/AddDataScreen";
 import HomeScreen from "../screens/HomeScreen";
 import AlertnessScreen from "../screens/AlertnessScreen";
 import SecondsScreen from "../screens/SecondsScreen";
 import ThirdsScreen from "../screens/ThirdsScreen";
 import ExportScreen from "../screens/ExportScreen";
-// import FirstTimeScreen from "../screens/FirstTimeScreen";
-// import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
 
 
 // ICONS
-// const iconColor = "gray"
 const iconColor = "#565461"
 
 const landingIcon = {
@@ -85,23 +81,10 @@ const firstIcon = {
   )
 };
 
-// const viewDataIcon = {
-//   drawerIcon: ({ focused, size }) => (
-//     <FontAwesome5 name="eye"
-//       size={24} color={iconColor}
-//    />
-//   )
-// }
 
 // NAVIGATION STACK OBJECTS
 
 const Drawer = createDrawerNavigator();
-// https://reactnavigation.org/docs/drawer-based-navigation
-// const secondsTitle = "test"
-
-// function getTitles() {
-  // const [secondsTitle, setSecondsTitle] = useRecoilValue(secondsAtom);
-// }
 
 export const LandingNavigator = 
   <Drawer.Screen
@@ -110,13 +93,6 @@ export const LandingNavigator =
     component={LandingScreen}
 	/>;
 
- // export const AddDataNavigator =
-	// <Drawer.Screen
- //    name="Add Data"
- //    options={addIcon}
- //    component={AddDataScreen}
- //  />;
- 
 export const AlertnessNavigator =
 	<Drawer.Screen
     name="Alertness"
@@ -128,14 +104,16 @@ export const SecondsNavigator =
 	<Drawer.Screen
   // name={secondsTitle}
     name="Data II"
-    options={secondsIcon}
+  // options={secondsIcon}
+    options={alertnessIcon}
     component={SecondsScreen}
   />;
   
 export const ThirdsNavigator =
 	<Drawer.Screen
     name="Data III"
-    options={thirdsIcon}
+    // options={thirdsIcon}
+    options={alertnessIcon}
     component={ThirdsScreen}
   />;
 
@@ -152,13 +130,6 @@ export const ExportNavigator =
     options={exportIcon}
     component={ExportScreen}
   />;
-
-// export const ViewDataNavigator = 
-//   <Drawer.Screen
-//     name="View Data"
-//     options={viewDataIcon}
-//     component={ViewDataScreen}
-//   />;
 
 export const HomeNavigator =
   <Drawer.Screen

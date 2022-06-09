@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Button, Heading, Text } from 'native-base';
 import { editApiCall } from '../functions/EditApiCalls';
+import { headersAtom } from '../atoms/headersAtom';
 import { devID } from '../../helpers/devID';
 import { ModelButtons } from './ModelButtons';
+import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
-
-// RIGHT NOW: WHY IS EDIT LEVEL NOT SHOWING UP?
 
 // Edit Input Buttons (the animated buttons)
 export function EditInputButtons({editLevel, setEditLevel, type, urlModel}){
@@ -30,6 +30,7 @@ export function EditInputButtons({editLevel, setEditLevel, type, urlModel}){
 // Submit New Level Edit
 export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 	var body = null;
+	const headers = useRecoilValue(headersAtom);
 
 	// set up request body for patch request
 	function whichRequestBody() {
@@ -68,7 +69,7 @@ export function EditSubmitButton({onClose, level, urlModel, id, refresh}) {
 	};
 
 	const handleEditApiCall = async () => {
-		await editApiCall(level, urlModel, id, body);	
+		await editApiCall(level, urlModel, id, body, headers);	
 		onClose();
 		refresh();
 	};

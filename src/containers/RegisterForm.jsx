@@ -14,26 +14,43 @@ export default function RegisterForm({setForm}) {
   };
 
   const handlePassword = (input) => {
+    l(input);
     setPassword(input);
   };
 
   const handleConfirm = (input) => {
+    l(input);
     setPasswordConfirm(input);
   };
 
 return (
     <Box>
     	<FormControl>
-      	<FormControl.Label>Email</FormControl.Label>
-        	<Input type="email" onChangeText={handleEmail} />
+        <FormControl.Label>
+          Email
+        </FormControl.Label>
+        <Input type="email" 
+          autoCapitalize="none"
+          onChangeText={handleEmail} 
+        />
         </FormControl>
       <FormControl>
-        <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" onChangeText={handlePassword} />
+        <FormControl.Label>
+          Password
+        </FormControl.Label>
+        <Input type="password" 
+          autoCapitalize="none"
+          onChangeText={handlePassword} 
+        />
         </FormControl>
       <FormControl>
-      	<FormControl.Label>Confirm Password</FormControl.Label>
-          <Input type="password" onChangeText={handleConfirm} />
+        <FormControl.Label>
+          Confirm Password
+        </FormControl.Label>
+         <Input type="password" 
+          autoCapitalize="none"
+          onChangeText={handleConfirm} 
+        />
         </FormControl>
         <RegisterButton
           email={email} 

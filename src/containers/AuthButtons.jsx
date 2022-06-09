@@ -1,10 +1,15 @@
 import React from "react";
 import { Button, Link, HStack, Text } from 'native-base';
-import { postSignInRequest, postSignUpRequest, validateTokenRequest } from '../functions/AuthApiRequests.jsx'
+import { postSignUpRequest } from '../functions/AuthApiRequests.jsx'
 import API from '../functions/API';
+import { loginURL } from '../functions/APIDevUrl';
 import { headersAtom } from '../atoms/headersAtom';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
+
+// API calls
+// register is using old style
+// login is using API class
 
 
 // REGISTER NEW USER
@@ -20,7 +25,6 @@ export const RegisterButton = ({email, password, passwordConfirm, setForm}) => {
 	};
 
 	const handleSignUp = () => {
-		l("Sending a sign-up request to server...");
     postSignUpRequest(email, password, {setForm});   
   };
 
@@ -34,26 +38,21 @@ export const RegisterButton = ({email, password, passwordConfirm, setForm}) => {
       Sign up
     </Button>
   )
-}
+};
+
 
 // SIGN IN USER
 export function SignInButton ({email, password, navigation}) {
-
 	// setting header atom state with hooks
 	const [headers, setHeaders] = useRecoilState(headersAtom);
-
-	const usersURL = "http://localhost:3000/api/users/";
 	const api = new API;
 
   const handleSignin = () => {
-    const model = "sessions"
-    // set login body based on user input
     const body = JSON.stringify({
       email: email,
       password: password  
-    })
-// Login, save authenticated headers, make a GET request for User Data, store in Atom state
-    api.post(model, body)
+    });
+    api.post(loginURL, body)
       .then(headers => {
 				l("Login callback headers: ", headers);
 				let expiry = headers["expiry"];
@@ -76,27 +75,15 @@ export function SignInButton ({email, password, navigation}) {
       .catch(error => {
         console.error(error);
 		});
-
-// store atom state for User and model titles
-		// api.get(usersURL)
-		// 	.then(response => {
-		// 		// setUser(response);
-		// 		setSecondsTitle(response[1]["secondsTitle"]);
-		// 		setThirdsTitle(response[1]["thirdsTitle"]);
-		// 	})
-		// 	.catch(error => {
-		// 		console.error(error);
-		// });
-
-	};
-    return (
+  };
+   return (
       <Button
         onPress={() => {
           handleSignin()
          }
         }
         mt="2" colorScheme="indigo">
-          Sign in New
+          Sign in
       </Button>
    )
 };
@@ -166,14 +153,15 @@ export const NewUserLink = ({setForm}) => {
       </Link>
     </HStack>
   )
-}
+};
 
 
 export const ForgotPasswordLink = ({}) => {
   
   const handleLink = () => {
-    // email password to user
-  }
+    Communications.email(
+      [email],null,null,'Account Password Reset','Please reset the password for meeee')
+  };
 
   return (
       <Link

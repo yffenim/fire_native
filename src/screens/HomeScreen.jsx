@@ -9,7 +9,6 @@ import { headersAtom } from "../atoms/headersAtom";
 import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { baseURL, userURL } from '../functions/APIDevUrl';
-// import { baseURL, userURL } from '../functions/APIProdUrl';
 import API from "../functions/APIuser";
 import l from "../../helpers/consolelog.js";
 
@@ -21,16 +20,14 @@ import l from "../../helpers/consolelog.js";
 // grab the auth headers
 // and send with the save everytime
 export default function HomeScreen({navigation}) {
-  // const [signedIn, setSignedIn] = useState(false);
-  const [signedIn, setSignedIn] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
+  // const [signedIn, setSignedIn] = useState(true);
   const [user, setUser] = useRecoilState(userAtom);
 	const [secondsTitle, setSecondsTitle ] = useRecoilState(secondsTitleAtom);
   const [thirdsTitle, setThirdsTitle] = useRecoilState(thirdsTitleAtom);
   const api = new API;
   const headers = useRecoilValue(headersAtom);
-  // what happens if user has no objects
-  // then we need to CREATE the initial objects
-
+  
   // get and set user atom and title atoms
   function fetchUser() {
     api.get(userURL, headers)
@@ -39,20 +36,22 @@ export default function HomeScreen({navigation}) {
         l("response from fetchUser is:" , response);
         setSecondsTitle(response[1]["secondsTitle"]);
         setThirdsTitle(response[1]["thirdsTitle"]);
-        // setSignedIn(response[1]["has_signed_in"]);
+        setSignedIn(response[1]["has_signed_in"]);
       })
       .catch(error => {console.error(error)
     })
-  }
+  };
 
+  // refresh user atom state upon page load
   useEffect(()=>{
     fetchUser();
-  },[])
+  },[navigation]);
 
   return (
     <Center>
       {!signedIn &&
         <UserFirstTime 
+          userData={user}
           setSignedIn={setSignedIn} 
         /> 
       }

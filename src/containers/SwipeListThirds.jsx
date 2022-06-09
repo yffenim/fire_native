@@ -9,9 +9,9 @@ import {
   Button,
 } from "native-base";
 import { SwipeListView } from 'react-native-swipe-list-view';
-import API from '../functions/API';
+import API from '../functions/APImodels';
+import { headersAtom } from '../atoms/headersAtom';
 import { baseURL } from '../functions/APIDevUrl';
-// import { baseURL } from '../functions/APIProdUrl';
 import { useRecoilValue, useRecoilState, useRecoilRefresher_UNSTABLE } from 'recoil';
 import { thirdsTitleAtom } from '../atoms/titlesAtoms';
 import { formatTime } from '../functions/formatTime';
@@ -29,6 +29,7 @@ export default function SwipeListThirds({navigation, urlModel, fetchThirdsData})
   const [count, setCount] = useState(null);
   const [dataExists, setDataExists] = useState(false);
   const model = useRecoilState(thirdsTitleAtom);
+  const headers = useRecoilValue(headersAtom);
 
   // refactor this so its clearer that this is for EditDialog
   const [ isOpen, setIsOpen ] = React.useState(false);
@@ -41,7 +42,7 @@ export default function SwipeListThirds({navigation, urlModel, fetchThirdsData})
 	const getEntry = (id) => {
 		let urlWithId = baseURL + urlModel + id
 		l(urlWithId);
-		api.get(urlWithId)
+		api.get(urlWithId, headers)
 			.then(response => {
 				l(response);
         setEntry(response);

@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 import l from '../../helpers/consolelog';
 
 
-export default function TitlesForm({setSignedIn, firstTime}) {
+export default function TitlesForm({setSignedIn, firstTime, userData}) {
 
   // form validations
   const [formData, setFormData] = React.useState({});
@@ -81,6 +81,7 @@ export default function TitlesForm({setSignedIn, firstTime}) {
         />              
       </FormControl>
       <SubmitTitlesButton
+        userData={userData}
         firstTime={firstTime}
         validate={validate}
         secondsTitle={secondsTitle}

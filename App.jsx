@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler'; // test out this at a dif pos
 import * as React from "react";
 import { AppRegistry } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,12 +9,11 @@ import {
   LandingNavigator, 
   UserNavigator, 
   HomeNavigator,
-  // AddDataNavigator,
   AlertnessNavigator,
   SecondsNavigator,
   ThirdsNavigator,
   ExportNavigator,
-  // FirstNavigator
+// FirstNavigator
 } from './src/containers/NavigationScreens'
 import {
   RecoilRoot,

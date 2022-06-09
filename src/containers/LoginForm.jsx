@@ -22,7 +22,8 @@ export default function LoginForm({setEmail, setPassword}) {
       <FormControl.Label>
         Email:
       </FormControl.Label>
-    	<Input type="email"
+      <Input type="email"
+        autoCapitalize="none"
 				onChangeText={handleEmail}
       />
     </FormControl>

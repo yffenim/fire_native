@@ -10,20 +10,8 @@ import API from '../functions/API';
 import l from "../../helpers/consolelog";
 
 
-// NOT CURRENT IN USE
-
-// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/" // usually with user_id = 1 
-// const secondsURL = 'http://localhost:3000/api/seconds/';
-// const thirdsURL = 'http://localhost:3000/api/thirds/';
-
-// the url i need is requires an OID
-// so I need to get it from user
-
 // PUT TO ADD TITLE
 export const postSecondTitle = (title, oid) =>  {
-  // const [status, setStatus] = useRecoilState(secondStatusAtom);
-	// const api = new API;
-
   // the default object is at this oid
   // let objectURL = secondsURL + oid
     const objectURL = secondsURL + devSecondID // default

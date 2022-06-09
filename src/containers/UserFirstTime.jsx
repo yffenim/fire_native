@@ -6,7 +6,7 @@ import TitlesForm from './TitlesForm';
 import l from "../../helpers/consolelog.js";
 
 
-export default function UserFirstTime({setSignedIn}) {
+export default function UserFirstTime({setSignedIn, userData}) {
   const firstTime = true;
 
 return (
@@ -20,6 +20,7 @@ return (
         p="5" pt="8" pb="8"
       >
         <TitlesForm 
+          userData={userData}
           firstTime={firstTime}
           setSignedIn={setSignedIn} 
         />

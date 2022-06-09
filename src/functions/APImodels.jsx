@@ -1,18 +1,10 @@
 import l from '../../helpers/consolelog';
 import { baseURL } from './APIDevUrl';
 // import { baseURL } from './APIProdUrl';
-// import { useRecoilValue } from 'recoil'
-// import { headersAtom } from '../atoms/headersAtom';
 
 
 // API class for all MODEL REQUESTS
 export default class API {
-
-// Wrapper for request header
-  // constructHeaders() {
-  //   const headers = useRecoilValue(headersAtom);
-  //   return headers;
-  // }
 
 // responses handlers 
   handleResponse(response) {
@@ -25,17 +17,17 @@ export default class API {
         statusText: response.statusText
       });
     }
-  }
+  };
 
 
 // API REQUESTS BY METHOD
 // Get
-  get(url) {
+  get(url, headers) {
     return fetch(url, {
-      headers: this.constructHeaders(),
+      headers: headers
     })
       .then(this.handleResponse);
-  }
+  };
 
 // POST
   post(model, body, headers) {
@@ -49,7 +41,7 @@ export default class API {
     // logic to different handlers depending on model
     this.handleLoginResp);
     // this.handleResponse);
-  }
+  };
 
 // EDIT / UPDATE 
 // Must use PATCH and not PUT
@@ -59,16 +51,16 @@ export default class API {
       headers: headers,
       body: body
     })
-      .then(this.handleResponse);
-  }
+    .then(this.handleResponse);
+  };
 
 
 // DELETE
-  delete(url) {
+  delete(url, headers) {
     return fetch(url, {
       method: 'DELETE',
-      headers: this.constructHeaders(),
+      headers: headers
     })
-      .then(this.handleResponse);
+    .then(this.handleResponse);
   }
-}
+};

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Center, Button, Text, Fab, Heading, Box, VStack, HStack } from "native-base";
 import { FirstModelHeading, SecondModelHeading, ThirdModelHeading } from "../containers/ModelHeadings";
 // import { userAtom } from "../atoms/userAtom";
-import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
+// import { secondsTitleAtom, thirdsTitleAtom } from '../atoms/titlesAtoms';
 // import API from "../functions/API";
 import { loadingText } from "../presentations/loadingFallback";
 import { ModelButtons } from "../containers/ModelButtons";
@@ -12,7 +12,7 @@ import l from "../../helpers/consolelog";
 
 // TODO: clear input on screen revisit
 // THIS IS RENDERED IN  HOME SCREEN
-export default function AddDataScreen({navigation,secondsTitle, thirdsTitle}) {
+export default function AddDataScreen({navigation, secondsTitle, thirdsTitle}) {
   const [firstValue, setFirstValue] = useState(null);
   const [secondValue, setSecondValue] = useState(null);
   const [thirdValue, setThirdValue] = useState(null);

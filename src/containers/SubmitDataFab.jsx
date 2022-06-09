@@ -1,8 +1,5 @@
 import React from 'react';
 import { Box, Fab } from 'native-base';
-import { postMomentRequest } from '../functions/MomentsApiRequests';
-import { postSecondRequest } from '../functions/SecondsApiRequests';
-import { postThirdRequest } from '../functions/ThirdsApiRequests';
 import { headersAtom } from '../atoms/headersAtom';
 import { userAtom } from '../atoms/userAtom';
 import { Entypo } from '@expo/vector-icons';
@@ -10,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import API from '../functions/APImodels';
 import l from "../../helpers/consolelog";
 
-
+// TODO: is UID needed for this?
 
 // Submit FAB (ADD ENTRY SCREEN)
 export function SubmitDataFab({firstValue, secondValue, thirdValue, secondsTitle, thirdsTitle}) {

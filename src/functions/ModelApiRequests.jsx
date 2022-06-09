@@ -5,26 +5,8 @@ import { devID } from "../../helpers/devID";
 import { baseURL } from "./APIDevUrl";
 // import { baseURL } from "./APIProdUrl";
 
+// MAKE THIS PAGE INTO A SINGLE PAGER FOR ALL API REQUESTS
 
-// const momentsURL = "https://limitless-citadel-71686.herokuapp.com/api/alerts/"
-// const momentsURL = 'http://localhost:3000/api/alerts/';
-
-
-// GET// NOT CURRENTLY IN USE
-export const getAuthenticatedRequest = (headers) =>  {
-  l("Making a GET request for moments with headers: ", headers);
-  
-  return fetch(momentsURL,{
-    headers: headers
-  })
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-    }
-     throw new Error("Network response was not ok.")
-    })
-  .catch(err => l("Error from getAuthenticatedRequest: ", err))
-}
 
 // POST TODO!!!!!!!!!!!!!
 // have to send  differently for model title + url

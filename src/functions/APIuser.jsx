@@ -32,18 +32,14 @@ export default class API {
       .then(this.handleResponse);
   }
 
-// POST
-  post(model, body, headers) {
-    let url = baseURL + model;
+// POST -> REGISTRATIONS
+  post(url, headers) {
     return fetch(url, {
       method: 'POST',
       headers: headers,
-      body: body
     })
     .then(
-    // logic to different handlers depending on model
-    this.handleLoginResp);
-    // this.handleResponse);
+    this.handleResponse);
   }
 
 // EDIT / UPDATE 
